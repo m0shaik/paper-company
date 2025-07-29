@@ -5,21 +5,14 @@ import type { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import { CartBag } from "@/app/components/CartBag/CartBag";
 import { Login } from "@/app/components/Login/Login";
-import "./Navbar.css";
 import { useUI } from "@/app/components/Provider/context";
 import {
-  BLOGS_ROUTE,
-  EVENTS_ROUTE,
   HOME_ROUTE,
   STORE_ROUTE,
-  WORKSHOPS_ROUTE,
 } from "@/app/routes";
 
 export const navbarMainItems = [
-  { ref: BLOGS_ROUTE, label: "Blog" },
   { ref: STORE_ROUTE, label: "Store" },
-  { ref: EVENTS_ROUTE, label: "Events" },
-  { ref: WORKSHOPS_ROUTE, label: "Workshops" },
 ];
 
 const StyledNavLink = ({
@@ -33,7 +26,7 @@ const StyledNavLink = ({
 }) => (
   <NavLink
     className={`${className ?? ""} ${
-      isActive ? "text-custom-2" : "hover:text-gray-400"
+      isActive ? "text-base-500" : "hover:text-gray-400"
     }`}
     {...linkProps}
   />
@@ -56,10 +49,8 @@ export function NavBar() {
     const effect = () => {
       if (isMenuOpen) {
         document.getElementsByTagName("html")[0].style.overflow = "hidden";
-        document.querySelector(".navbar-burger")?.classList.add("extended");
       } else {
         document.getElementsByTagName("html")[0].style.overflow = "auto";
-        document.querySelector(".navbar-burger")?.classList.remove("extended");
       }
     };
     effect();
@@ -76,17 +67,24 @@ export function NavBar() {
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className="relative navbar-burger flex items-center rounded-md focus:outline-none"
+            className={`relative flex items-center rounded-md focus:outline-none border border-black overflow-hidden z-[51] ${
+              isMenuOpen ? "border-none" : ""
+            }`}
             aria-controls="primary-navigation"
+            style={{ WebkitTapHighlightColor: "rgba(0, 0, 0, 0.1)" }}
           >
             <svg
-              stroke="var(--button-color)"
+              stroke="black"
               fill="none"
-              className="hamburger w-12 h-12"
+              className={`w-12 h-12 transition-all duration-[350ms] ${
+                isMenuOpen ? "translate-x-[3px] -translate-y-[1px] rotate-45" : ""
+              }`}
               viewBox="-10 -10 120 120"
             >
               <path
-                className="line"
+                className={`transition-[stroke-dasharray,stroke-dashoffset] duration-[350ms] ${
+                  isMenuOpen ? "[stroke-dasharray:60_105_60_300] [stroke-dashoffset:-90]" : "[stroke-dasharray:60_31_60_300]"
+                }`}
                 strokeWidth="10"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -99,7 +97,7 @@ export function NavBar() {
           {navbarMainItems.map(({ ref, label }) => (
             <li key={ref} className="relative pl-4">
               <StyledNavLink
-                className="text-[18px] font-bold"
+                className="text-lg font-bold"
                 isActive={ref === linkRef}
                 href={ref}
                 onClick={() => {
@@ -120,7 +118,7 @@ export function NavBar() {
                       isMenuOpen
                         ? "left-0 opacity-100"
                         : "left-[100vw] opacity-0"
-                    } transition-all ease-in-out duration-700`}
+                    } transition-all ease-in-out duration-slow`}
         >
           <ul className="my-10 flex flex-col items-center gap-8 justify-end">
             <li key={HOME_ROUTE} className="relative">
@@ -152,7 +150,7 @@ export function NavBar() {
             <li className="relative mt-20">
               <CartBag />
             </li>
-            <li className="relative text-xl bg-custom-3 text-white rounded-md p-2">
+            <li className="relative text-xl bg-base-200 text-white rounded-md p-2">
               <Login />
             </li>
           </ul>

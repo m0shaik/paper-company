@@ -49,7 +49,7 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
                   />
                   <label
                     className={`cursor-pointer w-full ${
-                      checked ? "text-custom-2" : " hover:text-custom-2"
+                      checked ? "text-base-500" : " hover:text-base-500"
                     } font-madefor`}
                     htmlFor={collection._id!}
                   >
@@ -69,7 +69,7 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
               <button
                 type="button"
                 className="inline-flex justify-center items-center px-4 py-2 border border-transparent text-base
-                                  font-medium rounded-md text-white bg-custom-3 focus:outline-none"
+                                  font-medium rounded-md text-white bg-base-200 focus:outline-none"
                 onClickCapture={toggleDropdown}
               >
                 Filter by{" "}
@@ -116,7 +116,7 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
                     />
                     <label
                       className={`cursor-pointer w-full ${
-                        checked ? "text-custom-2" : " hover:text-custom-2"
+                        checked ? "text-base-500" : " hover:text-base-500"
                       }`}
                       htmlFor={collection._id!}
                     >

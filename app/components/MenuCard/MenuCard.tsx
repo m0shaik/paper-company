@@ -18,7 +18,7 @@ export default function MenuCard({
   return (
     <div className="flex flex-col items-center rounded overflow-hidden md:shadow-lg bg-white w-full h-full p-9">
       <Image
-        className="basis-[180px] mx-auto"
+        className="basis-[11.25rem] mx-auto"
         src={image}
         alt={title}
         width={180}
@@ -34,7 +34,7 @@ export default function MenuCard({
           ))}
         </h4>
         <p className="font-light text-3xl mt-4 w-16 h-3 border-b-2 border-t-2 border-black mb-4" />
-        <div className="text-gray-700 text-base mt-auto max-w-[236px] font-roboto font-light">
+        <div className="text-gray-700 text-base mt-auto max-w-[14.75rem] font-body font-light">
           {description}
         </div>
       </div>

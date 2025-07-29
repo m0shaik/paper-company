@@ -20,7 +20,7 @@ const Swatch: React.FC<
     <button
       role="option"
       color="light"
-      className="rounded-full flex items-center justify-center border bg-white w-[20px] h-[20px] p-1"
+      className="rounded-full flex items-center justify-center border bg-white w-5 h-5 p-1"
       aria-selected={active}
       aria-label={variant && label ? `${variant} ${label}` : "Variant Swatch"}
       {...(label && { title: label })}

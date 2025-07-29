@@ -40,8 +40,8 @@ export default function HeroSection() {
           className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-25"
           style={parallaxStyle}
         />
-        <div className="relative h-[813px] inset-0 flex items-center justify-center">
-          <h3 className="text-center md:text-[65px] text-[32px] max-md:p-5 leading-[70.53px] font-libre">
+        <div className="relative h-screen inset-0 flex items-center justify-center">
+          <h3 className="text-center md:text-6xl text-3xl max-md:p-5 leading-tight font-libre">
             GOURMET CHEF
             <br />
             AT YOUR DINNER TABLE

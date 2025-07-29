@@ -8,7 +8,7 @@ export const ProductTag: React.FC<ProductTagProps> = ({ name, price, sku }) => {
   return (
     <>
       {sku && (
-        <span className="text-xs mb- font-roboto font-normal">SKU: {sku}</span>
+        <span className="text-xs mb- font-body font-normal">SKU: {sku}</span>
       )}
       <h2 className="max-w-full w-full leading-extra-loose text-3xl tracking-wide leading-8 py-1 font-normal">
         {name}

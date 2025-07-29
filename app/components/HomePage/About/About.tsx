@@ -4,8 +4,8 @@ import Image from "next/image";
 export default function AboutSection() {
   return (
     <section className="relative mx-auto w-full">
-      <div className="lg:h-[682px] grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="relative max-md:h-[267px] md:h-[524px] lg:h-[682px] lg:order-1 order-2">
+      <div className="lg:h-screen grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="relative max-md:h-64 md:h-96 lg:h-screen lg:order-1 order-2">
           <Image
             src="/images/chef.jpeg"
             alt="Chef"
@@ -16,7 +16,7 @@ export default function AboutSection() {
             priority
           />
         </div>
-        <div className="flex md:justify-cente md:p-6 py-6 lg:order-2 order-1 font-roboto">
+        <div className="flex md:justify-cente md:p-6 py-6 lg:order-2 order-1 font-body">
           <div className="h-full flex flex-col justify-center items-start md:px-10 px-5">
             <div className="flex flex-col h-3/4 py-5 justify-between items-start">
               <div className="md:text-center">

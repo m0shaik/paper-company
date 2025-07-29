@@ -27,10 +27,10 @@ const ProductCard = ({
   return (
     <div
       className="flex flex-col h-full md:p-0 md:border-none
-                                        pb-[52px] border-b border-gray-200 gap-[24px]"
+                                        pb-14 border-b border-gray-200 gap-6"
     >
       <Link
-        className="relative max-w-full md:w-[502px] pt-[100%] md:mt-0 mt-5"
+        className="relative max-w-full md:w-full pt-[100%] md:mt-0 mt-5"
         href={`/product-page/${item.slug}`}
       >
         <Image
@@ -47,13 +47,13 @@ const ProductCard = ({
         />
       </Link>
       <Link
-        className="flex align-middle items-center w-full h-full gap-[24px] justify-between"
+        className="flex align-middle items-center w-full h-full gap-6 justify-between"
         href={`/product-page/${item.slug}`}
       >
-        <div className="card-title w-auto text-[16px] flex m-0 p-0 grow">
+        <div className="card-title w-auto text-base flex m-0 p-0 grow">
           {item.name}
         </div>
-        <div className="card-price w-auto text-[16px] flex justify-end items-center align-middle">
+        <div className="card-price w-auto text-base flex justify-end items-center align-middle">
           {item.price!.formatted!.price}
         </div>
       </Link>
@@ -91,7 +91,7 @@ export async function StoresCategory({ params }: any) {
   }
 
   return (
-    <div className="overflow-hidden mx-auto flex md:flex-row flex-col gap-8 max-md:p-[20px]">
+    <div className="overflow-hidden mx-auto flex md:flex-row flex-col gap-8 max-md:p-5">
       <ProductCategories
         collections={collections}
         selectedCollectionId={collectionId}
@@ -129,7 +129,7 @@ export default async function Page({ params }: any) {
   return (
     <Suspense
       fallback={
-        <div className="full-w overflow-hidden mx-auto flex md:flex-row flex-col gap-8 max-md:p-[20px]">
+        <div className="full-w overflow-hidden mx-auto flex md:flex-row flex-col gap-8 max-md:p-5">
           <div
             role="status"
             className="max-md:hidden max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
@@ -144,7 +144,7 @@ export default async function Page({ params }: any) {
                 <li
                   key={i}
                   className={
-                    "flex flex-col items-center justify-center max-md:h-[55vh] md:h-[400px]"
+                    "flex flex-col items-center justify-center max-md:h-[55vh] md:h-96"
                   }
                 >
                   <div

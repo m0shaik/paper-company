@@ -6,7 +6,7 @@ const BookLink = ({ href }: { href: string }) => {
   return (
     <Link
       href={href}
-      className="capitalize font-roboto leading-[23.44px] font-light text-xl"
+      className="capitalize font-body leading-[23.44px] font-light text-xl"
     >
       book now &gt;
     </Link>
@@ -16,8 +16,8 @@ const BookLink = ({ href }: { href: string }) => {
 export default function MenuSection() {
   return (
     <section className="w-screen">
-      <div className="md:py-[150px] md:bg-[url('/images/herbs.jpeg')] md:bg-cover md:bg-no-repeat md:bg-fixed md:bg-center">
-        <div className="grid sm:grid-cols-3 grid-cols-1 mx-auto justify-center items-center gap-6 max-w-[1040px]">
+      <div className="md:py-36 md:bg-bg-img-3 md:bg-cover md:bg-no-repeat md:bg-fixed md:bg-center">
+        <div className="grid sm:grid-cols-3 grid-cols-1 mx-auto justify-center items-center gap-6 max-w-6xl">
           <MenuCard
             title="Culinary Cooking"
             image="/images/food-menu-item1.jpeg"

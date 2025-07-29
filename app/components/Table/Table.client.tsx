@@ -97,7 +97,7 @@ export function TicketsTable({
             key={ticket._id}
           >
             <div className="basis-1/2 sm:border-r-2">
-              <span className="block text-12 font-roboto font-normal">
+              <span className="block text-xs font-body font-normal">
                 Ticket type
               </span>
               <span className="text-base">{ticket.name}</span>
@@ -148,7 +148,7 @@ export function TicketsTable({
                 >
                   {ticket.canPurchase && (
                     <>
-                      <span className="block text-12 mb-1 font-roboto font-normal">
+                      <span className="block text-xs mb-1 font-body font-normal">
                         Quantity
                       </span>
 
@@ -184,7 +184,7 @@ export function TicketsTable({
                     key={option._id}
                   >
                     <div className="basis-1/2">
-                      <span className="whitespace-nowrap block text-12">
+                      <span className="whitespace-nowrap block text-xs">
                         {option.name}
                       </span>
                       <span className="block">
@@ -206,7 +206,7 @@ export function TicketsTable({
                     >
                       {ticket.limitPerCheckout! > 0 ? (
                         <>
-                          <span className="block text-12 mb-1 font-roboto font-normal">
+                          <span className="block text-xs mb-1 font-body font-normal">
                             Quantity
                           </span>
                           <Counter
@@ -250,7 +250,7 @@ export function TicketsTable({
           </div>
         ))}
       </div>
-      <div className="sm:w-[35%] ml-auto mt-4 sm:mt-10">
+      <div className="sm:w-1/3 ml-auto mt-4 sm:mt-10">
         {Object.keys(selectedTickets).length && subTotals ? (
           <div className="flex" key="subtotal">
             <span>Subtotal</span>
@@ -288,7 +288,7 @@ export function TicketsTable({
               disabled={
                 Object.keys(selectedTickets).length === 0 || redirecting
               }
-              className="btn-main w-full disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:border-white font-roboto font-normal"
+              className="btn-main w-full disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:border-white font-body font-normal"
             >
               Checkout
             </button>

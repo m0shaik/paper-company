@@ -1,0 +1,113 @@
+
+
+p,
+span,
+li,
+button,
+a,
+div,
+input,
+textarea,
+select,
+option,
+label {
+  font-family: var(--font-body);
+}
+
+.voice-xs {
+  font-family: var(--font-body);
+  font-size: var(--font-size--2);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-snug);
+}
+
+.voice-sm {
+  font-family: var(--font-body);
+  font-size: var(--font-size--1);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-snug);
+}
+
+
+.voice-base {
+  font-family: var(--font-body);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-normal);
+}
+
+.voice-lg {
+  font-family: var(--font-body);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+
+  @media screen and (min-width: 768px) {
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+.voice-2l {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+
+  @media screen and (min-width: 768px) {
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+.voice-3l {
+  font-family: var(--font-body);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-snug);
+}
+
+.type-4 {
+  font-family: var(--font-display);
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--leading-tight);
+
+  @media screen and (min-width: 768px) {
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+.voice-5l {
+  font-family: var(--font-display);
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+}
+
+.voice-6l {
+  font-family: var(--font-display);
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  /* text-shadow: var(--text-shadow); */
+  /* -webkit-text-stroke: 1px var(--color-ink);
+  -webkit-text-fill-color: transparent; */
+
+  @media screen and (min-width: 768px) {
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size--1);
+  background-color: var(--base-800);
+  color: var(--ink);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--ink);
+}
+
+/* Style code elements, but not when they're inside pre tags */
+code:not(pre code) {
+  /* @apply text-[.5rem] max-w-[25em] bg-white/95 p-1.5 rounded border shadow-sm; */
+}

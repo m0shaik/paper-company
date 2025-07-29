@@ -38,7 +38,7 @@ export const Quantity: FC<QuantityProps> = ({
           min="1"
         />
       </label>
-      <div className="absolute right-1 top-[3px]">
+      <div className="absolute right-1 top-[0.1875rem]">
         <button
           type="button"
           onClick={increase}

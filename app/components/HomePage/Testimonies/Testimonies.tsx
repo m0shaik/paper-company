@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Testimonies() {
   return (
-    <section className="flex flex-col w-screen h-full justify-items-center items-center md:p-32 p-10 md:bg-[url('/images/vegtables-drawing.jpeg')] bg-cover bg-top bg-fixed bg-no-repeat">
+    <section className="flex flex-col w-screen h-full justify-items-center items-center md:p-32 p-10 md:bg-bg-img-4 bg-cover bg-top bg-fixed bg-no-repeat">
       <figure className="max-w-screen-md mx-auto flex flex-col gap-8 items-center justify-items-center my-14">
         <Image src="/images/quotes.png" alt="quotes" width={64} height={64} />
         <blockquote className="text-center">

@@ -4,8 +4,8 @@ import { Login } from "../Login/Login";
 import Logo from "@/app/components/Layout/Logo/Logo";
 
 const Header = () => (
-  <header className="h-header z-40 w-full mx-auto px-4 md:px-[100px]">
-    <div className="flex gap-[22px] w-full h-header items-center justify-between">
+  <header className="h-header z-40 w-full mx-auto px-4 md:px-24">
+    <div className="flex gap-6 w-full h-header items-center justify-between">
       <div className="md:max-lg:w-full">
         <Logo />
       </div>

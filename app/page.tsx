@@ -3,9 +3,7 @@ import HeroSection from "@/app/components/HomePage/Hero/Hero";
 import AboutSection from "@/app/components/HomePage/About/About";
 import MenuSection from "@/app/components/HomePage/Menu/Menu";
 import Testimonies from "@/app/components/HomePage/Testimonies/Testimonies";
-import ServiceForm from "@/app/components/HomePage/Form/ServiceForm";
 import HomeGallery from "@/app/components/HomePage/HomeGallery/HomeGallery";
-import { BlogSection } from "@/app/components/HomePage/BlogSection/BlogSection";
 import FeaturedMenuCard from "@/app/components/MenuCard/FeaturedMenuCard";
 import { StoreSection } from "@/app/components/HomePage/StoreSection/StoreSection";
 
@@ -47,18 +45,16 @@ export default function Home() {
       <AboutSection />
       <MenuSection />
       <StoreSection />
-      <div className="flex flex-col lg:w-screen h-full md:p-32 md:my-0 my-10 md:bg-[url('/images/plates-with-food.jpeg')] md:bg-cover md:bg-no-repeat md:bg-fixed md:bg-center">
+      <div className="flex flex-col lg:w-screen h-full md:p-32 md:my-0 my-10 md:bg-bg-img-2 md:bg-cover md:bg-no-repeat md:bg-fixed md:bg-center">
         <FeaturedMenuCard />
       </div>
-      <div className="md:hidden block bg-[url('/images/plates-with-food.jpeg')] bg-cover bg-no-repeat bg-bottom h-80 w-full" />
+      <div className="md:hidden block bg-bg-img-2 bg-cover bg-no-repeat bg-bottom h-80 w-full" />
       <Testimonies />
       <section
-        className="flex flex-col w-full h-full justify-items-center items-center md:pt-[660px] pt-[500px]
-                bg-[url('/images/resturant-table.jpeg')]
+        className="flex flex-col w-full h-full justify-items-center items-center md:pt-96 pt-80
+                bg-bg-img-1
                 bg-cover bg-no-repeat md:bg-fixed bg-top"
       />
-      <BlogSection />
-      <ServiceForm />
       <HomeGallery images={galleryImages} />
     </main>
   );

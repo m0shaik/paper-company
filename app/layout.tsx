@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../styles/globals.css";
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import { SidebarUI } from "./components/Sidebar/SidebarUI";
@@ -26,13 +26,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-site">
+      <body className="bg-paper">
         <link rel="icon" href="https://www.wix.com/favicon.ico" />
         {process.env.WIX_CLIENT_ID ? (
           <ClientProvider>
             <NextTopLoader shadow={false} showSpinner={false} />
             <Header />
-            <main className="bg-site min-h-[600px]">
+            <main className="bg-paper min-h-[37.5rem]">
               <LayoutProvider>{children}</LayoutProvider>
             </main>
             <SidebarUI />
@@ -42,7 +42,7 @@ export default function RootLayout({
             </div>
           </ClientProvider>
         ) : (
-          <div className="bg-site min-h-[600px] max-w-5xl mx-auto p-5">
+          <div className="bg-paper min-h-[37.5rem] max-w-5xl mx-auto p-5">
             Page not available. Please add an environment variable called
             WIX_CLIENT_ID, containing the client ID, to your
             deployment provider.

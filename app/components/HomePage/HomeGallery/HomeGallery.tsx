@@ -64,12 +64,12 @@ export default function HomeGallery({ images }: { images: ImagesProps[] }) {
             <Image
               src={image.src}
               alt={image.title}
-              className="object-cover w-full h-full cursor-pointer transition-transform transform"
+              className="object-cover w-full h-full cursor-pointer transition-transform duration-normal transform"
               fill
               quality={100}
               sizes={"(min-width: 768px) 33vw, (min-width: 1024px) 25vw, 50vw"}
             />
-            <div className="opacity-0 bg-gray-900 bg-opacity-50 absolute inset-0 flex items-center justify-center transition-opacity group-hover:opacity-100">
+            <div className="opacity-0 bg-gray-900 bg-opacity-50 absolute inset-0 flex items-center justify-center transition-opacity duration-normal group-hover:opacity-100">
               <div className="flex flex-col text-center gap-6">
                 <h3 className="text-white text-xl font-bold">{image.title}</h3>
                 <p className="text-white text-sm">{image.description}</p>
@@ -80,7 +80,7 @@ export default function HomeGallery({ images }: { images: ImagesProps[] }) {
       ))}
 
       {modalIsOpen && selectedImage && (
-        <div className="w-screen h-screen fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 md:p-8 bg-white transition-opacity z-50">
+        <div className="w-screen h-screen fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 md:p-8 bg-white transition-opacity duration-normal z-50">
           <div className="absolute top-0 right-0 p-8 z-40">
             <button
               className="text-3xl cursor-pointer text-black"

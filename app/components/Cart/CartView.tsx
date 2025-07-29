@@ -66,10 +66,10 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
                 <button
                   onClick={handleClose}
                   aria-label="Close"
-                  className="hover:text-accent-5 absolute transition ease-in-out duration-150 focus:outline-none mr-6 top-[32px]"
+                  className="hover:text-accent-5 absolute transition ease-in-out duration-fast focus:outline-none mr-6 top-8"
                 >
                   <svg
-                    className="w-6 h-6 text-site ml-6"
+                    className="w-6 h-6 text-paper ml-6"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
@@ -104,7 +104,7 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
             </ul>
           </div>
 
-          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 border-t text-md bg-site">
+          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 border-t text-md bg-paper">
             <ul className="pb-2">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>

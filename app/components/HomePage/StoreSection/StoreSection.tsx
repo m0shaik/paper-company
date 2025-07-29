@@ -11,7 +11,7 @@ async function Collections() {
   });
 
   return (
-    <div className="grid gap-x-[64px] gap-y-8 lg:grid-cols-3 ">
+    <div className="grid gap-x-16 gap-y-8 lg:grid-cols-3 ">
       {items.map((item: any, index: any) => (
         <CollectionCard item={item} key={item._id} index={index} />
       ))}
@@ -24,8 +24,8 @@ const CollectionCard: React.FC<{
   index: number;
 }> = ({ item, index }) => {
   return (
-    <div className="flex flex-col gap-[24px]">
-      <div className="h-[348px] w-full">
+    <div className="flex flex-col gap-6">
+      <div className="h-96 w-full">
         <Image
           alt={item.media?.mainMedia?.image?.altText!}
           src={item.media?.mainMedia?.image?.url!}
@@ -36,12 +36,12 @@ const CollectionCard: React.FC<{
           priority={index != -1 && index < 3}
         />
       </div>
-      <h1 className="font-serif font-bold text-[20px] leading-[22.72px]">
+      <h1 className="font-serif font-bold text-xl leading-6">
         {item.name}
       </h1>
       <Link
         href={`${STORE_CATEGORY_ROUTE}/${item.slug}`}
-        className="capitilize mt-[24px]  btn-main capitalize font-roboto text-center font-[400] text-xl justify-items-start"
+        className="capitilize mt-6  btn-main capitalize font-body text-center font-normal text-xl justify-items-start"
       >
         see products
       </Link>
@@ -51,15 +51,15 @@ const CollectionCard: React.FC<{
 
 export const StoreSection = () => {
   return (
-    <div className="flex flex-col mx-auto max-md:px-[32px] lg:p-[120px] md:max-w-[1172px] lg:max-w-[1372px] gap-[60px] w-full">
+    <div className="flex flex-col mx-auto max-md:px-8 lg:p-32 md:max-w-6xl lg:max-w-7xl gap-16 w-full">
       <hr className="border-[#EAEAEA] w-full md:hidden" />
       <div className="flex max-md:justify-center justify-between">
-        <h2 className="font-serif font-bold md:text-[50px] text-[30px] md:leading-[56.81px] max-md:text-center">
+        <h2 className="font-serif font-bold md:text-5xl text-3xl md:leading-tight max-md:text-center">
           Check out our store
         </h2>
         <Link
           href={STORE_ROUTE}
-          className="max-md:hidden mt-[24px] capitalize md:text-[18px] text-[14px] leading-[20.45px] text-center font-[400] text-xl justify-items-start"
+          className="max-md:hidden mt-6 capitalize md:text-lg text-sm leading-5 text-center font-normal text-xl justify-items-start"
         >
           see all products
         </Link>
@@ -67,7 +67,7 @@ export const StoreSection = () => {
       <Collections />
       <Link
         href={STORE_ROUTE}
-        className="md:hidden mt-[24px] capitalize md:text-[18px] text-[14px] leading-[20.45px] text-center font-[400] text-xl justify-items-start"
+        className="md:hidden mt-6 capitalize md:text-lg text-sm leading-5 text-center font-normal text-xl justify-items-start"
       >
         see all products
       </Link>

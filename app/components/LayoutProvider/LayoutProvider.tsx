@@ -37,13 +37,13 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   ) {
     return (
       <div className="container mx-auto">
-        <div className="md:mx-[110px] pb-8 text-center">
-          <div className={`${description ? "mb-[60px]" : "mb-[40px]"}`}>
+        <div className="md:mx-[6.875rem] pb-8 text-center">
+          <div className={`${description ? "mb-12" : "mb-10"}`}>
             <h3 className="inner-page-title pb-0 m-0">{title}</h3>
-            <hr className="h-[2px] bg-gray-700 border-0 m-0 p-0" />
+            <hr className="h-0.5 bg-gray-700 border-0 m-0 p-0" />
           </div>
           {description && (
-            <div className="md:mx-[110px] mb-[40px]">
+            <div className="md:mx-[6.875rem] mb-10">
               <h2 className="inner-page-subtitle">{description}</h2>
             </div>
           )}

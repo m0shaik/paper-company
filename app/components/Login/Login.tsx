@@ -11,7 +11,7 @@ const LoginComp = () => {
   return (
     <button
       onClick={onLoginClick}
-      className="flex relative min-w-[72px] gap-1 font-roboto font-normal items-center"
+      className="flex relative min-w-[4.5rem] gap-1 font-body font-normal items-center"
     >
       <User size={24} stroke="currentColor" />
       Log In

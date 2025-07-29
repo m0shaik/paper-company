@@ -17,7 +17,7 @@ export const CartBag = () => {
     >
       <Order size="24" stroke={"currentColor"} />
       {itemsCount! > 0 && (
-        <span className="font-bold text-xs  absolute top-[13px] right-[15px]">
+        <span className="font-bold text-xs  absolute top-3 right-4">
           {itemsCount}
         </span>
       )}

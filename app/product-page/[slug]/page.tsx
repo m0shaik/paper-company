@@ -40,7 +40,7 @@ export default async function StoresCategoryPage({ params }: any) {
     return;
   }
   return (
-    <div className="mx-auto px-14 my-[80px]">
+    <div className="mx-auto px-14 my-20">
       {product ? (
         <div className="full-w overflow-hidden max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-2">
@@ -48,7 +48,7 @@ export default async function StoresCategoryPage({ params }: any) {
               <div>
                 <ImageGalleryClient items={product.media!.items!.map(({image}) => ({src: image!.url!}))} />
                 <div
-                  className="pb-4 mx-auto break-words w-full max-w-xl mt-6 font-roboto font-normal"
+                  className="pb-4 mx-auto break-words w-full max-w-xl mt-6 font-body font-normal"
                   dangerouslySetInnerHTML={{
                     __html: product.description ?? "",
                   }}

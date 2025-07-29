@@ -121,7 +121,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         />
       </div>
       <div className="mb-6">
-        <span className="text-xs tracking-wide font-roboto font-normal">
+        <span className="text-xs tracking-wide font-body font-normal">
           Quantity
         </span>
         <div className="mt-2">
@@ -142,7 +142,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         <div>
           <button
             aria-label="Add to Cart"
-            className="btn-main w-full my-1 font-roboto font-normal"
+            className="btn-main w-full my-1 font-body font-normal"
             type="button"
             onClick={addToCart}
             disabled={loading}
@@ -151,7 +151,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
           </button>
           <div className="w-full pt-2">
             <Link
-              className="btn-main w-full my-1 block text-center font-roboto font-normal"
+              className="btn-main w-full my-1 block text-center font-body font-normal"
               href={buyNowLink}
             >
               Buy Now
@@ -178,7 +178,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
             theme: {
               accordion: {
                 content: {
-                  base: "bg-transparent p-5 font-roboto text-[#2F2F2F]",
+                  base: "bg-transparent p-5 font-body text-gray-800",
                 },
                 title: {
                   heading: "text-black",
@@ -186,7 +186,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
                     base: "text-black",
                   },
                   open: {
-                    on: "bg-[#F6F6F6]",
+                    on: "bg-gray-100",
                   },
                 },
               },
