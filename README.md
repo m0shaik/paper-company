@@ -19,7 +19,7 @@ Set up environment variables to consume Wix Headless APIs:
    ```sh
    cp .env.template .env.local.
    ```
-2. In the new **.env.local** file, paste the OAuth app client ID after `NEXT_PUBLIC_WIX_CLIENT_ID=`.
+2. In the new **.env.local** file, paste the OAuth app client ID after `WIX_CLIENT_ID=`.
 
 Run the development server:
 
@@ -47,7 +47,7 @@ Edit the template:
 
 You can deploy this repository using any platform which supports Next.js Version 13 and [App Router](https://nextjs.org/docs/app).
 
-The repository requires a single environment variable: `NEXT_PUBLIC_WIX_CLIENT_ID`, which should contain a client ID authorizing access to a Wix project's data.
+The repository requires a single environment variable: `WIX_CLIENT_ID`, which should contain a client ID authorizing access to a Wix project's data.
 
 # Learn More
 

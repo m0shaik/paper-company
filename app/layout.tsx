@@ -6,7 +6,7 @@ import { LoginModal } from "./components/LoginModal/LoginModal";
 import { Metadata } from "next";
 import { LayoutProvider } from "@/app/components/LayoutProvider/LayoutProvider";
 import NextTopLoader from "nextjs-toploader";
-import {ClientProvider} from '@/app/components/Provider/Providers';
+import { ClientProvider } from '@/app/components/Provider/Providers';
 
 export const metadata: Metadata = {
   title: {
@@ -20,35 +20,35 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-    <body className="bg-site">
-    <link rel="icon" href="https://www.wix.com/favicon.ico" />
-    {process.env.NEXT_PUBLIC_WIX_CLIENT_ID ? (
-      <ClientProvider>
-        <NextTopLoader shadow={false} showSpinner={false} />
-        <Header />
-        <main className="bg-site min-h-[600px]">
-          <LayoutProvider>{children}</LayoutProvider>
-        </main>
-        <SidebarUI />
-        <LoginModal />
-        <div className="mt-3 sm:mt-9">
-          <Footer />
-        </div>
-      </ClientProvider>
-    ) : (
-      <div className="bg-site min-h-[600px] max-w-5xl mx-auto p-5">
-        Page not available. Please add an environment variable called
-        NEXT_PUBLIC_WIX_CLIENT_ID, containing the client ID, to your
-        deployment provider.
-      </div>
-    )}
-    </body>
+      <body className="bg-site">
+        <link rel="icon" href="https://www.wix.com/favicon.ico" />
+        {process.env.WIX_CLIENT_ID ? (
+          <ClientProvider>
+            <NextTopLoader shadow={false} showSpinner={false} />
+            <Header />
+            <main className="bg-site min-h-[600px]">
+              <LayoutProvider>{children}</LayoutProvider>
+            </main>
+            <SidebarUI />
+            <LoginModal />
+            <div className="mt-3 sm:mt-9">
+              <Footer />
+            </div>
+          </ClientProvider>
+        ) : (
+          <div className="bg-site min-h-[600px] max-w-5xl mx-auto p-5">
+            Page not available. Please add an environment variable called
+            WIX_CLIENT_ID, containing the client ID, to your
+            deployment provider.
+          </div>
+        )}
+      </body>
     </html>
   );
 }

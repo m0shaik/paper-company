@@ -10,13 +10,13 @@ export const getWixClient = async () => {
     refreshToken = JSON.parse(
       cookieStore.get(WIX_REFRESH_TOKEN)?.value || "{}"
     );
-  } catch (e) {}
+  } catch (e) { }
   const wixClient = createClient({
     modules: {
       redirects,
     },
     auth: OAuthStrategy({
-      clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,
+      clientId: process.env.WIX_CLIENT_ID!,
       tokens: {
         refreshToken,
         accessToken: { value: "", expiresAt: 0 },

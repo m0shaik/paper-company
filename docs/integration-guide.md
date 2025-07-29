@@ -81,11 +81,11 @@ To set up environment variables for consuming Wix Headless APIs, follow these st
 ##### Local development environment
 
 1. At the terminal, in the template's root folder, type `cp .env.template .env.local`.
-2. In the new `.env.local` file, paste the client ID after `NEXT_PUBLIC_WIX_CLIENT_ID=`.
+2. In the new `.env.local` file, paste the client ID after `WIX_CLIENT_ID=`.
 
 ##### Production environment
 
-In your deployment provider, add an environment variable called `NEXT_PUBLIC_WIX_CLIENT_ID` containing the client ID.
+In your deployment provider, add an environment variable called `WIX_CLIENT_ID` containing the client ID.
 
 ## Part II: Local Development
 
@@ -152,7 +152,7 @@ Additionally, this template uses the following libraries and features:
 
 You can deploy this repository using any platform which supports Next.js Version 13 and the [App Router Roadmap](https://beta.nextjs.org/docs/app-directory-roadmap).
 
-The repository only requires a single environment variable: `NEXT_PUBLIC_WIX_CLIENT_ID`, which should contain a client ID authorizing access to a Wix project's data.
+The repository only requires a single environment variable: `WIX_CLIENT_ID`, which should contain a client ID authorizing access to a Wix project's data.
 
 ## Part VI :Package dependency management
 
