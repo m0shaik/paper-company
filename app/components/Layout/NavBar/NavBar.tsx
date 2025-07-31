@@ -11,7 +11,7 @@ import {
 } from "@/app/routes";
 
 export const navbarMainItems = [
-  { ref: STORE_ROUTE, label: "Store" },
+  { ref: STORE_ROUTE, label: "Collections" },
 ];
 
 const StyledNavLink = ({
@@ -24,9 +24,8 @@ const StyledNavLink = ({
   className?: string;
 }) => (
   <NavLink
-    className={`${className ?? ""} ${
-      isActive ? "text-primary-600" : "text-ink hover:text-primary-500"
-    } font-body`}
+    className={`${className ?? ""} ${isActive ? "underline rounded-md" : "text-ink hover:text-primary-500"
+      } font-body`}
     {...linkProps}
   />
 );
@@ -62,28 +61,25 @@ export function NavBar() {
 
   return (
     <div>
-      <nav className="py-4 justify-between items-center bg-paper flex">
+      <nav className="py-4 justify-between items-center flex">
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className={`relative flex items-center rounded-base focus:outline-none border border-ink overflow-hidden z-[51] ${
-              isMenuOpen ? "border-none" : ""
-            }`}
+            className={`relative flex items-center rounded-base focus:outline-none border border-ink overflow-hidden z-[51] ${isMenuOpen ? "border-none" : ""
+              }`}
             aria-controls="primary-navigation"
             style={{ WebkitTapHighlightColor: "rgba(0, 0, 0, 0.1)" }}
           >
             <svg
               stroke="currentColor"
               fill="none"
-              className={`w-12 h-12 transition-all duration-[350ms] text-ink ${
-                isMenuOpen ? "translate-x-[3px] -translate-y-[1px] rotate-45" : ""
-              }`}
+              className={`w-12 h-12 transition-all duration-[350ms] text-ink ${isMenuOpen ? "translate-x-[3px] -translate-y-[1px] rotate-45" : ""
+                }`}
               viewBox="-10 -10 120 120"
             >
               <path
-                className={`transition-[stroke-dasharray,stroke-dashoffset] duration-[350ms] ${
-                  isMenuOpen ? "[stroke-dasharray:60_105_60_300] [stroke-dashoffset:-90]" : "[stroke-dasharray:60_31_60_300]"
-                }`}
+                className={`transition-[stroke-dasharray,stroke-dashoffset] duration-[350ms] ${isMenuOpen ? "[stroke-dasharray:60_105_60_300] [stroke-dashoffset:-90]" : "[stroke-dasharray:60_31_60_300]"
+                  }`}
                 strokeWidth="10"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -94,7 +90,7 @@ export function NavBar() {
         </div>
         <ul className="lg:flex items-center gap-4 justify-end hidden">
           {navbarMainItems.map(({ ref, label }) => (
-            <li key={ref} className="relative pl-4">
+            <li key={ref} className="relative">
               <StyledNavLink
                 className="text-lg font-bold font-body"
                 isActive={ref === linkRef}
@@ -113,11 +109,10 @@ export function NavBar() {
       <div className={`relative z-50 ${isMenuOpen ? "visible" : "invisible"}`}>
         <nav
           className={`fixed top-0 bottom-0 flex flex-col w-screen py-6 px-6 bg-paper border-r border-border overflow-y-auto
-                    ${
-                      isMenuOpen
-                        ? "left-0 opacity-100"
-                        : "left-[100vw] opacity-0"
-                    } transition-all ease-in-out duration-slow`}
+                    ${isMenuOpen
+              ? "left-0 opacity-100"
+              : "left-[100vw] opacity-0"
+            } transition-all ease-in-out duration-slow`}
         >
           <ul className="my-10 flex flex-col items-center gap-8 justify-end">
             <li key={HOME_ROUTE} className="relative">

@@ -3,16 +3,18 @@ import { NavBar } from "./NavBar/NavBar";
 import Logo from "@/app/components/Layout/Logo/Logo";
 
 const Header = () => (
-  <header className="h-header z-40 w-full mx-auto px-4 md:px-24">
-    <div className="flex gap-6 w-full h-header items-center justify-between">
-      <div className="md:max-lg:w-full">
-        <Logo />
-      </div>
-      <div className="flex max-lg:order-last grow max-md:justify-end">
-        <NavBar />
-      </div>
-      <div className="hidden justify-end md:flex items-center md:gap-8 max-lg:justify-self-end">
-        <CartBag />
+  <header className="w-full border-b border-border bg-base-900">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="flex h-20 items-center justify-between">
+        <div className="flex-1">
+          <NavBar />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <h1 className="text-2xl font-display">The Paper Company</h1>
+        </div>
+        <div className="flex-1 flex justify-end">
+          <CartBag />
+        </div>
       </div>
     </div>
   </header>
