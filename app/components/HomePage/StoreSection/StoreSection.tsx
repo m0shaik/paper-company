@@ -11,7 +11,7 @@ async function Collections() {
   });
 
   return (
-    <div className="grid gap-x-16 gap-y-8 lg:grid-cols-3 ">
+    <div className="grid gap-8 lg:grid-cols-3 w-full">
       {items.map((item: any, index: any) => (
         <CollectionCard item={item} key={item._id} index={index} />
       ))}
@@ -24,54 +24,56 @@ const CollectionCard: React.FC<{
   index: number;
 }> = ({ item, index }) => {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="h-96 w-full">
+    <Link
+      href={`${STORE_CATEGORY_ROUTE}/${item.slug}`}
+      className="relative group block h-[600px] overflow-hidden"
+    >
+      <div className="absolute inset-0">
         <Image
           alt={item.media?.mainMedia?.image?.altText!}
           src={item.media?.mainMedia?.image?.url!}
-          objectFit="cover"
-          width={600}
-          height={800}
+          fill
+          className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={index != -1 && index < 3}
         />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
-      <h1 className="font-serif font-bold text-xl leading-6">
-        {item.name}
-      </h1>
-      <Link
-        href={`${STORE_CATEGORY_ROUTE}/${item.slug}`}
-        className="capitilize mt-6  btn-main capitalize font-body text-center font-normal text-xl justify-items-start"
-      >
-        see products
-      </Link>
-    </div>
+      <div className="relative h-full flex flex-col justify-end p-8">
+        <h1 className="font-serif font-bold text-3xl leading-tight text-white mb-4">
+          {item.name}
+        </h1>
+        <span className="text-white text-lg capitalize">
+          Explore Collection
+        </span>
+      </div>
+    </Link>
   );
 };
 
 export const StoreSection = () => {
   return (
-    <div className="flex flex-col mx-auto max-md:px-8 lg:p-32 md:max-w-6xl lg:max-w-7xl gap-16 w-full">
-      <hr className="border-[#EAEAEA] w-full md:hidden" />
-      <div className="flex max-md:justify-center justify-between">
-        <h2 className="font-serif font-bold md:text-5xl text-3xl md:leading-tight max-md:text-center">
-          Check out our store
-        </h2>
+    <section className="w-full">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex justify-between items-center mb-12">
+          <h2 className="font-serif font-bold text-4xl md:text-5xl">
+            Our Collections
+          </h2>
+          <Link
+            href={STORE_ROUTE}
+            className="hidden md:block text-lg capitalize hover:opacity-70 transition-opacity"
+          >
+            View All Collections
+          </Link>
+        </div>
+        <Collections />
         <Link
           href={STORE_ROUTE}
-          className="max-md:hidden mt-6 capitalize md:text-lg text-sm leading-5 text-center font-normal text-xl justify-items-start"
+          className="md:hidden block mt-8 text-center text-lg capitalize"
         >
-          see all products
+          View All Collections
         </Link>
       </div>
-      <Collections />
-      <Link
-        href={STORE_ROUTE}
-        className="md:hidden mt-6 capitalize md:text-lg text-sm leading-5 text-center font-normal text-xl justify-items-start"
-      >
-        see all products
-      </Link>
-      <hr className="border-[#EAEAEA] w-full md:hidden" />
-    </div>
+    </section>
   );
 };

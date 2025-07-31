@@ -10,7 +10,7 @@ const Header = () => (
           <NavBar />
         </div>
         <div className="flex-1 flex justify-center">
-          <h1 className="text-2xl font-display">The Paper Company</h1>
+          <h1 className="voice-2l">The Paper Company</h1>
         </div>
         <div className="flex-1 flex justify-end">
           <CartBag />

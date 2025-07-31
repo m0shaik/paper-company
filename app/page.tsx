@@ -42,18 +42,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
       <HeroSection />
-      <AboutSection />
-      <MenuSection />
       <StoreSection />
-      <div className="flex flex-col lg:w-screen h-full md:p-32 md:my-0 my-10">
-        <FeaturedMenuCard />
-      </div>
-      <div className="md:hidden block h-80 w-full" />
-      <Testimonies />
-      <section
-        className="flex flex-col w-full h-full justify-items-center items-center md:pt-96 pt-80"
-      />
-      <HomeGallery images={galleryImages} />
+      {/* ... rest of your components ... */}
     </main>
   );
 }

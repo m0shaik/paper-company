@@ -24,8 +24,8 @@ const StyledNavLink = ({
   className?: string;
 }) => (
   <NavLink
-    className={`${className ?? ""} ${isActive ? "underline rounded-md" : "text-ink hover:text-primary-500"
-      } font-body`}
+    className={`${className ?? ""} ${isActive ? "bg-base-600 px-4 py-2 rounded-md" : "text-ink hover:text-primary-500"
+      } voice-2l`}
     {...linkProps}
   />
 );
@@ -92,7 +92,7 @@ export function NavBar() {
           {navbarMainItems.map(({ ref, label }) => (
             <li key={ref} className="relative">
               <StyledNavLink
-                className="text-lg font-bold font-body"
+                className=""
                 isActive={ref === linkRef}
                 href={ref}
                 onClick={() => {
