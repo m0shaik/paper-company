@@ -1,6 +1,5 @@
 import { CartBag } from "../CartBag/CartBag";
 import { NavBar } from "./NavBar/NavBar";
-import { Login } from "../Login/Login";
 import Logo from "@/app/components/Layout/Logo/Logo";
 
 const Header = () => (
@@ -14,7 +13,6 @@ const Header = () => (
       </div>
       <div className="hidden justify-end md:flex items-center md:gap-8 max-lg:justify-self-end">
         <CartBag />
-        <Login />
       </div>
     </div>
   </header>

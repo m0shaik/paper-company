@@ -10,31 +10,31 @@ import { StoreSection } from "@/app/components/HomePage/StoreSection/StoreSectio
 const galleryImages = [
   {
     id: 1,
-    src: "/images/gallery-image1.jpeg",
-    title: "Im an image title",
+    src: "/images/placeholder.jpg",
+    title: "Featured Products",
     description:
-      "Describe your image here. Use catchy text to tell people the story behind the photo. Go to “Manage Media” to add your content.",
+      "Discover our curated selection of top-quality products, carefully chosen to meet your highest standards.",
   },
   {
     id: 2,
-    src: "/images/gallery-image2.jpeg",
-    title: "Im an image title",
+    src: "/images/placeholder.jpg",
+    title: "Sustainable Solutions",
     description:
-      "Describe your image here. Use catchy text to tell people the story behind the photo. Go to “Manage Media” to add your content.",
+      "Explore our eco-friendly product line made from sustainable materials and responsible manufacturing practices.",
   },
   {
     id: 3,
-    src: "/images/gallery-image3.jpeg",
-    title: "Im an image title",
+    src: "/images/placeholder.jpg",
+    title: "Creative Collection",
     description:
-      "Describe your image here. Use catchy text to tell people the story behind the photo. Go to “Manage Media” to add your content.",
+      "Browse our innovative products with unique designs and features to inspire your next project.",
   },
   {
     id: 4,
-    src: "/images/gallery-image4.jpeg",
-    title: "Im an image title",
+    src: "/images/placeholder.jpg",
+    title: "Professional Quality",
     description:
-      "Describe your image here. Use catchy text to tell people the story behind the photo. Go to “Manage Media” to add your content.",
+      "Premium products designed to meet the demanding needs of professionals and businesses alike.",
   },
 ];
 
@@ -45,15 +45,13 @@ export default function Home() {
       <AboutSection />
       <MenuSection />
       <StoreSection />
-      <div className="flex flex-col lg:w-screen h-full md:p-32 md:my-0 my-10 md:bg-bg-img-2 md:bg-cover md:bg-no-repeat md:bg-fixed md:bg-center">
+      <div className="flex flex-col lg:w-screen h-full md:p-32 md:my-0 my-10">
         <FeaturedMenuCard />
       </div>
-      <div className="md:hidden block bg-bg-img-2 bg-cover bg-no-repeat bg-bottom h-80 w-full" />
+      <div className="md:hidden block h-80 w-full" />
       <Testimonies />
       <section
-        className="flex flex-col w-full h-full justify-items-center items-center md:pt-96 pt-80
-                bg-bg-img-1
-                bg-cover bg-no-repeat md:bg-fixed bg-top"
+        className="flex flex-col w-full h-full justify-items-center items-center md:pt-96 pt-80"
       />
       <HomeGallery images={galleryImages} />
     </main>

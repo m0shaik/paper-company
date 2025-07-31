@@ -9,6 +9,6 @@ export function Price({
   selectedTickets: Record<string, { quantity: number; price: number }>;
 }) {
   return (
-    <span className="text-base">10$</span>
+    <span className="text-base font-body text-primary-600 font-semibold">10$</span>
   );
 }

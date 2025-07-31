@@ -20,7 +20,7 @@ const Swatch: React.FC<
     <button
       role="option"
       color="light"
-      className="rounded-full flex items-center justify-center border bg-white w-5 h-5 p-1"
+      className="rounded-full flex items-center justify-center border border-border bg-paper w-5 h-5 p-1 hover:border-primary-400 transition-colors"
       aria-selected={active}
       aria-label={variant && label ? `${variant} ${label}` : "Variant Swatch"}
       {...(label && { title: label })}
@@ -30,7 +30,7 @@ const Swatch: React.FC<
       {color && active && (
         <span>
           <svg
-            className="w-3 h-3 text-white mix-blend-difference"
+            className="w-3 h-3 text-paper mix-blend-difference"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

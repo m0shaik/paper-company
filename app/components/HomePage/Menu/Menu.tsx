@@ -6,9 +6,9 @@ const BookLink = ({ href }: { href: string }) => {
   return (
     <Link
       href={href}
-      className="capitalize font-body leading-[23.44px] font-light text-xl"
+      className="capitalize font-body leading-[23.44px] font-light text-xl text-primary-600 hover:text-primary-700"
     >
-      book now &gt;
+      shop now &gt;
     </Link>
   );
 };
@@ -16,28 +16,28 @@ const BookLink = ({ href }: { href: string }) => {
 export default function MenuSection() {
   return (
     <section className="w-screen">
-      <div className="md:py-36 md:bg-bg-img-3 md:bg-cover md:bg-no-repeat md:bg-fixed md:bg-center">
+      <div className="md:py-36">
         <div className="grid sm:grid-cols-3 grid-cols-1 mx-auto justify-center items-center gap-6 max-w-6xl">
           <MenuCard
-            title="Culinary Cooking"
-            image="/images/food-menu-item1.jpeg"
-            description="A variety of exotic wines paired with 7 fresh tapas"
+            title="Featured Products"
+            image="/images/placeholder.jpg"
+            description="High-quality items for all your essential needs"
           >
-            <BookLink href="/calendar/professional-culinary-cooking-class" />
+            <BookLink href="/store" />
           </MenuCard>
           <MenuCard
-            title="Mastering Hospitality"
-            image="/images/food-menu-item2.jpeg"
-            description="Master the art of hospitality with Chef Bolano"
+            title="Premium Collection"
+            image="/images/placeholder.jpg"
+            description="Unique designs and premium quality for special projects"
           >
-            <BookLink href="/calendar/mastering-hospitality-basics" />
+            <BookLink href="/store" />
           </MenuCard>
           <MenuCard
-            title="Wine Testing"
-            image="/images/food-menu-item3.jpeg"
-            description="A variety of exotic wines paired with 7 fresh tapas"
+            title="Eco-Friendly Options"
+            image="/images/placeholder.jpg"
+            description="Sustainable products for environmentally conscious customers"
           >
-            <BookLink href="/service/wine-testing" />
+            <BookLink href="/store" />
           </MenuCard>
         </div>
       </div>

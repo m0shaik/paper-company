@@ -1,29 +1,25 @@
 import React from "react";
 import Link from "next/link";
-import { EVENTS_ROUTE } from "@/app/routes";
 
 export default function FeaturedMenuCard() {
   return (
-    <div className="rounded overflow-hidden inline-block md:shadow-lg bg-white lg:w-[34.375rem] mx-auto md:px-[5.625rem] md:py-[3.75rem]">
-      <div className="w-full mx-auto md:py-16 text-center flex flex-col items-center p-8">
-        <h2 className="mt-3 md:text-5xl text-3xl">Farm to Table</h2>
-        <h5 className="font-light md:text-2xl text-xl mt-5 mb-7 w-1/2">
-          New event
-        </h5>
-        <p className="font-light text-3xl w-16 h-3 border-b-2 border-t-2 border-black mb-7" />
-        <div className="text-gray-700 text-base mb-10">
-          <div className="text-center mb-3 text-[1.0625rem] font-light font-body leading-[1.42rem]">
-            <p>
-              We grow food, build a life and celebrate nature. come celebrate
-              with us in the middle of the nature, at our organic farm.
-            </p>
-          </div>
+    <div className="border border-border bg-paper p-8 rounded-base shadow-sm hover:shadow-md transition-shadow">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold mb-4 text-ink font-display">New Arrivals</h2>
+        <h5 className="text-xl mb-6 text-base-600 font-body">Featured Collection</h5>
+        <div className="border border-border h-32 bg-base-100 mb-6 flex items-center justify-center rounded-base">
+          <span className="text-base-500 text-sm font-body">Featured Image</span>
         </div>
+        <p className="text-base-600 mb-6 font-body">
+          Discover our latest collection of premium products featuring innovative 
+          designs and sustainable materials. Perfect for your most important 
+          projects and everyday needs.
+        </p>
         <Link
-          href={`${EVENTS_ROUTE}/farm-to-table-feasts-2`}
-          className="mx-auto btn-main capitalize font-body font-[400] text-xl py-5 px-10"
+          href={`/store/featured`}
+          className="border border-primary-400 px-6 py-2 text-primary-600 hover:bg-primary-50 rounded-base font-body transition-colors"
         >
-          buy tickets
+          Shop Collection
         </Link>
       </div>
     </div>

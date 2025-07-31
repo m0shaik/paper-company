@@ -11,6 +11,7 @@ import {
 } from "@/app/components/Skeletons/Skeletons";
 import { queryCollections, queryProducts } from "@/app/model/store/store-api";
 import type { Product, Collection } from "@/app/model/store/store-api"
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -60,9 +61,9 @@ const ProductCard = ({
       {!item.manageVariants && item.stock?.inStock ? (
         null
       ) : (
-        <button className="btn-main cursor-pointer text-lg" disabled>
+        <Button className="btn-main cursor-pointer text-lg" disabled>
           Out of Stock
-        </button>
+        </Button>
       )}
     </div>
   );
@@ -74,20 +75,29 @@ export async function StoresCategory({ params }: any) {
   let collectionId;
   try {
     collections = await queryCollections();
+    console.log("Available collections:", collections.map(c => ({ name: c.name, slug: c.slug, id: c._id })));
+    console.log("Looking for category:", params?.category);
+    
     collectionId = collections.find(({ slug }) => slug === params?.category)
       ?._id!;
+    
+    console.log("Found collectionId:", collectionId);
+    
     if (collectionId) {
       items = await queryProducts({
         limit: 10,
         collectionId,
       });
+      console.log(`Found ${items.length} products for collection ${params?.category}`);
     } else {
+      console.log(`No collection found for slug: ${params?.category}`);
       items = await queryProducts({
         limit: 10,
       });
+      console.log(`Found ${items.length} total products`);
     }
   } catch (err) {
-    console.error(err);
+    console.error("Error in StoresCategory:", err);
   }
 
   return (
@@ -108,17 +118,40 @@ export async function StoresCategory({ params }: any) {
         </div>
       ) : (
         <div className="text-3xl w-full text-center p-9 box-borderbox-border max-w-4xl mx-auto">
-          No products found. Click{" "}
-          <Link
-            href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
-            target="_blank"
-            rel="noreferrer"
-            className="text-purple-500"
-          >
-            here
-          </Link>{" "}
-          to go to the business dashboard to add products. Once added, they will
-          appear here.
+          {params?.category ? (
+            <>
+              No products found in category "{params.category}". 
+              {collections.find(c => c.slug === params.category) ? 
+                " This category exists but has no products." : 
+                " This category does not exist."
+              }
+              <br />
+              <Link
+                href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
+                target="_blank"
+                rel="noreferrer"
+                className="text-purple-500"
+              >
+                Click here
+              </Link>{" "}
+              to go to the business dashboard to add products. Once added, they will
+              appear here.
+            </>
+          ) : (
+            <>
+              No products found. Click{" "}
+              <Link
+                href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
+                target="_blank"
+                rel="noreferrer"
+                className="text-purple-500"
+              >
+                here
+              </Link>{" "}
+              to go to the business dashboard to add products. Once added, they will
+              appear here.
+            </>
+          )}
         </div>
       )}
     </div>

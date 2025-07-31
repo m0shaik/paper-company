@@ -1,11 +1,13 @@
 "use client";
 import React, { memo } from "react";
-import { Spinner } from "flowbite-react";
 
 const Loading = () => {
   return (
     <div className="flex justify-center items-center h-96 w-screen">
-      <Spinner aria-label="Loading" size={"lg"} />
+      <div 
+        className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" 
+        aria-label="Loading"
+      ></div>
     </div>
   );
 };

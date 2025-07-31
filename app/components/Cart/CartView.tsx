@@ -66,7 +66,7 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
                 <button
                   onClick={handleClose}
                   aria-label="Close"
-                  className="hover:text-accent-5 absolute transition ease-in-out duration-fast focus:outline-none mr-6 top-8"
+                  className="hover:text-primary-600 absolute transition ease-in-out duration-fast focus:outline-none mr-6 top-8"
                 >
                   <svg
                     className="w-6 h-6 text-paper ml-6"
@@ -86,14 +86,14 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
                 </button>
               ) : null}
               <span
-                className={`font-bold text-2xl text-center block p-6 ${
-                  isMini ? "bg-black text-white" : ""
+                className={`font-bold text-2xl text-center block p-6 font-display ${
+                  isMini ? "bg-base-950 text-paper" : "text-ink"
                 }`}
               >
                 Cart
               </span>
             </div>
-            <ul className="sm:px-6 p-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
+            <ul className="sm:px-6 p-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-border border-border">
               {lineItems?.map((item) => (
                 <CartItem
                   key={item._id}
@@ -104,11 +104,11 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
             </ul>
           </div>
 
-          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 border-t text-md bg-paper">
+          <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 border-t border-border text-md bg-paper font-body">
             <ul className="pb-2">
-              <li className="flex justify-between py-1">
+              <li className="flex justify-between py-1 text-ink">
                 <span>Subtotal</span>
-                <span>{subTotal}</span>
+                <span className="font-semibold">{subTotal}</span>
               </li>
             </ul>
             <div>
@@ -124,7 +124,7 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
         </div>
       ) : (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
-          <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 text-secondary">
+          <span className="border border-dashed border-primary-400 rounded-full flex items-center justify-center w-16 h-16 p-12 text-primary-600">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -140,11 +140,11 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
               ></path>
             </svg>
           </span>
-          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
+          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center font-display text-ink">
             Your cart is empty
           </h2>
-          <p className="text-accent-3 px-10 text-center pt-2">
-            Add products to your cart in <Link href={STORE_ROUTE}>here</Link>
+          <p className="text-base-600 px-10 text-center pt-2 font-body">
+            Add products to your cart in <Link href={STORE_ROUTE} className="text-primary-600 hover:text-primary-700 underline">here</Link>
           </p>
         </div>
       )}

@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import { SidebarUI } from "./components/Sidebar/SidebarUI";
-import { LoginModal } from "./components/LoginModal/LoginModal";
 import { Metadata } from "next";
 import { LayoutProvider } from "@/app/components/LayoutProvider/LayoutProvider";
 import NextTopLoader from "nextjs-toploader";
@@ -36,7 +35,6 @@ export default function RootLayout({
               <LayoutProvider>{children}</LayoutProvider>
             </main>
             <SidebarUI />
-            <LoginModal />
             <div className="mt-3 sm:mt-9">
               <Footer />
             </div>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Carousel } from "flowbite-react";
 
 interface ImagesProps {
   id: number;
@@ -26,6 +25,18 @@ export default function HomeGallery({ images }: { images: ImagesProps[] }) {
   const closeModal = () => {
     setSelectedImage(undefined);
     setModalIsOpen(false);
+  };
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   const leftControl = (
@@ -89,41 +100,49 @@ export default function HomeGallery({ images }: { images: ImagesProps[] }) {
               &times;
             </button>
           </div>
-          <Carousel
-            slide={false}
-            leftControl={leftControl}
-            rightControl={rightControl}
-          >
-            {images.map((image, index) => (
-              <div
-                key={image.id}
-                className="md:px-36 flex md:flex-row flex-col w-screen h-screen lg:gap-10 items-center justify-center align-middle"
-              >
-                <div className={"relative w-screen h-[80vh]"}>
-                  <Image
-                    src={image.src}
-                    alt={image.title}
-                    fill
-                    sizes={
-                      "(min-width: 768px) 33vw, (min-width: 1024px) 25vw, 50vw"
-                    }
-                    quality={100}
-                    objectFit="cover"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center md:justify-end justify-start gap-6 md:px-5">
-                    <div className="flex flex-col gap-6 lg:w-1/2">
-                      <h3 className="text-xl font-bold ">{image.title}</h3>
-                      <p className="text-gray-700 text-sm">
-                        {image.description}
-                      </p>
-                    </div>
+          <div className="relative w-full h-full">
+            {/* Navigation buttons */}
+            <button
+              onClick={goToPrevious}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 text-white hover:text-gray-300 transition-colors"
+              aria-label="Previous image"
+            >
+              {leftControl}
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 text-white hover:text-gray-300 transition-colors"
+              aria-label="Next image"
+            >
+              {rightControl}
+            </button>
+            
+            {/* Current image */}
+            <div className="md:px-36 flex md:flex-row flex-col w-screen h-screen lg:gap-10 items-center justify-center align-middle">
+              <div className={"relative w-screen h-[80vh]"}>
+                <Image
+                  src={images[currentIndex].src}
+                  alt={images[currentIndex].title}
+                  fill
+                  sizes={
+                    "(min-width: 768px) 33vw, (min-width: 1024px) 25vw, 50vw"
+                  }
+                  quality={100}
+                  objectFit="cover"
+                />
+              </div>
+              <div>
+                <div className="flex items-center md:justify-end justify-start gap-6 md:px-5">
+                  <div className="flex flex-col gap-6 lg:w-1/2">
+                    <h3 className="text-xl font-bold ">{images[currentIndex].title}</h3>
+                    <p className="text-gray-700 text-sm">
+                      {images[currentIndex].description}
+                    </p>
                   </div>
                 </div>
               </div>
-            ))}
-          </Carousel>
+            </div>
+          </div>
         </div>
       )}
     </section>

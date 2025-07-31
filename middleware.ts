@@ -12,9 +12,12 @@ export async function middleware(request: NextRequest) {
       headers: requestHeaders,
     },
   });
+  
+  // Always ensure we have visitor tokens for guest checkout functionality
   if (cookies.get(WIX_REFRESH_TOKEN)) {
     return res;
   }
+  
   const wixClient = createClient({
     auth: OAuthStrategy({ clientId: process.env.WIX_CLIENT_ID! }),
   });

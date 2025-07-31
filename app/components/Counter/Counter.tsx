@@ -1,4 +1,12 @@
-import { Dropdown, Flowbite, useTheme } from "flowbite-react";
+"use client";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function Counter({
   onChange,
@@ -15,7 +23,8 @@ export function Counter({
   initialCount: number;
   limit: number;
 }) {
-  const onSelect = (count: number) => {
+  const onSelect = (value: string) => {
+    const count = parseInt(value);
     if (count === 0) return;
     onChange({
       [`${ticketId}${optionId ? `|${optionId}` : ""}`]: {
@@ -24,31 +33,21 @@ export function Counter({
       },
     });
   };
-  const { theme } = useTheme();
 
   return (
-    <Flowbite
-      theme={{
-        theme: {
-          dropdown: {
-            floating: {
-              target: "w-full sm:w-fit",
-            },
-            inlineWrapper: `${theme.dropdown.inlineWrapper} border px-5 py-1 justify-between border-black w-full sm:w-24 flowbite-dropdown-target`,
-            content: `${theme.dropdown.content} overflow-y-auto max-h-48 px-5 py-1`,
-          },
-        },
-      }}
-    >
-      <Dropdown label={initialCount} inline={true} size="sm">
-        {Array.from({ length: limit + 1 }, (_, index) => index + 1).map((i) => {
-          return (
-            <Dropdown.Item key={i} onClick={() => onSelect(i)}>
+    <div className="w-full sm:w-24">
+      <Select onValueChange={onSelect} defaultValue={initialCount.toString()}>
+        <SelectTrigger className="border-ink px-5 py-1 h-auto">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent className="max-h-48">
+          {Array.from({ length: limit + 1 }, (_, index) => index + 1).map((i) => (
+            <SelectItem key={i} value={i.toString()}>
               {i}
-            </Dropdown.Item>
-          );
-        })}
-      </Dropdown>
-    </Flowbite>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

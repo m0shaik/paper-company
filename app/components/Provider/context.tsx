@@ -3,7 +3,6 @@ import React, { useCallback, useMemo } from "react";
 export interface State {
   displaySidebar: boolean;
   displayNotPremiumModal: boolean;
-  displayLoginModal: boolean;
   displayBackInStockModal: boolean;
   sidebarView: string;
 }
@@ -11,7 +10,6 @@ export interface State {
 const initialState = {
   displaySidebar: false,
   displayNotPremiumModal: false,
-  displayLoginModal: false,
   displayBackInStockModal: false,
   sidebarView: "CART_VIEW",
 };
@@ -25,8 +23,6 @@ type Action =
     }
   | { type: "OPEN_NOT_PREMIUM_MODAL" }
   | { type: "CLOSE_NOT_PREMIUM_MODAL" }
-  | { type: "OPEN_LOGIN_MODAL" }
-  | { type: "CLOSE_LOGIN_MODAL" }
   | { type: "OPEN_BACK_IN_STOCK_MODAL" }
   | { type: "CLOSE_BACK_IN_STOCK_MODAL" };
 
@@ -66,18 +62,6 @@ function uiReducer(state: State, action: Action) {
       return {
         ...state,
         displayNotPremiumModal: false,
-      };
-    }
-    case "OPEN_LOGIN_MODAL": {
-      return {
-        ...state,
-        displayLoginModal: true,
-      };
-    }
-    case "CLOSE_LOGIN_MODAL": {
-      return {
-        ...state,
-        displayLoginModal: false,
       };
     }
     case "OPEN_BACK_IN_STOCK_MODAL": {
@@ -132,14 +116,6 @@ export const UIProvider = (props: any) => {
     [dispatch]
   );
 
-  const openModalLogin = useCallback(
-    () => dispatch({ type: "OPEN_LOGIN_MODAL" }),
-    [dispatch]
-  );
-  const closeModalLogin = useCallback(
-    () => dispatch({ type: "CLOSE_LOGIN_MODAL" }),
-    [dispatch]
-  );
 
   const openModalBackInStock = useCallback(
     () => dispatch({ type: "OPEN_BACK_IN_STOCK_MODAL" }),
@@ -160,19 +136,15 @@ export const UIProvider = (props: any) => {
       setSidebarView,
       openModalNotPremium,
       closeModalNotPremium,
-      openModalLogin,
-      closeModalLogin,
       openModalBackInStock,
       closeModalBackInStock,
     }),
     [
       closeModalBackInStock,
-      closeModalLogin,
       closeModalNotPremium,
       closeSidebar,
       closeSidebarIfPresent,
       openModalBackInStock,
-      openModalLogin,
       openModalNotPremium,
       openSidebar,
       setSidebarView,

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Badge } from "flowbite-react";
 import { Counter } from "../Counter/Counter";
 import { Price } from "../Price/Price";
 
@@ -167,7 +166,9 @@ export function TicketsTable({
                     </>
                   )}
                   {ticket.limitPerCheckout! === 0 && (
-                    <Badge color="gray">Sold Out</Badge>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      Sold Out
+                    </span>
                   )}
                 </div>
               )}
@@ -226,7 +227,9 @@ export function TicketsTable({
                           />
                         </>
                       ) : (
-                        <Badge color="gray">Sold Out</Badge>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                          Sold Out
+                        </span>
                       )}
                     </div>
                   </div>

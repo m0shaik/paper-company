@@ -65,9 +65,9 @@ export const CartItem = ({
   const slug = item.url?.split("/").pop() ?? "";
 
   return (
-    <li className="flex flex-col py-4" {...rest}>
+    <li className="flex flex-col py-4 border-b border-border last:border-b-0" {...rest}>
       <div className="flex flex-row gap-4 py-4">
-        <div className="w-20 h-20 bg-violet relative overflow-hidden z-0">
+        <div className="w-20 h-20 bg-base-100 relative overflow-hidden z-0 rounded-base">
           {slug ? (
             <Link href={`/product-page/${slug}`}>
               <div onClick={() => closeSidebarIfPresent()}>
@@ -87,20 +87,20 @@ export const CartItem = ({
           )}
         </div>
         <div className="flex-1">
-          <div className="flex-1 flex flex-col text-base">
+          <div className="flex-1 flex flex-col text-base font-body">
             {slug ? (
               <Link href={`/product-page/${slug}`}>
-                <span className="cursor-pointer pb-1 text-gray-500">
+                <span className="cursor-pointer pb-1 text-base-600 hover:text-ink font-body">
                   {item.productName?.original}
                 </span>
               </Link>
             ) : (
-              <span className="pb-1 text-gray-500">
+              <span className="pb-1 text-base-600 font-body">
                 {item.productName?.original}
               </span>
             )}
           </div>
-          <span>{price}</span>
+          <span className="font-semibold text-primary-600 font-body">{price}</span>
           {!hideButtons && (
             <div className="mt-3">
               <Quantity
@@ -114,7 +114,7 @@ export const CartItem = ({
           )}
         </div>
         {!hideButtons && (
-          <button className="flex" onClick={() => handleRemove()}>
+          <button className="flex text-base-500 hover:text-red-500 transition-colors" onClick={() => handleRemove()}>
             <svg
               fill="none"
               className="w-4 h-4"

@@ -6,13 +6,8 @@ const Logo = () => (
     href={HOME_ROUTE}
     className="flex md:justify-start md:items-center gap-2 md:px-8 max-md:pt-6"
   >
-    <div className="relative">
-      <span className="absolute md:right-1/4 md:bottom-3/4 max-md:left-1/2 max-md:-top-1/2 italic">
-        Chef
-      </span>
-    </div>
-    <h5 className="relative text-base-200 italic font-bold text-2xl">
-      <span className="text-3xl italic font-bold">M</span>ichael Bolan<u>o</u>
+    <h5 className="relative text-ink font-bold text-2xl font-display">
+      The Paper Company
     </h5>
   </Link>
 );

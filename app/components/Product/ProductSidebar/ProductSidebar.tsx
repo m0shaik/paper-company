@@ -1,7 +1,6 @@
 "use client";
 import { FC, useEffect, useMemo, useState } from "react";
 import { ProductOptions } from "../ProductOptions/ProductOptions";
-import { Accordion, Flowbite } from "flowbite-react";
 import { selectDefaultOptionFromProduct } from "../ProductOptions/helpers";
 import { useUI } from "../../Provider/context";
 import { useAddItemToCart } from "@/app/hooks/useAddItemToCart";
@@ -37,6 +36,14 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedVariant, setSelectedVariant] = useState<Variant>({});
   const [selectedOptions, setSelectedOptions] = useState<any>({});
+  const [openPanels, setOpenPanels] = useState<Record<string, boolean>>({});
+
+  const togglePanel = (panelId: string) => {
+    setOpenPanels(prev => ({
+      ...prev,
+      [panelId]: !prev[panelId]
+    }));
+  };
 
   const price = usePrice({
     amount: selectedVariant?.variant?.priceData?.price || product.price!.price!,
@@ -101,11 +108,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         : ""
       }`;
   }, [selectedOptions, selectedVariant, product._id, quantity]);
-  const flowBiteCss = `
-    p {
-        font-weight: 400;
-    }
-`;
+
   return (
     <>
       <ProductTag
@@ -172,43 +175,31 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         </div>
       ) : null}
       <div className="mt-6">
-        <style>{flowBiteCss}</style>
-        <Flowbite
-          theme={{
-            theme: {
-              accordion: {
-                content: {
-                  base: "bg-transparent p-5 font-body text-gray-800",
-                },
-                title: {
-                  heading: "text-black",
-                  arrow: {
-                    base: "text-black",
-                  },
-                  open: {
-                    on: "bg-gray-100",
-                  },
-                },
-              },
-            },
-          }}
-        >
-          <Accordion flush={true} arrowIcon={HiArrowDown}>
-            {product.additionalInfoSections!.map((info) => (
-              <Accordion.Panel key={info.title}>
-                <Accordion.Title>
-                  <span className="text-sm">{info.title}</span>
-                </Accordion.Title>
-                <Accordion.Content>
+        <div className="space-y-1">
+          {product.additionalInfoSections!.map((info) => (
+            <div key={info.title} className="border-b border-gray-200">
+              <button
+                onClick={() => togglePanel(info.title!)}
+                className="w-full flex justify-between items-center py-4 text-left hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-sm font-medium text-black font-body">{info.title}</span>
+                <HiArrowDown
+                  className={`text-black transition-transform duration-200 ${
+                    openPanels[info.title!] ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openPanels[info.title!] && (
+                <div className="bg-transparent p-5 font-body text-gray-800">
                   <span
                     className="text-sm"
                     dangerouslySetInnerHTML={{ __html: info.description ?? "" }}
                   />
-                </Accordion.Content>
-              </Accordion.Panel>
-            ))}
-          </Accordion>
-        </Flowbite>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

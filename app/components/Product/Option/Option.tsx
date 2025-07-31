@@ -1,5 +1,11 @@
-import { Dropdown, Flowbite, useTheme } from "flowbite-react";
 import { ProductOption } from '@/app/model/store/store-api';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export function Option({
                          onChange,
@@ -13,32 +19,21 @@ export function Option({
   const onSelect = (optionSelected: string) => {
     onChange({ [option.name!]: optionSelected });
   };
-  const { theme } = useTheme();
 
   return (
-    <Flowbite
-      theme={{
-        theme: {
-          dropdown: {
-            floating: {
-              target: "w-full",
-              base: `!w-full !left-0 ${theme.dropdown.floating.base}`,
-            },
-            inlineWrapper: `${theme.dropdown.inlineWrapper} border border-gray-300 bg-white px-2 py-1 justify-between w-full text-sm`,
-            content: `${theme.dropdown.content} overflow-y-auto max-h-48 py-1 text-sm w-full`,
-          },
-        },
-      }}
-    >
-      <Dropdown label={selectedOption || "Select"} inline={true} size="sm">
+    <Select value={selectedOption || ""} onValueChange={onSelect}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select" />
+      </SelectTrigger>
+      <SelectContent>
         {option.choices!.map(({ value }) => {
           return (
-            <Dropdown.Item key={value} onClick={() => onSelect(value!)}>
+            <SelectItem key={value} value={value!}>
               {value}
-            </Dropdown.Item>
+            </SelectItem>
           );
         })}
-      </Dropdown>
-    </Flowbite>
+      </SelectContent>
+    </Select>
   );
 }

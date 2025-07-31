@@ -1,43 +1,22 @@
 import React from "react";
-import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="relative mx-auto w-full">
-      <div className="lg:h-screen grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="relative max-md:h-64 md:h-96 lg:h-screen lg:order-1 order-2">
-          <Image
-            src="/images/chef.jpeg"
-            alt="Chef"
-            objectFit="cover"
-            objectPosition="right"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw"
-            priority
-          />
+    <section className="border-2 border-border p-8 bg-paper">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="border border-border h-64 bg-base-100 flex items-center justify-center rounded-base">
+          <span className="text-base-500 font-body">Image Placeholder</span>
         </div>
-        <div className="flex md:justify-cente md:p-6 py-6 lg:order-2 order-1 font-body">
-          <div className="h-full flex flex-col justify-center items-start md:px-10 px-5">
-            <div className="flex flex-col h-3/4 py-5 justify-between items-start">
-              <div className="md:text-center">
-                <h2 className="font-thin text-4xl md:text-5xl">
-                  Meet The Chef
-                </h2>
-              </div>
-              <p className="font-light text-3xl h-3 border-b-2 border-t-2 border-black w-16" />
-              <p className="lg:w-1/2 text-sm font-light text-gray-600 mb-5 leading-6 tracking-widest">
-                I&apos;m a paragraph. Click here to add your own text and edit
-                me. It&rsquo;s easy. Just click &ldquo;Edit Text&rdquo; or
-                double click me to add your own content and make changes to the
-                font. Feel free to drag and drop me anywhere you like on your
-                page. I&rsquo;m a great place for you to tell a story and let
-                your users know a little more about you.
-              </p>
-              <p className="text-gray-600 mt-4 my-10 justify-self-end font-light tracking-wide">
-                Tel: 123-456-7890 | Email: info@mysite.com
-              </p>
-            </div>
-          </div>
+        <div className="p-4">
+          <h2 className="text-3xl font-bold mb-4 text-ink font-display">About Us</h2>
+          <p className="text-base-600 mb-4 leading-relaxed font-body">
+            We are your trusted destination for premium products across all categories. 
+            With years of experience in retail excellence, we pride ourselves 
+            on delivering exceptional quality and outstanding customer service.
+          </p>
+          <p className="text-base-600 font-body">
+            Tel: 123-456-7890 | Email: info@premiumstore.com
+          </p>
         </div>
       </div>
     </section>

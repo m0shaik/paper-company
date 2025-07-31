@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import type { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import { CartBag } from "@/app/components/CartBag/CartBag";
-import { Login } from "@/app/components/Login/Login";
 import { useUI } from "@/app/components/Provider/context";
 import {
   HOME_ROUTE,
@@ -26,8 +25,8 @@ const StyledNavLink = ({
 }) => (
   <NavLink
     className={`${className ?? ""} ${
-      isActive ? "text-base-500" : "hover:text-gray-400"
-    }`}
+      isActive ? "text-primary-600" : "text-ink hover:text-primary-500"
+    } font-body`}
     {...linkProps}
   />
 );
@@ -63,20 +62,20 @@ export function NavBar() {
 
   return (
     <div>
-      <nav className="py-4 justify-between items-center bg-white flex">
+      <nav className="py-4 justify-between items-center bg-paper flex">
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className={`relative flex items-center rounded-md focus:outline-none border border-black overflow-hidden z-[51] ${
+            className={`relative flex items-center rounded-base focus:outline-none border border-ink overflow-hidden z-[51] ${
               isMenuOpen ? "border-none" : ""
             }`}
             aria-controls="primary-navigation"
             style={{ WebkitTapHighlightColor: "rgba(0, 0, 0, 0.1)" }}
           >
             <svg
-              stroke="black"
+              stroke="currentColor"
               fill="none"
-              className={`w-12 h-12 transition-all duration-[350ms] ${
+              className={`w-12 h-12 transition-all duration-[350ms] text-ink ${
                 isMenuOpen ? "translate-x-[3px] -translate-y-[1px] rotate-45" : ""
               }`}
               viewBox="-10 -10 120 120"
@@ -97,7 +96,7 @@ export function NavBar() {
           {navbarMainItems.map(({ ref, label }) => (
             <li key={ref} className="relative pl-4">
               <StyledNavLink
-                className="text-lg font-bold"
+                className="text-lg font-bold font-body"
                 isActive={ref === linkRef}
                 href={ref}
                 onClick={() => {
@@ -113,7 +112,7 @@ export function NavBar() {
 
       <div className={`relative z-50 ${isMenuOpen ? "visible" : "invisible"}`}>
         <nav
-          className={`fixed top-0 bottom-0 flex flex-col w-screen py-6 px-6 bg-white border-r overflow-y-auto
+          className={`fixed top-0 bottom-0 flex flex-col w-screen py-6 px-6 bg-paper border-r border-border overflow-y-auto
                     ${
                       isMenuOpen
                         ? "left-0 opacity-100"
@@ -123,7 +122,7 @@ export function NavBar() {
           <ul className="my-10 flex flex-col items-center gap-8 justify-end">
             <li key={HOME_ROUTE} className="relative">
               <StyledNavLink
-                className="text-2xl font-bold"
+                className="text-2xl font-bold font-display"
                 isActive={HOME_ROUTE === linkRef}
                 href={HOME_ROUTE}
                 onClick={() => {
@@ -136,7 +135,7 @@ export function NavBar() {
             {navbarMainItems.map(({ ref, label }) => (
               <li key={ref} className="relative">
                 <StyledNavLink
-                  className="text-2xl font-bold"
+                  className="text-2xl font-bold font-display"
                   isActive={ref === linkRef}
                   href={ref}
                   onClick={() => {
@@ -149,9 +148,6 @@ export function NavBar() {
             ))}
             <li className="relative mt-20">
               <CartBag />
-            </li>
-            <li className="relative text-xl bg-base-200 text-white rounded-md p-2">
-              <Login />
             </li>
           </ul>
         </nav>
