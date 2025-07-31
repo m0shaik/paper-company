@@ -24,7 +24,7 @@ const StyledNavLink = ({
   className?: string;
 }) => (
   <NavLink
-    className={`${className ?? ""} ${isActive ? "bg-base-600 px-4 py-2 rounded-md" : "text-ink hover:text-primary-500"
+    className={`${className ?? ""} ${isActive ? "text-primary-500" : "text-ink hover:text-primary-500"
       } voice-2l`}
     {...linkProps}
   />

@@ -1,6 +1,7 @@
 import { CartBag } from "../CartBag/CartBag";
 import { NavBar } from "./NavBar/NavBar";
 import Logo from "@/app/components/Layout/Logo/Logo";
+import Link from "next/link";
 
 const Header = () => (
   <header className="w-full border-b border-border bg-base-900">
@@ -10,7 +11,9 @@ const Header = () => (
           <NavBar />
         </div>
         <div className="flex-1 flex justify-center">
-          <h1 className="voice-2l">The Paper Company</h1>
+          <Link href="/" className="voice-2l hover:opacity-80 transition-opacity">
+            The Paper Company
+          </Link>
         </div>
         <div className="flex-1 flex justify-end">
           <CartBag />
