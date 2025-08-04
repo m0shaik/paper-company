@@ -5,7 +5,6 @@ import { selectDefaultOptionFromProduct } from "../ProductOptions/helpers";
 import { useUI } from "../../Provider/context";
 import { useAddItemToCart } from "@/app/hooks/useAddItemToCart";
 import { HiArrowDown } from "react-icons/hi";
-import { Quantity } from "../../Quantity/Quantity";
 import { ProductTag } from "../ProductTag/ProductTag";
 import { usePrice } from "@/app/hooks/usePrice";
 import Link from "next/link";
@@ -37,6 +36,9 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   const [selectedVariant, setSelectedVariant] = useState<Variant>({});
   const [selectedOptions, setSelectedOptions] = useState<any>({});
   const [openPanels, setOpenPanels] = useState<Record<string, boolean>>({});
+  const [height, setHeight] = useState<string>("");
+  const [width, setWidth] = useState<string>("");
+  const [dimensionError, setDimensionError] = useState<string>("");
 
   const togglePanel = (panelId: string) => {
     setOpenPanels(prev => ({
@@ -69,6 +71,32 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
     selectDefaultOptionFromProduct(product, setSelectedOptions);
   }, [product]);
 
+  const squareFootage = useMemo(() => {
+    const h = parseFloat(height);
+    const w = parseFloat(width);
+    if (!isNaN(h) && !isNaN(w) && h > 0 && w > 0) {
+      return h * w;
+    }
+    return 0;
+  }, [height, width]);
+
+  const calculatedQuantity = useMemo(() => {
+    return Math.ceil(squareFootage);
+  }, [squareFootage]);
+
+  const validateDimensions = () => {
+    if (!height || !width) {
+      setDimensionError("Please enter both height and width");
+      return false;
+    }
+    if (parseFloat(height) <= 0 || parseFloat(width) <= 0) {
+      setDimensionError("Dimensions must be greater than 0");
+      return false;
+    }
+    setDimensionError("");
+    return true;
+  };
+
   const isAvailableForPurchase = useMemo(() => {
     if (!product.manageVariants && product.stock?.inStock) {
       return true;
@@ -81,15 +109,29 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   }, [selectedVariant, product]);
 
   const addToCart = async () => {
+    if (!validateDimensions()) {
+      return;
+    }
+    
     setLoading(true);
     try {
       await addItem({
-        quantity,
+        quantity: calculatedQuantity,
         catalogReference: {
           catalogItemId: product._id!,
           appId: STORES_APP_ID,
           ...createProductOptions(selectedOptions, selectedVariant),
         },
+        descriptionLines: [
+          {
+            name: {
+              original: `Custom Dimensions: ${height} ft × ${width} ft = ${squareFootage.toFixed(2)} sq ft`
+            },
+            plainText: {
+              original: `Height: ${height} ft | Width: ${width} ft | Total Area: ${squareFootage.toFixed(2)} sq ft`
+            }
+          }
+        ]
       });
       setLoading(false);
       openSidebar();
@@ -115,6 +157,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         name={product.name!}
         price={price}
         sku={product.sku ?? undefined}
+        priceUnit="per sq ft"
       />
       <div className="mt-2">
         <ProductOptions
@@ -125,30 +168,76 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
       </div>
       <div className="mb-6">
         <span className="text-xs tracking-wide font-body font-normal">
-          Quantity
+          Dimensions (in feet)
         </span>
-        <div className="mt-2">
-          <Quantity
-            value={quantity}
-            max={
-              (selectedVariant?.stock?.trackQuantity
-                ? selectedVariant?.stock?.quantity
-                : product.stock?.quantity!) ?? 9999
-            }
-            handleChange={(e) => setQuantity(Number(e.target.value))}
-            increase={() => setQuantity(1 + quantity)}
-            decrease={() => setQuantity(quantity - 1)}
-          />
+        <div className="mt-2 grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="height" className="text-xs text-gray-600 mb-1 block">
+              Height (ft)
+            </label>
+            <input
+              type="number"
+              id="height"
+              value={height}
+              onChange={(e) => {
+                setHeight(e.target.value);
+                if (dimensionError) setDimensionError("");
+              }}
+              placeholder="Enter height"
+              min="0"
+              step="0.1"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                dimensionError && !height ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
+              }`}
+            />
+          </div>
+          <div>
+            <label htmlFor="width" className="text-xs text-gray-600 mb-1 block">
+              Width (ft)
+            </label>
+            <input
+              type="number"
+              id="width"
+              value={width}
+              onChange={(e) => {
+                setWidth(e.target.value);
+                if (dimensionError) setDimensionError("");
+              }}
+              placeholder="Enter width"
+              min="0"
+              step="0.1"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                dimensionError && !width ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
+              }`}
+            />
+          </div>
         </div>
+        {dimensionError && (
+          <div className="mt-2 text-sm text-red-600">
+            {dimensionError}
+          </div>
+        )}
+        {squareFootage > 0 && (
+          <div className="mt-3 p-3 bg-gray-50 rounded-md">
+            <p className="text-sm font-medium">
+              Total: {squareFootage.toFixed(2)} sq ft
+            </p>
+            <p className="text-xs text-gray-600 mt-1">
+              Quantity to add: {calculatedQuantity} sq ft (rounded up)
+            </p>
+          </div>
+        )}
       </div>
       {isAvailableForPurchase ? (
         <div>
           <button
             aria-label="Add to Cart"
-            className="btn-main w-full my-1 font-body font-normal"
+            className={`btn-main w-full my-1 font-body font-normal ${
+              (!height || !width || squareFootage === 0) ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
             type="button"
             onClick={addToCart}
-            disabled={loading}
+            disabled={loading || !height || !width || squareFootage === 0}
           >
             Add to Cart
           </button>

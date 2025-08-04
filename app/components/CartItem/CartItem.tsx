@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from 'next/image';
 import { media } from "@wix/sdk";
 import { useUI } from "../Provider/context";
-import { Quantity } from "../Quantity/Quantity";
+import { QuantityAsUnitArea } from "../QuantityAsUnitArea/QuantityAsUnitArea";
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
 import { LineItem } from '@/app/model/ecom/ecom-api';
 import { usePrice } from '@/app/hooks/usePrice';
@@ -27,9 +27,15 @@ export const CartItem = ({
   const removeItem = useRemoveItemFromCart();
   const updateCartMutation = useUpdateCart();
 
-  const price = usePrice({
+  const totalPrice = usePrice({
     amount: Number.parseFloat(item.price?.amount!) * item.quantity!,
     baseAmount: Number.parseFloat(item.price?.amount!) * item.quantity!,
+    currencyCode,
+  });
+
+  const perSqFtPrice = usePrice({
+    amount: Number.parseFloat(item.price?.amount!),
+    baseAmount: Number.parseFloat(item.price?.amount!),
     currencyCode,
   });
 
@@ -100,15 +106,53 @@ export const CartItem = ({
               </span>
             )}
           </div>
-          <span className="font-semibold text-primary-600 font-body">{price}</span>
+          {/* Product Options/Variants Display - Clean format */}
+          {item.catalogReference?.options && typeof item.catalogReference.options === 'object' && 'options' in item.catalogReference.options && (
+            <div className="mt-1 space-y-0.5">
+              {Object.entries(item.catalogReference.options.options as Record<string, string>).map(([key, value]) => (
+                <div key={key} className="text-sm text-gray-600">
+                  <span className="font-medium text-gray-800">{key}:</span> <span>{value}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {/* Dimensions from descriptionLines - only if they contain custom dimensions */}
+          {item.descriptionLines && item.descriptionLines.length > 0 && (
+            <div className="mt-2">
+              {item.descriptionLines.map((line, index) => (
+                <div key={index}>
+                  {line.name?.original?.includes('Custom Dimensions') && (
+                    <div className="text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded">
+                      <span className="font-medium text-gray-800">{line.name.original}</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Clean pricing display */}
+          <div className="mt-3 space-y-1 font-body">
+            <div className="text-sm text-gray-600">
+              <span className="font-bold text-gray-900">{perSqFtPrice}</span> <span className="text-xs">per sq ft</span>
+            </div>
+            <div className="text-sm text-gray-600">
+              <span className="font-bold text-gray-900">{item.quantity} sq ft</span> <span className="text-xs">total area</span>
+            </div>
+            <div className="text-lg font-bold text-primary-600 border-t border-gray-200 pt-2 mt-2">
+              {totalPrice}
+            </div>
+          </div>
           {!hideButtons && (
             <div className="mt-3">
-              <Quantity
+              <QuantityAsUnitArea
                 size="sm"
                 value={quantity}
                 handleChange={handleChange}
                 increase={() => increaseQuantity(1)}
                 decrease={() => increaseQuantity(-1)}
+                unit="sq ft"
               />
             </div>
           )}

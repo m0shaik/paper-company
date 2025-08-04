@@ -2,9 +2,10 @@ interface ProductTagProps {
   name: string;
   price: string;
   sku?: string;
+  priceUnit?: string;
 }
 
-export const ProductTag: React.FC<ProductTagProps> = ({ name, price, sku }) => {
+export const ProductTag: React.FC<ProductTagProps> = ({ name, price, sku, priceUnit }) => {
   return (
     <>
       {sku && (
@@ -14,7 +15,7 @@ export const ProductTag: React.FC<ProductTagProps> = ({ name, price, sku }) => {
         {name}
       </h2>
       <p className="text-md font-bold inline-block tracking-wide py-1 font-body text-primary-600">
-        {price}
+        {price}{priceUnit && ` ${priceUnit}`}
       </p>
     </>
   );
