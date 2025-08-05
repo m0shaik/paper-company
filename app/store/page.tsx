@@ -11,7 +11,7 @@ import {
 } from "@/app/components/Skeletons/Skeletons";
 import { queryCollections, queryProducts } from "@/app/model/store/store-api";
 import type { Product, Collection } from "@/app/model/store/store-api"
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -77,12 +77,12 @@ export async function StoresCategory({ params }: any) {
     collections = await queryCollections();
     console.log("Available collections:", collections.map(c => ({ name: c.name, slug: c.slug, id: c._id })));
     console.log("Looking for category:", params?.category);
-    
+
     collectionId = collections.find(({ slug }) => slug === params?.category)
       ?._id!;
-    
+
     console.log("Found collectionId:", collectionId);
-    
+
     if (collectionId) {
       items = await queryProducts({
         limit: 10,
@@ -120,9 +120,9 @@ export async function StoresCategory({ params }: any) {
         <div className="text-3xl w-full text-center p-9 box-borderbox-border max-w-4xl mx-auto">
           {params?.category ? (
             <>
-              No products found in category "{params.category}". 
-              {collections.find(c => c.slug === params.category) ? 
-                " This category exists but has no products." : 
+              No products found in category "{params.category}".
+              {collections.find(c => c.slug === params.category) ?
+                " This category exists but has no products." :
                 " This category does not exist."
               }
               <br />

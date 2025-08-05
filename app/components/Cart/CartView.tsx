@@ -1,5 +1,5 @@
 "use client";
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import { CartItem } from "../CartItem/CartItem";
 import { useUI } from "../Provider/context";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { usePrice } from '@/app/hooks/usePrice';
 import { createCheckoutFromCurrentCart } from '@/app/model/ecom/ecom-api';
 import { createRedirectSession } from '@/app/model/redirect/redirect-api';
 import { useCart } from '@/app/hooks/useCart';
+import { Button } from "@/components/ui/button";
 
 export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
   const { closeSidebar, openModalNotPremium } = useUI();
@@ -42,7 +43,8 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
             postFlowUrl: window.location.origin,
             thankYouPageUrl: `${window.location.origin}/stores-success`,
             cartPageUrl: `${window.location.origin}/cart`,
-          }, });
+          },
+        });
       window.location.href = redirectSession!.fullUrl!;
     } catch (e: any) {
       if (
@@ -63,10 +65,12 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
           <div className="flex-1">
             <div className="relative">
               {isMini ? (
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={handleClose}
                   aria-label="Close"
-                  className="hover:text-primary-600 absolute transition ease-in-out duration-fast focus:outline-none mr-6 top-8"
+                  className="hover:text-primary-600 absolute transition ease-in-out duration-fast focus:outline-none mr-6 top-8 w-auto h-auto p-1"
                 >
                   <svg
                     className="w-6 h-6 text-paper ml-6"
@@ -83,12 +87,11 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
                       d="M8.25 4.5l7.5 7.5-7.5 7.5"
                     ></path>
                   </svg>
-                </button>
+                </Button>
               ) : null}
               <span
-                className={`font-bold text-2xl text-center block p-6 font-display ${
-                  isMini ? "bg-base-950 text-paper" : "text-ink"
-                }`}
+                className={`font-bold text-2xl text-center block p-6 font-display ${isMini ? "bg-base-950 text-paper" : "text-ink"
+                  }`}
               >
                 Cart
               </span>
@@ -112,13 +115,13 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
               </li>
             </ul>
             <div>
-              <button
+              <Button
                 className="btn-main w-full text-lg"
                 onClick={goToCheckout}
                 disabled={redirecting}
               >
                 Proceed to Checkout
-              </button>
+              </Button>
             </div>
           </div>
         </div>

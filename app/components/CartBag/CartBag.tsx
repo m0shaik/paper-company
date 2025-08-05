@@ -1,18 +1,31 @@
 "use client";
 import { useUI } from "../Provider/context";
 import { Order } from "@wix/wix-ui-icons-common";
+import { Button } from "@/components/ui/button";
 
-export const CartBag = () => {
+interface CartBagProps {
+  isScrolled?: boolean;
+  isStorePage?: boolean;
+}
+
+export const CartBag = ({ isScrolled = false, isStorePage = false }: CartBagProps) => {
   const { setSidebarView, toggleSidebar } = useUI();
   const itemsCount = 0;
 
   return (
-    <button
+    <Button
+      variant="ghost"
+      size="icon"
       onClick={() => {
         setSidebarView("CART_VIEW");
         toggleSidebar();
       }}
-      className="flex relative text-ink hover:text-primary-600 transition-colors"
+      className={`flex relative transition-all duration-300 w-auto h-auto p-1 ${isStorePage
+          ? 'text-ink hover:text-primary-500'
+          : isScrolled
+            ? 'text-paper hover:opacity-80'
+            : 'text-ink hover:text-primary-500'
+        }`}
       aria-label={`Cart items: ${itemsCount}`}
     >
       <Order size="24" stroke={"currentColor"} />
@@ -21,6 +34,6 @@ export const CartBag = () => {
           {itemsCount}
         </span>
       )}
-    </button>
+    </Button>
   );
 };

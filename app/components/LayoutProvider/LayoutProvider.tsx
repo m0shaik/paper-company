@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { navbarMainItems } from "@/app/components/Layout/NavBar/NavBar";
-import { HOME_ROUTE } from "@/app/routes";
+import { HOME_ROUTE, STORE_ROUTE } from "@/app/routes";
 
 export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -31,16 +30,13 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   }, [pathname]);
 
   if (
-    navbarMainItems.some(
-      (item) => pathname === item.ref || pathname.includes("store/category/")
-    )
+    pathname === STORE_ROUTE || pathname.includes("store/category/")
   ) {
     return (
       <div className="container mx-auto">
         <div className="md:mx-[6.875rem] pb-8 text-center">
           <div className={`${description ? "mb-12" : "mb-10"}`}>
-            <h3 className="inner-page-title pb-0 m-0">{title}</h3>
-            <hr className="h-0.5 bg-gray-700 border-0 m-0 p-0" />
+            {/* Spacing div to maintain layout without title/underline */}
           </div>
           {description && (
             <div className="md:mx-[6.875rem] mb-10">

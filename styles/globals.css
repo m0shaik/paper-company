@@ -78,7 +78,7 @@
     --base-h: 0;
     --base-s: 4%;
 
-    --primary-h: 280;
+    --primary-h: 350;
     --primary-s: 94%;
 
     --secondary-h: 24;
@@ -154,7 +154,7 @@
     --accent-900: hsla(var(--accent-h), var(--accent-s), 90%, 1);
     --accent-950: hsla(var(--accent-h), var(--accent-s), 95%, 1);
 
-    --paper: var(--accent-950);
+    --paper: var(--base-950);
     --ink: var(--base-100);
   }
 }
@@ -169,17 +169,7 @@ body {
 }
 
 @layer components {
-  .btn-main {
-    @apply border border-base-400 px-4 py-2 bg-paper text-ink font-body;
-  }
 
-  .btn-main:hover {
-    @apply bg-base-100;
-  }
-
-  .btn-main:disabled {
-    @apply bg-base-200 text-base-500 cursor-not-allowed;
-  }
 
   .title {
     @apply text-3xl font-bold font-display;

@@ -3,9 +3,10 @@ import HeroSection from "@/app/components/HomePage/Hero/Hero";
 import AboutSection from "@/app/components/HomePage/About/About";
 import MenuSection from "@/app/components/HomePage/Menu/Menu";
 import Testimonies from "@/app/components/HomePage/Testimonies/Testimonies";
-import HomeGallery from "@/app/components/HomePage/HomeGallery/HomeGallery";
+
 import FeaturedMenuCard from "@/app/components/MenuCard/FeaturedMenuCard";
 import { StoreSection } from "@/app/components/HomePage/StoreSection/StoreSection";
+import { HomeGallery } from "@/app/components/HomePage/HomeGallery/HomeGallery";
 
 const galleryImages = [
   {
@@ -43,6 +44,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center">
       <HeroSection />
       <StoreSection />
+      <HomeGallery />
       {/* ... rest of your components ... */}
     </main>
   );

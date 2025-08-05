@@ -14,7 +14,7 @@ export const ProductTag: React.FC<ProductTagProps> = ({ name, price, sku, priceU
       <h2 className="max-w-full w-full leading-extra-loose text-3xl tracking-wide leading-8 py-1 font-normal font-display text-ink">
         {name}
       </h2>
-      <p className="text-md font-bold inline-block tracking-wide py-1 font-body text-primary-600">
+      <p className="text-md font-bold inline-block tracking-wide py-3 font-body text-primary-400">
         {price}{priceUnit && ` ${priceUnit}`}
       </p>
     </>

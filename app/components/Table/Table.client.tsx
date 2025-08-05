@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react";
 import { Counter } from "../Counter/Counter";
 import { Price } from "../Price/Price";
+import { Button } from "@/components/ui/button";
 
 export function TicketsTable({
   tickets,
   event,
 }: {
-  tickets: {_id: string, name: string, description: string, price: number, canPurchase: boolean, limitPerCheckout: number, options: {_id: string, price: number, name: string}[]}[];
-  event: { };
+  tickets: { _id: string, name: string, description: string, price: number, canPurchase: boolean, limitPerCheckout: number, options: { _id: string, price: number, name: string }[] }[];
+  event: {};
 }) {
   const [selectedTickets, setSelectedTickets] = useState<
     Record<string, { quantity: number; price: number }>
@@ -85,7 +86,7 @@ export function TicketsTable({
     );
   }, [selectedTickets]);
 
-  const createReservation = async () => {};
+  const createReservation = async () => { };
 
   return (
     <div className="flex full-w flex-col max-w-[858px] mx-auto">
@@ -110,25 +111,25 @@ export function TicketsTable({
               {ticket.description && (
                 <div className="whitespace-nowrap my-1">
                   <div className="flex justify-between">
-                    <button
-                      className="text-xs text-purple-400 underline"
+                    <Button
+                      variant="link"
+                      className="text-xs text-purple-400 underline p-0 h-auto"
                       onClick={() =>
                         setExpendTicketDescriptionForTicket(ticket._id!)
                       }
                     >
                       {expendTicketDescription[ticket._id!] ? "Less" : "More"}{" "}
                       info
-                    </button>
+                    </Button>
                   </div>
                 </div>
               )}
             </div>
             <div
-              className={`basis-1/2 sm:pl-4 ${
-                ticket.options.length
+              className={`basis-1/2 sm:pl-4 ${ticket.options.length
                   ? ""
                   : "flex flex-col sm:flex-row"
-              }`}
+                }`}
             >
               <div className="basis-1/2 mt-4 sm:mt-0">
                 <Price
@@ -141,9 +142,8 @@ export function TicketsTable({
               </div>
               {!ticket.options.length && (
                 <div
-                  className={`sm:ml-auto mt-4 sm:mt-0 ${
-                    !ticket.canPurchase ? "w-fit" : ""
-                  }`}
+                  className={`sm:ml-auto mt-4 sm:mt-0 ${!ticket.canPurchase ? "w-fit" : ""
+                    }`}
                 >
                   {ticket.canPurchase && (
                     <>
@@ -199,11 +199,10 @@ export function TicketsTable({
                       </span>
                     </div>
                     <div
-                      className={`ml-auto mt-2 sm:mt-0 ${
-                        ticket.limitPerCheckout! > 0
+                      className={`ml-auto mt-2 sm:mt-0 ${ticket.limitPerCheckout! > 0
                           ? "w-full sm:w-fit"
                           : "w-fit"
-                      }`}
+                        }`}
                     >
                       {ticket.limitPerCheckout! > 0 ? (
                         <>
@@ -237,15 +236,16 @@ export function TicketsTable({
               {ticket.options.length! > 3 && (
                 <div className="whitespace-nowrap mt-6">
                   <div className="flex justify-between">
-                    <button
-                      className="text-sm text-purple-400 underline"
+                    <Button
+                      variant="link"
+                      className="text-sm text-purple-400 underline p-0 h-auto"
                       onClick={() =>
                         setExpendPricingOptionsForTicket(ticket._id!)
                       }
                     >
                       View {expendPricingOptions[ticket._id!] ? "less" : "more"}{" "}
                       price options
-                    </button>
+                    </Button>
                   </div>
                 </div>
               )}
@@ -286,7 +286,7 @@ export function TicketsTable({
         </div>
         <div className="mt-6" key="checkout">
           <div className="whitespace-nowrap font-medium">
-            <button
+            <Button
               onClick={createReservation}
               disabled={
                 Object.keys(selectedTickets).length === 0 || redirecting
@@ -294,7 +294,7 @@ export function TicketsTable({
               className="btn-main w-full disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:border-white font-body font-normal"
             >
               Checkout
-            </button>
+            </Button>
           </div>
         </div>
         {error ? (

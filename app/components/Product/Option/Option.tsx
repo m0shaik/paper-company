@@ -5,13 +5,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/app/components/ui/select';
 
 export function Option({
-                         onChange,
-                         option,
-                         selectedOption,
-                       }: {
+  onChange,
+  option,
+  selectedOption,
+}: {
   onChange: Function;
   option: ProductOption;
   selectedOption: string;

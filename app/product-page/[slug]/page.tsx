@@ -52,7 +52,7 @@ export default async function StoresCategoryPage({ params }: any) {
                   }))}
                 />
                 <div
-                  className="pb-4 mx-auto break-words w-full max-w-xl mt-6 font-body font-normal"
+                  className="pb-4 grid gap-2 mx-auto break-words w-full max-w-xl mt-6 font-body font-normal"
                   dangerouslySetInnerHTML={{
                     __html: product.description ?? '',
                   }}

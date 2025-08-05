@@ -8,6 +8,7 @@ import { QuantityAsUnitArea } from "../QuantityAsUnitArea/QuantityAsUnitArea";
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
 import { LineItem } from '@/app/model/ecom/ecom-api';
 import { usePrice } from '@/app/hooks/usePrice';
+import { Button } from "@/components/ui/button";
 import { useUpdateCart } from '@/app/hooks/useUpdateCart';
 import { useRemoveItemFromCart } from '@/app/hooks/useRemoveItemFromCart';
 
@@ -116,7 +117,7 @@ export const CartItem = ({
               ))}
             </div>
           )}
-          
+
           {/* Dimensions from descriptionLines - only if they contain custom dimensions */}
           {item.descriptionLines && item.descriptionLines.length > 0 && (
             <div className="mt-2">
@@ -158,7 +159,12 @@ export const CartItem = ({
           )}
         </div>
         {!hideButtons && (
-          <button className="flex text-base-500 hover:text-red-500 transition-colors" onClick={() => handleRemove()}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="flex text-base-500 hover:text-red-500 transition-colors w-auto h-auto p-1"
+            onClick={() => handleRemove()}
+          >
             <svg
               fill="none"
               className="w-4 h-4"
@@ -174,7 +180,7 @@ export const CartItem = ({
                 d="M6 18L18 6M6 6l12 12"
               ></path>
             </svg>
-          </button>
+          </Button>
         )}
       </div>
     </li>

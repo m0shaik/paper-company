@@ -8,18 +8,25 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      rotate: {
+        "15": "15deg",
+      },
+      backgroundImage: {
+        'noise': "url('https://www.reactbits.dev/assets/noise.png')",
+      },
+
       colors: {
         // Semantic color system
         paper: "var(--paper)",
         ink: "var(--ink)",
         muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
+          DEFAULT: "var(--base-200)",
+          foreground: "var(--base-900)",
         },
         border: "var(--border)",
         background: "var(--background)",
         foreground: "var(--foreground)",
-        
+
         // Design system color palette
         base: {
           50: "var(--base-50)",
@@ -46,7 +53,7 @@ const config: Config = {
           800: "var(--primary-800)",
           900: "var(--primary-900)",
           950: "var(--primary-950)",
-          DEFAULT: "var(--primary-500)",
+          DEFAULT: "var(--primary-800)",
         },
         secondary: {
           50: "var(--secondary-50)",

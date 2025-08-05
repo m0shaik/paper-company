@@ -2,24 +2,45 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => (
-  <footer className="w-full leading-7 text-center border-t border-border bg-paper text-ink pt-8">
-    <h2 className="text-2xl sm:text-xl font-bold font-display">#ThePaperCompany</h2>
-    <p className="mt-4 mb-5 text-xs sm:text-base font-body text-base-700">
-      Tel: 123-456-7890 | Email: info@thepapercompany.ca
-    </p>
-    <Link href="" className="mx-auto block w-fit">
-      <Image
-        alt="back to top arrow"
-        width={44}
-        height={44}
-        src="/back-to-top.png"
-        className="mx-auto"
-      />
-      <span className="font-body text-base-600">Back to Top</span>
-    </Link>
-    <div className="mt-4 h-12 leading-loose bg-base-950 text-center text-base-400 text-sm font-body">
-      © 2024 by The Paper Company. Powered and secured by{" "}
-      <Link href="https://www.wix.com" className="text-primary-400 hover:text-primary-300">Wix</Link>
+  <footer className="w-full bg-paper text-ink">
+    <div className="max-w-[1440px] mx-auto px-4 py-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {/* Customer Service Column */}
+        <div className="text-center">
+          <h3 className="voice-2l mb-4">CUSTOMER SERVICE</h3>
+          <ul className="voice-base space-y-2">
+            <li><Link href="/shipping" className="hover:text-primary-400">Shipping and Returns</Link></li>
+            <li><Link href="/contact" className="hover:text-primary-400">Contact Us</Link></li>
+            <li><Link href="/gift-card" className="hover:text-primary-400">Gift Card</Link></li>
+            <li><Link href="/faq" className="hover:text-primary-400">FAQ</Link></li>
+          </ul>
+        </div>
+
+        {/* Information Column */}
+        <div className="text-center">
+          <h3 className="voice-2l mb-4">INFORMATION</h3>
+          <ul className="voice-base space-y-2">
+            <li><Link href="/about" className="hover:text-primary-400">About Us</Link></li>
+            <li><Link href="/terms" className="hover:text-primary-400">Terms & Conditions</Link></li>
+            <li><Link href="/privacy" className="hover:text-primary-400">Privacy Setting and Policy</Link></li>
+          </ul>
+        </div>
+
+        {/* Follow Us Column */}
+        <div className="text-center">
+          <h3 className="voice-2l mb-4">FOLLOW US</h3>
+          <ul className="voice-base space-y-2">
+            <li><Link href="https://instagram.com" className="hover:text-primary-400">Instagram</Link></li>
+            <li><Link href="https://facebook.com" className="hover:text-primary-400">Facebook</Link></li>
+            <li><Link href="https://tiktok.com" className="hover:text-primary-400">Tiktok</Link></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Copyright Section */}
+    <div className="text-center py-4 border-t border-border">
+      <p className="text-sm">© The Paper Company {new Date().getFullYear()}</p>
     </div>
   </footer>
 );

@@ -10,6 +10,7 @@ import { usePrice } from "@/app/hooks/usePrice";
 import Link from "next/link";
 import { Product, Variant } from '@/app/model/store/store-api';
 import { STORES_APP_ID } from "@/app/constants";
+import { Button } from "@/components/ui/button";
 
 interface ProductSidebarProps {
   product: Product;
@@ -112,7 +113,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
     if (!validateDimensions()) {
       return;
     }
-    
+
     setLoading(true);
     try {
       await addItem({
@@ -146,8 +147,8 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
       selectedVariant
     );
     return `/api/quick-buy/${product._id}?quantity=${quantity}&productOptions=${productOptions
-        ? decodeURIComponent(JSON.stringify(productOptions.options))
-        : ""
+      ? decodeURIComponent(JSON.stringify(productOptions.options))
+      : ""
       }`;
   }, [selectedOptions, selectedVariant, product._id, quantity]);
 
@@ -186,9 +187,8 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
               placeholder="Enter height"
               min="0"
               step="0.1"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                dimensionError && !height ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
-              }`}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${dimensionError && !height ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
+                }`}
             />
           </div>
           <div>
@@ -206,9 +206,8 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
               placeholder="Enter width"
               min="0"
               step="0.1"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                dimensionError && !width ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
-              }`}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${dimensionError && !width ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
+                }`}
             />
           </div>
         </div>
@@ -230,54 +229,55 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
       </div>
       {isAvailableForPurchase ? (
         <div>
-          <button
+          <Button
             aria-label="Add to Cart"
-            className={`btn-main w-full my-1 font-body font-normal ${
-              (!height || !width || squareFootage === 0) ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+            className={`btn-main w-full my-1 font-body font-normal ${(!height || !width || squareFootage === 0) ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             type="button"
             onClick={addToCart}
             disabled={loading || !height || !width || squareFootage === 0}
           >
             Add to Cart
-          </button>
+          </Button>
           <div className="w-full pt-2">
-            <Link
+            <Button
+              asChild
               className="btn-main w-full my-1 block text-center font-body font-normal"
-              href={buyNowLink}
             >
-              Buy Now
-            </Link>
+              <Link href={buyNowLink}>
+                Buy Now
+              </Link>
+            </Button>
           </div>
         </div>
       ) : null}
       {!isAvailableForPurchase ? (
         <div>
-          <button
+          <Button
             aria-label="Not Available"
             className="btn-main w-full my-1 rounded-2xl text-2xl"
             type="button"
             disabled
           >
             No Available
-          </button>
+          </Button>
         </div>
       ) : null}
       <div className="mt-6">
         <div className="space-y-1">
           {product.additionalInfoSections!.map((info) => (
             <div key={info.title} className="border-b border-gray-200">
-              <button
+              <Button
+                variant="ghost"
                 onClick={() => togglePanel(info.title!)}
-                className="w-full flex justify-between items-center py-4 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex justify-between items-center py-4 text-left hover:bg-gray-50 transition-colors h-auto"
               >
                 <span className="text-sm font-medium text-black font-body">{info.title}</span>
                 <HiArrowDown
-                  className={`text-black transition-transform duration-200 ${
-                    openPanels[info.title!] ? 'rotate-180' : ''
-                  }`}
+                  className={`text-black transition-transform duration-200 ${openPanels[info.title!] ? 'rotate-180' : ''
+                    }`}
                 />
-              </button>
+              </Button>
               {openPanels[info.title!] && (
                 <div className="bg-transparent p-5 font-body text-gray-800">
                   <span

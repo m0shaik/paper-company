@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@/components/ui/button";
 interface SwatchProps {
   active?: boolean;
   children?: any;
@@ -17,9 +18,10 @@ const Swatch: React.FC<
   }
 
   return (
-    <button
+    <Button
+      variant="outline"
+      size="icon"
       role="option"
-      color="light"
       className="rounded-full flex items-center justify-center border border-border bg-paper w-5 h-5 p-1 hover:border-primary-400 transition-colors"
       aria-selected={active}
       aria-label={variant && label ? `${variant} ${label}` : "Variant Swatch"}
@@ -46,7 +48,7 @@ const Swatch: React.FC<
         </span>
       )}
       {!color ? label : null}
-    </button>
+    </Button>
   );
 };
 

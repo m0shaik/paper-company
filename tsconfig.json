@@ -25,6 +25,9 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@/components/ui/*": [
+        "./app/components/ui/*"
       ]
     },
     "forceConsistentCasingInFileNames": true

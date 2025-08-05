@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Button } from "@/components/ui/button";
 export interface QuantityProps {
   value: number;
   increase: () => any;
@@ -18,17 +19,15 @@ export const Quantity: FC<QuantityProps> = ({
 }) => {
   return (
     <div
-      className={`${
-        size === "sm" ? "h-7" : "h-9"
-      } flex flex-row relative w-16 border-gray-300 border  bg-white`}
+      className={`${size === "sm" ? "h-7" : "h-9"
+        } flex flex-row relative w-16 border-gray-300 border  bg-white`}
     >
       <label className="w-full">
         <input
-          className={`${
-            size === "sm" ? "text-xs" : "text-sm"
-          } px-2 w-full h-full border-0 focus:outline-none select-none pointer-events-auto`}
+          className={`${size === "sm" ? "text-xs" : "text-sm"
+            } px-2 w-full h-full border-0 focus:outline-none select-none pointer-events-auto`}
           onChange={(e) =>
-            Number(e.target.value) < max + 1 ? handleChange(e) : () => {}
+            Number(e.target.value) < max + 1 ? handleChange(e) : () => { }
           }
           pattern="[0-9]*"
           aria-label="Quantity"
@@ -39,10 +38,12 @@ export const Quantity: FC<QuantityProps> = ({
         />
       </label>
       <div className="absolute right-1 top-[0.1875rem]">
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="icon"
           onClick={increase}
-          className="flex p-0.5 items-center justify-center text-black disabled:text-gray-300"
+          className="flex p-0.5 items-center justify-center text-black disabled:text-gray-300 w-auto h-auto"
           disabled={value < 1 || value >= max}
         >
           <svg
@@ -58,11 +59,13 @@ export const Quantity: FC<QuantityProps> = ({
               d="M4.5 15.75l7.5-7.5 7.5 7.5"
             ></path>
           </svg>
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="ghost"
+          size="icon"
           onClick={decrease}
-          className="flex p-0.5 items-center justify-center text-black disabled:text-gray-500"
+          className="flex p-0.5 items-center justify-center text-black disabled:text-gray-500 w-auto h-auto"
           disabled={value <= 1}
         >
           <svg
@@ -78,7 +81,7 @@ export const Quantity: FC<QuantityProps> = ({
               d="M19.5 8.25l-7.5 7.5-7.5-7.5"
             ></path>
           </svg>
-        </button>
+        </Button>
       </div>
     </div>
   );

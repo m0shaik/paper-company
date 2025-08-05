@@ -4,6 +4,7 @@ import Link from "next/link";
 import { STORE_ROUTE } from "@/app/routes";
 import { ALL_ITEMS_ID } from '@/app/constants';
 import { Collection } from '@/app/model/store/store-api';
+import { Button } from "@/components/ui/button";
 
 export interface ProductCategoriesProps {
   collections: Collection[];
@@ -42,12 +43,11 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
                     data-checked={checked}
                     defaultChecked={false}
                     className="hidden"
-                    onChange={(e) => {}}
+                    onChange={(e) => { }}
                   />
                   <label
-                    className={`cursor-pointer w-full ${
-                      checked ? "text-base-500" : " hover:text-base-500"
-                    } font-madefor`}
+                    className={`cursor-pointer w-full ${checked ? "text-base-500" : " hover:text-base-500"
+                      } font-madefor`}
                     htmlFor={collection._id!}
                   >
                     {collection.name}
@@ -60,7 +60,8 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
 
       <div className="md:hidden mx-auto">
         <div className="relative">
-          <button
+          <Button
+            variant="outline"
             type="button"
             className="inline-flex justify-center items-center px-4 py-2 border border-transparent text-base
                               font-medium rounded-md text-white bg-base-200 focus:outline-none"
@@ -88,7 +89,7 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
                 </svg>
               )}
             </span>
-          </button>
+          </Button>
           {isOpen && (
             <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200">
               {collections.map((collection) => {
@@ -97,9 +98,8 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
                   <Link
                     key={collection._id}
                     href={`${STORE_ROUTE}/category/${collection.slug}`}
-                    className={`block px-4 py-2 text-sm hover:bg-gray-100 ${
-                      checked ? "text-base-500 bg-gray-50" : "text-gray-700"
-                    }`}
+                    className={`block px-4 py-2 text-sm hover:bg-gray-100 ${checked ? "text-base-500 bg-gray-50" : "text-gray-700"
+                      }`}
                     onClick={() => setIsOpen(false)}
                   >
                     {collection.name}

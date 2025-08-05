@@ -1,21 +1,39 @@
 import React from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { STORE_ROUTE } from "@/app/routes";
 
 export default function HeroSection() {
   return (
-    <section
-      className="relative h-[85vh] w-full bg-cover  bg-no-repeat bg-[110%]"
-      style={{
-        backgroundImage: `url('https://static.wixstatic.com/media/0e1e6c_924808d0379d4a9bb8fc6d4acb7b30aa~mv2.jpg/v1/fill/w_1737,h_1031,al_c,q_85,enc_auto/0e1e6c_924808d0379d4a9bb8fc6d4acb7b30aa~mv2.jpg')`,
-      }}
-    >
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto gap-7">
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Video Background */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto gap-7 z-10 text-paper">
         <h2 className="voice-5l italic">Fresh from the Press</h2>
         <p className="voice-lg">
           explore our newest additions added to the collection
         </p>
-        <button className="bg-paper text-ink border border-ink px-8 py-3 uppercase tracking-widest text-sm font-body hover:bg-ink hover:text-paper transition-colors">
-          NEW ARRIVALS
-        </button>
+        <Link href={STORE_ROUTE}>
+          <Button
+            variant="outline"
+            className="bg-paper text-ink border border-ink px-8 py-3 uppercase tracking-widest text-sm font-body hover:bg-ink hover:text-paper transition-colors"
+          >
+            NEW ARRIVALS
+          </Button>
+        </Link>
       </div>
     </section>
   );

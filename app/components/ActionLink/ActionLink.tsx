@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { HOME_ROUTE } from "@/app/routes";
+import { Button } from "@/components/ui/button";
 
 interface ActionLinkaProps {
   href?: string;
@@ -16,11 +17,13 @@ export default function ActionLink({
   position = "start",
 }: ActionLinkaProps) {
   return (
-    <Link
-      href={href}
+    <Button
+      asChild
       className={`btn-main self-${position} max-lg:w-full max-lg:text-center md:mt-2 ${className}`}
     >
-      {children}
-    </Link>
+      <Link href={href}>
+        {children}
+      </Link>
+    </Button>
   );
 }
