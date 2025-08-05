@@ -12,6 +12,7 @@ import {
 import { queryCollections, queryProducts } from "@/app/model/store/store-api";
 import type { Product, Collection } from "@/app/model/store/store-api"
 import { Button } from "@/app/components/ui/button";
+import { PageWrapper } from "@/app/components/Layout/PageWrapper";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -101,60 +102,62 @@ export async function StoresCategory({ params }: any) {
   }
 
   return (
-    <div className="overflow-hidden mx-auto flex md:flex-row flex-col gap-8 max-md:p-5">
-      <ProductCategories
-        collections={collections}
-        selectedCollectionId={collectionId}
-      />
-      {items.length ? (
-        <div className="text-center grow">
-          <ul className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
-            {items.map((item, index) => (
-              <li key={item._id}>
-                <ProductCard item={item} index={index} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <div className="text-3xl w-full text-center p-9 box-borderbox-border max-w-4xl mx-auto">
-          {params?.category ? (
-            <>
-              No products found in category "{params.category}".
-              {collections.find(c => c.slug === params.category) ?
-                " This category exists but has no products." :
-                " This category does not exist."
-              }
-              <br />
-              <Link
-                href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
-                target="_blank"
-                rel="noreferrer"
-                className="text-purple-500"
-              >
-                Click here
-              </Link>{" "}
-              to go to the business dashboard to add products. Once added, they will
-              appear here.
-            </>
-          ) : (
-            <>
-              No products found. Click{" "}
-              <Link
-                href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
-                target="_blank"
-                rel="noreferrer"
-                className="text-purple-500"
-              >
-                here
-              </Link>{" "}
-              to go to the business dashboard to add products. Once added, they will
-              appear here.
-            </>
-          )}
-        </div>
-      )}
-    </div>
+    <PageWrapper>
+      <div className="overflow-hidden flex md:flex-row flex-col gap-8 max-md:py-5">
+        <ProductCategories
+          collections={collections}
+          selectedCollectionId={collectionId}
+        />
+        {items.length ? (
+          <div className="text-center grow">
+            <ul className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
+              {items.map((item, index) => (
+                <li key={item._id}>
+                  <ProductCard item={item} index={index} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className="text-3xl w-full text-center p-9 box-border">
+            {params?.category ? (
+              <>
+                No products found in category "{params.category}".
+                {collections.find(c => c.slug === params.category) ?
+                  " This category exists but has no products." :
+                  " This category does not exist."
+                }
+                <br />
+                <Link
+                  href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-purple-500"
+                >
+                  Click here
+                </Link>{" "}
+                to go to the business dashboard to add products. Once added, they will
+                appear here.
+              </>
+            ) : (
+              <>
+                No products found. Click{" "}
+                <Link
+                  href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-purple-500"
+                >
+                  here
+                </Link>{" "}
+                to go to the business dashboard to add products. Once added, they will
+                appear here.
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </PageWrapper>
   );
 }
 
@@ -162,36 +165,38 @@ export default async function Page({ params }: any) {
   return (
     <Suspense
       fallback={
-        <div className="full-w overflow-hidden mx-auto flex md:flex-row flex-col gap-8 max-md:p-5">
-          <div
-            role="status"
-            className="max-md:hidden max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
-          >
-            <ListSkeleton />
-            <span className="sr-only">Loading...</span>
-          </div>
+        <PageWrapper>
+          <div className="full-w overflow-hidden flex md:flex-row flex-col gap-8 max-md:py-5">
+            <div
+              role="status"
+              className="max-md:hidden max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+            >
+              <ListSkeleton />
+              <span className="sr-only">Loading...</span>
+            </div>
 
-          <div className="text-center grow">
-            <ul className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
-              {[...Array(8)].map((_, i) => (
-                <li
-                  key={i}
-                  className={
-                    "flex flex-col items-center justify-center max-md:h-[55vh] md:h-96"
-                  }
-                >
-                  <div
-                    role="status"
-                    className="max-w-sm p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700 w-full h-full"
+            <div className="text-center grow">
+              <ul className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
+                {[...Array(8)].map((_, i) => (
+                  <li
+                    key={i}
+                    className={
+                      "flex flex-col items-center justify-center max-md:h-[55vh] md:h-96"
+                    }
                   >
-                    <CardSkeleton height={"full"} />
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    <div
+                      role="status"
+                      className="max-w-sm p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700 w-full h-full"
+                    >
+                      <CardSkeleton />
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        </PageWrapper>
       }
     >
       <StoresCategory params={params} />

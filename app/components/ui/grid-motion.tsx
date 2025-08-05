@@ -4,11 +4,16 @@ import { useEffect, useRef, ReactNode } from 'react'
 import { gsap } from 'gsap'
 import { cn } from "@/lib/utils"
 
+interface GalleryItem {
+    imageUrl: string;
+    productSlug?: string;
+}
+
 interface GridMotionProps {
     /**
-     * Array of items to display in the grid
+     * Array of items to display in the grid - can be strings, ReactNodes, or GalleryItems
      */
-    items?: (string | ReactNode)[]
+    items?: (string | ReactNode | GalleryItem)[]
     /**
      * Color for the radial gradient background
      */
@@ -17,12 +22,17 @@ interface GridMotionProps {
      * Additional CSS classes
      */
     className?: string
+    /**
+     * Click handler for items (only called for GalleryItem objects)
+     */
+    onItemClick?: (item: GalleryItem) => void
 }
 
 export function GridMotion({
     items = [],
     gradientColor = 'black',
-    className
+    className,
+    onItemClick
 }: GridMotionProps) {
     const gridRef = useRef<HTMLDivElement>(null)
     const rowRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -91,10 +101,37 @@ export function GridMotion({
                         >
                             {[...Array(7)].map((_, itemIndex) => {
                                 const content = combinedItems[rowIndex * 7 + itemIndex]
+                                const isGalleryItem = content && typeof content === 'object' && 'imageUrl' in content
+                                const isClickable = isGalleryItem && onItemClick
+
                                 return (
-                                    <div key={itemIndex} className="relative">
+                                    <div
+                                        key={itemIndex}
+                                        className={`relative ${isClickable ? 'cursor-pointer group' : ''}`}
+                                        onClick={() => {
+                                            if (isGalleryItem && onItemClick) {
+                                                onItemClick(content as GalleryItem)
+                                            }
+                                        }}
+                                    >
                                         <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center text-foreground text-xl">
-                                            {typeof content === 'string' && content.startsWith('http') ? (
+                                            {isGalleryItem ? (
+                                                <>
+                                                    <div
+                                                        className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                                                        style={{
+                                                            backgroundImage: `url(${(content as GalleryItem).imageUrl})`,
+                                                        }}
+                                                    />
+                                                    {isClickable && (
+                                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                                            <div className="text-white font-medium text-sm bg-black/50 px-3 py-1 rounded-full">
+                                                                View Product
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            ) : typeof content === 'string' && content.startsWith('http') ? (
                                                 <div
                                                     className="absolute inset-0 bg-cover bg-center"
                                                     style={{

@@ -7,17 +7,25 @@ export default function ImageGalleryClient({
 }: {
   items: { src: string; alt?: string }[];
 }) {
+  // Create expanded items array with room wall versions
+  const expandedItems: ({ src: string; alt?: string; isRoomWall?: boolean; roomWallImage?: string })[] = items.flatMap((item) => [
+    item, // Original image
+    { src: item.src, alt: `${item.alt || "Product"} in room setting 1`, isRoomWall: true, roomWallImage: "/images/room-wall-3.png" }, // Room wall version 1
+    { src: item.src, alt: `${item.alt || "Product"} in room setting 2`, isRoomWall: true, roomWallImage: "/images/room-wall-2.png" }, // Room wall version 2
+    { src: item.src, alt: `${item.alt || "Product"} in room setting 3`, isRoomWall: true, roomWallImage: "/images/room-wall.png" }, // Room wall version 3
+  ]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? items.length - 1 : prevIndex - 1
+      prevIndex === 0 ? expandedItems.length - 1 : prevIndex - 1
     );
   };
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === items.length - 1 ? 0 : prevIndex + 1
+      prevIndex === expandedItems.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -25,23 +33,41 @@ export default function ImageGalleryClient({
     return <div className="h-56 sm:h-96 max-h-96 max-w-xl mx-auto bg-gray-200"></div>;
   }
 
+  const currentItem = expandedItems[currentIndex];
+
   return (
-    <div className="h-56 sm:h-96 max-h-96 max-w-xl mx-auto relative bg-gray-100">
-      {/* Current image */}
-      <img
-        src={items[currentIndex].src}
-        alt={items[currentIndex].alt ?? ""}
-        className="w-full h-full object-cover"
-      />
+    <div className="h-56 sm:h-96 max-h-96 mx-auto relative bg-gray-100 shadow-xl">
+      {/* Current image with optional room wall overlay */}
+      {currentItem.isRoomWall ? (
+        <div className="w-full h-full relative">
+          {/* Background image from backend */}
+          <img
+            src={currentItem.src}
+            alt={currentItem.alt ?? ""}
+            className="w-full h-full object-cover absolute inset-0"
+          />
+          {/* Room wall overlay */}
+          <img
+            src={currentItem.roomWallImage}
+            alt="Room wall frame"
+            className="w-full h-full object-cover absolute inset-0"
+          />
+        </div>
+      ) : (
+        <img
+          src={currentItem.src}
+          alt={currentItem.alt ?? ""}
+          className="w-full h-full object-cover"
+        />
+      )}
 
       {/* Navigation buttons - only show if more than 1 item */}
-      {items.length > 1 && (
+      {expandedItems.length > 1 && (
         <>
           <Button
-            variant="outline"
             size="icon"
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-opacity border-none"
+            className="absolute left-2 top-1/2 transform -translate-y-1/2  opacity-50 bg-black rounded-full hover:opacity-75 transition-opacity border-none scale-75"
             aria-label="Previous image"
           >
             <svg
@@ -54,10 +80,9 @@ export default function ImageGalleryClient({
             </svg>
           </Button>
           <Button
-            variant="outline"
             size="icon"
             onClick={goToNext}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-opacity border-none"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2  opacity-50 bg-black rounded-full hover:opacity-75 transition-opacity border-none scale-75"
             aria-label="Next image"
           >
             <svg
@@ -72,7 +97,7 @@ export default function ImageGalleryClient({
 
           {/* Dots indicator */}
           <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {items.map((_, index) => (
+            {expandedItems.map((_, index) => (
               <Button
                 key={index}
                 variant="ghost"

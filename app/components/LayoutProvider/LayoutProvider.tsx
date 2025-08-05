@@ -33,13 +33,13 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     pathname === STORE_ROUTE || pathname.includes("store/category/")
   ) {
     return (
-      <div className="container mx-auto">
-        <div className="md:mx-[6.875rem] pb-8 text-center">
+      <div>
+        <div className="pb-8 text-center">
           <div className={`${description ? "mb-12" : "mb-10"}`}>
             {/* Spacing div to maintain layout without title/underline */}
           </div>
           {description && (
-            <div className="md:mx-[6.875rem] mb-10">
+            <div className="mb-10">
               <h2 className="inner-page-subtitle">{description}</h2>
             </div>
           )}

@@ -61,7 +61,7 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
   return (
     <>
       {lineItems?.length! > 0 ? (
-        <div className={`${!isMini ? "max-w-6xl mx-auto" : ""}`}>
+        <div>
           <div className="flex-1">
             <div className="relative">
               {isMini ? (

@@ -1,5 +1,6 @@
 import { CartItem } from "../components/CartItem/CartItem";
 import { getOrder } from '@/app/model/ecom/ecom-api';
+import { PageWrapper } from '@/app/components/Layout/PageWrapper';
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +12,7 @@ export default async function Success({ searchParams }: any) {
   const data = await getOrder(searchParams.orderId);
   return (
     data && (
-      <div className="mx-auto px-14">
+      <PageWrapper>
         <h2 className="text-center">
           Thank you for purchasing!
         </h2>
@@ -29,7 +30,7 @@ export default async function Success({ searchParams }: any) {
           </ul>
           <br />
         </div>
-      </div>
+      </PageWrapper>
     )
   );
 }

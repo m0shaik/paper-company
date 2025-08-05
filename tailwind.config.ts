@@ -14,6 +14,13 @@ const config: Config = {
       backgroundImage: {
         'noise': "url('https://www.reactbits.dev/assets/noise.png')",
       },
+      opacity: {
+        '6': '0.06',
+        '8': '0.08',
+      },
+      blur: {
+        '3xl': '64px',
+      },
 
       colors: {
         // Semantic color system
