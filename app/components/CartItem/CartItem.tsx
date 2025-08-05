@@ -1,10 +1,10 @@
-"use client";
-import { ChangeEvent, useEffect, useState } from "react";
-import Link from "next/link";
+'use client';
+import { ChangeEvent, useEffect, useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
-import { media } from "@wix/sdk";
-import { useUI } from "../Provider/context";
-import { QuantityAsUnitArea } from "../QuantityAsUnitArea/QuantityAsUnitArea";
+import { media } from '@wix/sdk';
+import { useUI } from '../Provider/context';
+import { QuantityAsUnitArea } from '../QuantityAsUnitArea/QuantityAsUnitArea';
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
 import { LineItem } from '@/app/model/ecom/ecom-api';
 import { usePrice } from '@/app/hooks/usePrice';
@@ -68,10 +68,13 @@ export const CartItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity]);
 
-  const slug = item.url?.split("/").pop() ?? "";
+  const slug = item.url?.split('/').pop() ?? '';
 
   return (
-    <li className="flex flex-col py-4 border-b border-border last:border-b-0" {...rest}>
+    <li
+      className="flex flex-col py-4 border-b border-border last:border-b-0"
+      {...rest}
+    >
       <div className="flex flex-row gap-4 py-4">
         <div className="w-20 h-20 bg-base-100 relative overflow-hidden z-0 rounded-base">
           {slug ? (
@@ -79,16 +82,24 @@ export const CartItem = ({
               <div onClick={() => closeSidebarIfPresent()}>
                 <Image
                   alt="line item"
-                  width={150} height={150}
-                  src={media.getScaledToFitImageUrl(item.image!, 150, 150, {}) || PLACEHOLDER_IMAGE}
+                  width={150}
+                  height={150}
+                  src={
+                    media.getScaledToFitImageUrl(item.image!, 150, 150, {}) ||
+                    PLACEHOLDER_IMAGE
+                  }
                 />
               </div>
             </Link>
           ) : (
             <Image
               alt="line item"
-              width={150} height={150}
-              src={media.getScaledToFitImageUrl(item.image!, 150, 150, {}) || PLACEHOLDER_IMAGE}
+              width={150}
+              height={150}
+              src={
+                media.getScaledToFitImageUrl(item.image!, 150, 150, {}) ||
+                PLACEHOLDER_IMAGE
+              }
             />
           )}
         </div>
@@ -106,41 +117,78 @@ export const CartItem = ({
               </span>
             )}
           </div>
-          {/* Product Options/Variants Display - Clean format */}
-          {item.catalogReference?.options && typeof item.catalogReference.options === 'object' && 'options' in item.catalogReference.options && (
-            <div className="mt-1 space-y-0.5">
-              {Object.entries(item.catalogReference.options.options as Record<string, string>).map(([key, value]) => (
-                <div key={key} className="text-sm text-gray-600">
-                  <span className="font-medium text-gray-800">{key}:</span> <span>{value}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {/* Dimensions from descriptionLines - only if they contain custom dimensions */}
-          {item.descriptionLines && item.descriptionLines.length > 0 && (
-            <div className="mt-2">
-              {item.descriptionLines.map((line, index) => (
-                <div key={index}>
-                  {line.name?.original?.includes('Custom Dimensions') && (
-                    <div className="text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded">
-                      <span className="font-medium text-gray-800">{line.name.original}</span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
 
-          {/* Clean pricing display */}
-          <div className="mt-3 space-y-1 font-body">
-            <div className="text-sm text-gray-600">
-              <span className="font-bold text-gray-900">{perSqFtPrice}</span> <span className="text-xs">per sq ft</span>
+          {/* Combined Product Options and Pricing Display - 2 Column Grid */}
+          <div className="mt-1 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+            {/* Product Options/Variants from descriptionLines (excluding dimensions) */}
+            {item.descriptionLines && item.descriptionLines.length > 0 && (
+              <>
+                {item.descriptionLines
+                  .filter(
+                    (line) =>
+                      line.name?.original &&
+                      line.plainText?.original &&
+                      line.plainText.original.trim() !== '' &&
+                      // Exclude dimensions and empty notes to avoid duplicates
+                      ![
+                        'Height',
+                        'Width',
+                        'Area',
+                        'Total Area',
+                        'Note',
+                      ].includes(line.name.original)
+                  )
+                  .map((line, index) => (
+                    <>
+                      <div
+                        key={`desc-label-${index}`}
+                        className="font-medium text-gray-800"
+                      >
+                        {line.name!.original}:
+                      </div>
+                      <div
+                        key={`desc-value-${index}`}
+                        className="text-gray-600"
+                      >
+                        {line.plainText!.original}
+                      </div>
+                    </>
+                  ))}
+              </>
+            )}
+
+            {/* Custom Dimensions - only show if they exist */}
+            {item.catalogReference?.options?.customTextFields && (
+              <>
+                {Object.entries(
+                  item.catalogReference.options.customTextFields
+                ).map(([key, value]) => (
+                  <>
+                    <div
+                      key={`custom-label-${key}`}
+                      className="font-medium text-gray-800"
+                    >
+                      {key}:
+                    </div>
+                    <div key={`custom-value-${key}`} className="text-gray-600">
+                      {String(value)}
+                    </div>
+                  </>
+                ))}
+              </>
+            )}
+
+            {/* Pricing information integrated */}
+            <div className="font-medium text-gray-800">Price:</div>
+            <div className="text-gray-600">
+              <span className="font-bold text-gray-900">{perSqFtPrice}</span>{' '}
+              <span className="text-xs">/ sq ft</span>
             </div>
-            <div className="text-sm text-gray-600">
-              <span className="font-bold text-gray-900">{item.quantity} sq ft</span> <span className="text-xs">total area</span>
+
+            <div className="font-medium text-gray-800 border-t border-gray-200 pt-1">
+              Total:
             </div>
-            <div className="text-lg font-bold text-primary-600 border-t border-gray-200 pt-2 mt-2">
+            <div className="text-primary-600 font-bold border-t border-gray-200 pt-1">
               {totalPrice}
             </div>
           </div>
@@ -158,7 +206,10 @@ export const CartItem = ({
           )}
         </div>
         {!hideButtons && (
-          <button className="flex text-base-500 hover:text-red-500 transition-colors" onClick={() => handleRemove()}>
+          <button
+            className="flex text-base-500 hover:text-red-500 transition-colors"
+            onClick={() => handleRemove()}
+          >
             <svg
               fill="none"
               className="w-4 h-4"
