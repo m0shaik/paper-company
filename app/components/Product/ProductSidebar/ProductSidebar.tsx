@@ -1,16 +1,16 @@
-"use client";
-import { FC, useEffect, useMemo, useState } from "react";
-import { ProductOptions } from "../ProductOptions/ProductOptions";
-import { selectDefaultOptionFromProduct } from "../ProductOptions/helpers";
-import { useUI } from "../../Provider/context";
-import { useAddItemToCart } from "@/app/hooks/useAddItemToCart";
-import { HiArrowDown } from "react-icons/hi";
-import { ProductTag } from "../ProductTag/ProductTag";
-import { usePrice } from "@/app/hooks/usePrice";
-import Link from "next/link";
+'use client';
+import { FC, useEffect, useMemo, useState } from 'react';
+import { ProductOptions } from '../ProductOptions/ProductOptions';
+import { selectDefaultOptionFromProduct } from '../ProductOptions/helpers';
+import { useUI } from '../../Provider/context';
+import { useAddItemToCart } from '@/app/hooks/useAddItemToCart';
+import { HiArrowDown } from 'react-icons/hi';
+import { ProductTag } from '../ProductTag/ProductTag';
+import { usePrice } from '@/app/hooks/usePrice';
+import Link from 'next/link';
 import { Product, Variant } from '@/app/model/store/store-api';
-import { STORES_APP_ID } from "@/app/constants";
-import { Button } from "@/components/ui/button";
+import { STORES_APP_ID } from '@/app/constants';
+import { Button } from '@/components/ui/button';
 
 interface ProductSidebarProps {
   product: Product;
@@ -20,14 +20,33 @@ interface ProductSidebarProps {
 const createProductOptions = (
   selectedOptions?: any,
   selectedVariant?: Variant,
-) =>
-  Object.keys(selectedOptions ?? {}).length
+  customDimensions?: { height: string; width: string; area: string }
+) => {
+  // Base options for variants and choices
+  const baseOptions = Object.keys(selectedOptions ?? {}).length
     ? {
-      options: selectedVariant?._id
-        ? { variantId: selectedVariant!._id }
-        : { options: selectedOptions },
-    }
+        options: selectedVariant?._id
+          ? { variantId: selectedVariant!._id }
+          : { options: selectedOptions },
+      }
     : undefined;
+
+  // If we have custom dimensions, add them to customTextFields
+  if (customDimensions && customDimensions.height && customDimensions.width) {
+    return {
+      options: {
+        ...baseOptions?.options,
+        customTextFields: {
+          Height: `${customDimensions.height} ft`,
+          Width: `${customDimensions.width} ft`,
+          Area: `${customDimensions.area} sq ft`,
+        },
+      },
+    };
+  }
+
+  return baseOptions;
+};
 
 export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   const addItem = useAddItemToCart();
@@ -37,14 +56,14 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   const [selectedVariant, setSelectedVariant] = useState<Variant>({});
   const [selectedOptions, setSelectedOptions] = useState<any>({});
   const [openPanels, setOpenPanels] = useState<Record<string, boolean>>({});
-  const [height, setHeight] = useState<string>("");
-  const [width, setWidth] = useState<string>("");
-  const [dimensionError, setDimensionError] = useState<string>("");
+  const [height, setHeight] = useState<string>('');
+  const [width, setWidth] = useState<string>('');
+  const [dimensionError, setDimensionError] = useState<string>('');
 
   const togglePanel = (panelId: string) => {
-    setOpenPanels(prev => ({
+    setOpenPanels((prev) => ({
       ...prev,
-      [panelId]: !prev[panelId]
+      [panelId]: !prev[panelId],
     }));
   };
 
@@ -87,14 +106,14 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
 
   const validateDimensions = () => {
     if (!height || !width) {
-      setDimensionError("Please enter both height and width");
+      setDimensionError('Please enter both height and width');
       return false;
     }
     if (parseFloat(height) <= 0 || parseFloat(width) <= 0) {
-      setDimensionError("Dimensions must be greater than 0");
+      setDimensionError('Dimensions must be greater than 0');
       return false;
     }
-    setDimensionError("");
+    setDimensionError('');
     return true;
   };
 
@@ -121,18 +140,12 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         catalogReference: {
           catalogItemId: product._id!,
           appId: STORES_APP_ID,
-          ...createProductOptions(selectedOptions, selectedVariant),
+          ...createProductOptions(selectedOptions, selectedVariant, {
+            height,
+            width,
+            area: squareFootage.toFixed(2),
+          }),
         },
-        descriptionLines: [
-          {
-            name: {
-              original: `Custom Dimensions: ${height} ft × ${width} ft = ${squareFootage.toFixed(2)} sq ft`
-            },
-            plainText: {
-              original: `Height: ${height} ft | Width: ${width} ft | Total Area: ${squareFootage.toFixed(2)} sq ft`
-            }
-          }
-        ]
       });
       setLoading(false);
       openSidebar();
@@ -144,13 +157,32 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   const buyNowLink = useMemo(() => {
     const productOptions = createProductOptions(
       selectedOptions,
-      selectedVariant
+      selectedVariant,
+      height && width
+        ? {
+            height,
+            width,
+            area: squareFootage.toFixed(2),
+          }
+        : undefined
     );
-    return `/api/quick-buy/${product._id}?quantity=${quantity}&productOptions=${productOptions
-      ? decodeURIComponent(JSON.stringify(productOptions.options))
-      : ""
-      }`;
-  }, [selectedOptions, selectedVariant, product._id, quantity]);
+
+    return `/api/quick-buy/${
+      product._id
+    }?quantity=${calculatedQuantity}&productOptions=${
+      productOptions
+        ? encodeURIComponent(JSON.stringify(productOptions.options))
+        : ''
+    }`;
+  }, [
+    selectedOptions,
+    selectedVariant,
+    product._id,
+    calculatedQuantity,
+    height,
+    width,
+    squareFootage,
+  ]);
 
   return (
     <>
@@ -173,7 +205,10 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         </span>
         <div className="mt-2 grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="height" className="text-xs text-gray-600 mb-1 block">
+            <label
+              htmlFor="height"
+              className="text-xs text-gray-600 mb-1 block"
+            >
               Height (ft)
             </label>
             <input
@@ -182,13 +217,16 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
               value={height}
               onChange={(e) => {
                 setHeight(e.target.value);
-                if (dimensionError) setDimensionError("");
+                if (dimensionError) setDimensionError('');
               }}
               placeholder="Enter height"
               min="0"
               step="0.1"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${dimensionError && !height ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
-                }`}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                dimensionError && !height
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-primary-500'
+              }`}
             />
           </div>
           <div>
@@ -201,20 +239,21 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
               value={width}
               onChange={(e) => {
                 setWidth(e.target.value);
-                if (dimensionError) setDimensionError("");
+                if (dimensionError) setDimensionError('');
               }}
               placeholder="Enter width"
               min="0"
               step="0.1"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${dimensionError && !width ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary-500'
-                }`}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                dimensionError && !width
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-primary-500'
+              }`}
             />
           </div>
         </div>
         {dimensionError && (
-          <div className="mt-2 text-sm text-red-600">
-            {dimensionError}
-          </div>
+          <div className="mt-2 text-sm text-red-600">{dimensionError}</div>
         )}
         {squareFootage > 0 && (
           <div className="mt-3 p-3 bg-gray-50 rounded-md">
@@ -231,8 +270,11 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         <div>
           <Button
             aria-label="Add to Cart"
-            className={`btn-main w-full my-1 font-body font-normal ${(!height || !width || squareFootage === 0) ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+            className={`btn-main w-full my-1 font-body font-normal ${
+              !height || !width || squareFootage === 0
+                ? 'opacity-50 cursor-not-allowed'
+                : ''
+            }`}
             type="button"
             onClick={addToCart}
             disabled={loading || !height || !width || squareFootage === 0}
@@ -272,7 +314,9 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
                 onClick={() => togglePanel(info.title!)}
                 className="w-full flex justify-between items-center py-4 text-left hover:bg-gray-50 transition-colors h-auto"
               >
-                <span className="text-sm font-medium text-black font-body">{info.title}</span>
+                <span className="text-sm font-medium text-black font-body">
+                  {info.title}
+                </span>
                 <HiArrowDown
                   className={`text-black transition-transform duration-200 ${openPanels[info.title!] ? 'rotate-180' : ''
                     }`}
@@ -282,7 +326,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
                 <div className="bg-transparent p-5 font-body text-gray-800">
                   <span
                     className="text-sm"
-                    dangerouslySetInnerHTML={{ __html: info.description ?? "" }}
+                    dangerouslySetInnerHTML={{ __html: info.description ?? '' }}
                   />
                 </div>
               )}
