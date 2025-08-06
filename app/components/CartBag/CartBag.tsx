@@ -1,7 +1,7 @@
 "use client";
 import { useUI } from "../Provider/context";
 import { Order } from "@wix/wix-ui-icons-common";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 interface CartBagProps {
   isScrolled?: boolean;
@@ -21,10 +21,10 @@ export const CartBag = ({ isScrolled = false, isStorePage = false }: CartBagProp
         toggleSidebar();
       }}
       className={`flex relative transition-all duration-300 w-auto h-auto p-1 ${isStorePage
-          ? 'text-ink hover:text-primary-500'
-          : isScrolled
-            ? 'text-paper hover:opacity-80'
-            : 'text-ink hover:text-primary-500'
+        ? 'text-ink hover:text-primary-500'
+        : isScrolled
+          ? 'text-paper hover:opacity-80'
+          : 'text-ink hover:text-primary-500'
         }`}
       aria-label={`Cart items: ${itemsCount}`}
     >

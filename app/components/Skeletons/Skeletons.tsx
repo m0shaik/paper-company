@@ -45,3 +45,33 @@ export function ListSkeleton() {
     </div>
   );
 }
+
+export function CartSkeleton() {
+  return (
+    <li className="flex flex-col py-4 border-b border-border animate-pulse">
+      <div className="flex flex-row gap-4 py-4">
+        <Skeleton className="w-20 h-20 rounded-base" />
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-3 w-1/2" />
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+            <Skeleton className="h-3" />
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}

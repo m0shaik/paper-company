@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useState } from "react";
+import { useIsMutating } from "@tanstack/react-query";
 import { CartItem } from "../CartItem/CartItem";
 import { useUI } from "../Provider/context";
 import Link from "next/link";
@@ -8,12 +9,14 @@ import { usePrice } from '@/app/hooks/usePrice';
 import { createCheckoutFromCurrentCart } from '@/app/model/ecom/ecom-api';
 import { createRedirectSession } from '@/app/model/redirect/redirect-api';
 import { useCart } from '@/app/hooks/useCart';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
+import { CartSkeleton } from "@/app/components/Skeletons/Skeletons";
 
 export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
   const { closeSidebar, openModalNotPremium } = useUI();
   const { data, isLoading } = useCart();
   const [redirecting, setRedirecting] = useState<boolean>(false);
+  const isMutating = useIsMutating() > 0; // Check if any mutations are in progress
   const subTotal = usePrice(
     data && {
       amount: data!.lineItems!.reduce(
@@ -58,9 +61,14 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
   }, [data]);
 
   const isMini = layout === "mini";
+
+  // Don't show empty cart if we're in the middle of updating items
+  const showEmptyCart = !lineItems?.length && !isMutating;
+  const showCartContent = lineItems?.length! > 0 || isMutating;
+
   return (
     <>
-      {lineItems?.length! > 0 ? (
+      {showCartContent ? (
         <div>
           <div className="flex-1">
             <div className="relative">
@@ -95,15 +103,28 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
               >
                 Cart
               </span>
+              {isMutating && (
+                <div className="px-6 pb-2 absolute right-0 top-full">
+                  <div className="flex items-center gap-2 text-sm text-blue-600">
+                    <div className="h-2 w-2 bg-blue-600 rounded-full animate-bounce"></div>
+                    <span>Updating cart...</span>
+                  </div>
+                </div>
+              )}
             </div>
             <ul className="sm:px-6 p-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-border border-border">
-              {lineItems?.map((item) => (
-                <CartItem
-                  key={item._id}
-                  item={item}
-                  currencyCode={data?.currency!}
-                />
-              ))}
+              {isMutating ? (
+                // Show skeleton immediately when any mutation is in progress
+                <CartSkeleton />
+              ) : (
+                lineItems?.map((item) => (
+                  <CartItem
+                    key={item._id}
+                    item={item}
+                    currencyCode={data?.currency!}
+                  />
+                ))
+              )}
             </ul>
           </div>
 
@@ -118,14 +139,14 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
               <Button
                 className="btn-main w-full text-lg"
                 onClick={goToCheckout}
-                disabled={redirecting}
+                disabled={redirecting || isMutating}
               >
-                Proceed to Checkout
+                {redirecting ? 'Redirecting...' : isMutating ? 'Updating...' : 'Proceed to Checkout'}
               </Button>
             </div>
           </div>
         </div>
-      ) : (
+      ) : showEmptyCart ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary-400 rounded-full flex items-center justify-center w-16 h-16 p-12 text-primary-600">
             <svg
@@ -150,7 +171,7 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
             Add products to your cart in <Link href={STORE_ROUTE} className="text-primary-600 hover:text-primary-700 underline">here</Link>
           </p>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

@@ -7,10 +7,9 @@ import { useUI } from '../Provider/context';
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
 import { LineItem } from '@/app/model/ecom/ecom-api';
 import { usePrice } from '@/app/hooks/usePrice';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { useRemoveItemFromCart } from '@/app/hooks/useRemoveItemFromCart';
-import { useAddItemToCart } from '@/app/hooks/useAddItemToCart';
-import { STORES_APP_ID } from '@/app/constants';
+import { useUpdateCartItemDimensions } from '@/app/hooks/useUpdateCartItemDimensions';
 
 export const CartItem = ({
   item,
@@ -24,9 +23,8 @@ export const CartItem = ({
 }) => {
   const { closeSidebarIfPresent } = useUI();
   const [quantity, setQuantity] = useState<number>(item.quantity ?? 1);
-  const [buttonsDisabled, setButtonsDisabled] = useState(false);
   const removeItem = useRemoveItemFromCart();
-  const addItem = useAddItemToCart();
+  const { updateDimensions } = useUpdateCartItemDimensions();
 
   // Extract current dimensions from customTextFields
   const currentWidth = parseFloat(
@@ -69,57 +67,34 @@ export const CartItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity]);
 
-  const updateDimensions = async (newWidth: number, newHeight: number) => {
-    const newArea = newWidth * newHeight;
-    const newQuantity = Math.ceil(newArea);
-
-    await removeItem(item._id!);
-
-    await addItem({
-      quantity: newQuantity,
-      catalogReference: {
-        catalogItemId: item.catalogReference!.catalogItemId!,
-        appId: STORES_APP_ID,
-        options: {
-          ...item.catalogReference?.options,
-          customTextFields: {
-            Height: `${newHeight} ft`,
-            Width: `${newWidth} ft`,
-            Area: `${newArea.toFixed(2)} sq ft`,
-          },
-        },
-      },
-    });
-
-    setQuantity(newQuantity);
-  };
-
   const adjustWidth = async (delta: number) => {
-    if (buttonsDisabled) return;
-    setButtonsDisabled(true);
-
     const newWidth = Math.max(0.5, width + delta);
     setWidth(newWidth);
 
     try {
-      await updateDimensions(newWidth, height);
+      const result = await updateDimensions(item, newWidth, height);
+      if (result.success) {
+        setQuantity(result.newQuantity!);
+      } else {
+        setWidth(currentWidth);
+      }
     } catch (error) {
-      setButtonsDisabled(false);
       setWidth(currentWidth);
     }
   };
 
   const adjustHeight = async (delta: number) => {
-    if (buttonsDisabled) return;
-    setButtonsDisabled(true);
-
     const newHeight = Math.max(0.5, height + delta);
     setHeight(newHeight);
 
     try {
-      await updateDimensions(width, newHeight);
+      const result = await updateDimensions(item, width, newHeight);
+      if (result.success) {
+        setQuantity(result.newQuantity!);
+      } else {
+        setHeight(currentHeight);
+      }
     } catch (error) {
-      setButtonsDisabled(false);
       setHeight(currentHeight);
     }
   };
@@ -205,12 +180,8 @@ export const CartItem = ({
             <div className="font-medium text-gray-800">Width (ft):</div>
             <div className="flex items-center">
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-l ${buttonsDisabled
-                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                  : 'hover:bg-gray-100'
-                  }`}
+                className="px-2 py-1 text-gray-600 border rounded-l hover:bg-gray-100"
                 onClick={() => adjustWidth(-0.5)}
-                disabled={buttonsDisabled}
               >
                 -
               </button>
@@ -218,12 +189,8 @@ export const CartItem = ({
                 {width}
               </span>
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-r ${buttonsDisabled
-                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                  : 'hover:bg-gray-100'
-                  }`}
+                className="px-2 py-1 text-gray-600 border rounded-r hover:bg-gray-100"
                 onClick={() => adjustWidth(0.5)}
-                disabled={buttonsDisabled}
               >
                 +
               </button>
@@ -233,12 +200,8 @@ export const CartItem = ({
             <div className="font-medium text-gray-800">Height (ft):</div>
             <div className="flex items-center">
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-l ${buttonsDisabled
-                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                  : 'hover:bg-gray-100'
-                  }`}
+                className="px-2 py-1 text-gray-600 border rounded-l hover:bg-gray-100"
                 onClick={() => adjustHeight(-0.5)}
-                disabled={buttonsDisabled}
               >
                 -
               </button>
@@ -246,12 +209,8 @@ export const CartItem = ({
                 {height}
               </span>
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-r ${buttonsDisabled
-                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                  : 'hover:bg-gray-100'
-                  }`}
+                className="px-2 py-1 text-gray-600 border rounded-r hover:bg-gray-100"
                 onClick={() => adjustHeight(0.5)}
-                disabled={buttonsDisabled}
               >
                 +
               </button>

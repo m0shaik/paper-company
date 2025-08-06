@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { HOME_ROUTE } from "@/app/routes";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 interface ActionLinkaProps {
   href?: string;

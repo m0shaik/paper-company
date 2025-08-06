@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Counter } from "../Counter/Counter";
 import { Price } from "../Price/Price";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 export function TicketsTable({
   tickets,
@@ -127,8 +127,8 @@ export function TicketsTable({
             </div>
             <div
               className={`basis-1/2 sm:pl-4 ${ticket.options.length
-                  ? ""
-                  : "flex flex-col sm:flex-row"
+                ? ""
+                : "flex flex-col sm:flex-row"
                 }`}
             >
               <div className="basis-1/2 mt-4 sm:mt-0">
@@ -200,8 +200,8 @@ export function TicketsTable({
                     </div>
                     <div
                       className={`ml-auto mt-2 sm:mt-0 ${ticket.limitPerCheckout! > 0
-                          ? "w-full sm:w-fit"
-                          : "w-fit"
+                        ? "w-full sm:w-fit"
+                        : "w-fit"
                         }`}
                     >
                       {ticket.limitPerCheckout! > 0 ? (
