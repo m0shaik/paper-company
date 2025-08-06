@@ -7,7 +7,6 @@ import { useAddItemToCart } from '@/app/hooks/useAddItemToCart';
 import { HiArrowDown } from 'react-icons/hi';
 import { ProductTag } from '../ProductTag/ProductTag';
 import { usePrice } from '@/app/hooks/usePrice';
-import Link from 'next/link';
 import { Product, Variant } from '@/app/model/store/store-api';
 import { STORES_APP_ID } from '@/app/constants';
 import { Button } from '@/components/ui/button';
@@ -25,10 +24,10 @@ const createProductOptions = (
   // Base options for variants and choices
   const baseOptions = Object.keys(selectedOptions ?? {}).length
     ? {
-        options: selectedVariant?._id
-          ? { variantId: selectedVariant!._id }
-          : { options: selectedOptions },
-      }
+      options: selectedVariant?._id
+        ? { variantId: selectedVariant!._id }
+        : { options: selectedOptions },
+    }
     : undefined;
 
   // If we have custom dimensions, add them to customTextFields
@@ -154,36 +153,6 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
     }
   };
 
-  const buyNowLink = useMemo(() => {
-    const productOptions = createProductOptions(
-      selectedOptions,
-      selectedVariant,
-      height && width
-        ? {
-            height,
-            width,
-            area: squareFootage.toFixed(2),
-          }
-        : undefined
-    );
-
-    return `/api/quick-buy/${
-      product._id
-    }?quantity=${calculatedQuantity}&productOptions=${
-      productOptions
-        ? encodeURIComponent(JSON.stringify(productOptions.options))
-        : ''
-    }`;
-  }, [
-    selectedOptions,
-    selectedVariant,
-    product._id,
-    calculatedQuantity,
-    height,
-    width,
-    squareFootage,
-  ]);
-
   return (
     <>
       <ProductTag
@@ -222,11 +191,10 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
               placeholder="Enter height"
               min="0"
               step="0.1"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                dimensionError && !height
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-primary-500'
-              }`}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${dimensionError && !height
+                ? 'border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:ring-primary-500'
+                }`}
             />
           </div>
           <div>
@@ -244,11 +212,10 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
               placeholder="Enter width"
               min="0"
               step="0.1"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                dimensionError && !width
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-primary-500'
-              }`}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${dimensionError && !width
+                ? 'border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:ring-primary-500'
+                }`}
             />
           </div>
         </div>
@@ -270,27 +237,16 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         <div>
           <Button
             aria-label="Add to Cart"
-            className={`btn-main w-full my-1 font-body font-normal ${
-              !height || !width || squareFootage === 0
-                ? 'opacity-50 cursor-not-allowed'
-                : ''
-            }`}
+            className={`btn-main w-full my-1 font-body font-normal ${!height || !width || squareFootage === 0
+              ? 'opacity-50 cursor-not-allowed'
+              : ''
+              }`}
             type="button"
             onClick={addToCart}
             disabled={loading || !height || !width || squareFootage === 0}
           >
             Add to Cart
           </Button>
-          <div className="w-full pt-2">
-            <Button
-              asChild
-              className="btn-main w-full my-1 block text-center font-body font-normal"
-            >
-              <Link href={buyNowLink}>
-                Buy Now
-              </Link>
-            </Button>
-          </div>
         </div>
       ) : null}
       {!isAvailableForPurchase ? (

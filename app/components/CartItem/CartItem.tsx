@@ -205,11 +205,10 @@ export const CartItem = ({
             <div className="font-medium text-gray-800">Width (ft):</div>
             <div className="flex items-center">
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-l ${
-                  buttonsDisabled
-                    ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                    : 'hover:bg-gray-100'
-                }`}
+                className={`px-2 py-1 text-gray-600 border rounded-l ${buttonsDisabled
+                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
+                  : 'hover:bg-gray-100'
+                  }`}
                 onClick={() => adjustWidth(-0.5)}
                 disabled={buttonsDisabled}
               >
@@ -219,11 +218,10 @@ export const CartItem = ({
                 {width}
               </span>
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-r ${
-                  buttonsDisabled
-                    ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                    : 'hover:bg-gray-100'
-                }`}
+                className={`px-2 py-1 text-gray-600 border rounded-r ${buttonsDisabled
+                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
+                  : 'hover:bg-gray-100'
+                  }`}
                 onClick={() => adjustWidth(0.5)}
                 disabled={buttonsDisabled}
               >
@@ -235,11 +233,10 @@ export const CartItem = ({
             <div className="font-medium text-gray-800">Height (ft):</div>
             <div className="flex items-center">
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-l ${
-                  buttonsDisabled
-                    ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                    : 'hover:bg-gray-100'
-                }`}
+                className={`px-2 py-1 text-gray-600 border rounded-l ${buttonsDisabled
+                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
+                  : 'hover:bg-gray-100'
+                  }`}
                 onClick={() => adjustHeight(-0.5)}
                 disabled={buttonsDisabled}
               >
@@ -249,11 +246,10 @@ export const CartItem = ({
                 {height}
               </span>
               <button
-                className={`px-2 py-1 text-gray-600 border rounded-r ${
-                  buttonsDisabled
-                    ? 'opacity-50 cursor-not-allowed pointer-events-none'
-                    : 'hover:bg-gray-100'
-                }`}
+                className={`px-2 py-1 text-gray-600 border rounded-r ${buttonsDisabled
+                  ? 'opacity-50 cursor-not-allowed pointer-events-none'
+                  : 'hover:bg-gray-100'
+                  }`}
                 onClick={() => adjustHeight(0.5)}
                 disabled={buttonsDisabled}
               >
