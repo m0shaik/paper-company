@@ -28,11 +28,10 @@ const ProductCard = ({
 }) => {
   return (
     <div
-      className="flex flex-col h-full md:p-0 md:border-none
-                                        pb-14 border-b border-gray-200 gap-6"
+      className="flex flex-col h-full glass-card rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
     >
       <Link
-        className="relative max-w-full md:w-full pt-[100%] md:mt-0 mt-5"
+        className="relative max-w-full w-full pt-[100%] block"
         href={`/product-page/${item.slug}`}
       >
         <Image
@@ -48,24 +47,26 @@ const ProductCard = ({
           priority={index < 4}
         />
       </Link>
-      <Link
-        className="flex align-middle items-center w-full h-full gap-6 justify-between"
-        href={`/product-page/${item.slug}`}
-      >
-        <div className="card-title w-auto text-base flex m-0 p-0 grow">
-          {item.name}
-        </div>
-        <div className="card-price w-auto text-base flex justify-end items-center align-middle">
-          {item.price!.formatted!.price}
-        </div>
-      </Link>
-      {!item.manageVariants && item.stock?.inStock ? (
-        null
-      ) : (
-        <Button className="btn-main cursor-pointer text-lg" disabled>
-          Out of Stock
-        </Button>
-      )}
+      <div className="p-4 flex flex-col gap-3 flex-grow glass-content">
+        <Link
+          className="flex align-middle items-center w-full gap-6 justify-between hover:text-gray-700 transition-colors duration-200"
+          href={`/product-page/${item.slug}`}
+        >
+          <div className="card-title w-auto text-base flex m-0 p-0 grow font-medium text-gray-800">
+            {item.name}
+          </div>
+          <div className="card-price w-auto text-base flex justify-end items-center align-middle font-semibold text-gray-900">
+            {item.price!.formatted!.price}
+          </div>
+        </Link>
+        {!item.manageVariants && item.stock?.inStock ? (
+          null
+        ) : (
+          <Button className="btn-main cursor-pointer text-lg mt-auto" disabled>
+            Out of Stock
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
@@ -103,7 +104,7 @@ export async function StoresCategory({ params }: any) {
 
   return (
     <PageWrapper>
-      <div className="overflow-hidden flex md:flex-row flex-col gap-8 max-md:py-5">
+      <div className="flex md:flex-row flex-col gap-8 max-md:py-5">
         <ProductCategories
           collections={collections}
           selectedCollectionId={collectionId}

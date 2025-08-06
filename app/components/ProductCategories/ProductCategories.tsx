@@ -22,41 +22,43 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
   };
   return collections.length ? (
     <>
-      <fieldset className="hidden md:flex flex-col w-64 md:justify-start md:text-start">
-        <legend className="text-2xl pb-2 border-b border-gray-900 w-full font-libre">
-          Filter by
-        </legend>
-        <div className="flex flex-col mt-5 gap-3">
-          {collections
-            .map((collection) => {
-              const checked = selectedCollectionId === collection._id;
-              return (
-                <Link
-                  href={`${STORE_ROUTE}/category/${collection.slug}`}
-                  key={collection._id}
-                >
-                  <input
-                    type="radio"
-                    id={collection._id!}
-                    value={collection.slug!}
-                    checked={checked}
-                    data-checked={checked}
-                    defaultChecked={false}
-                    className="hidden"
-                    onChange={(e) => { }}
-                  />
-                  <label
-                    className={`cursor-pointer w-full ${checked ? "text-base-500" : " hover:text-base-500"
-                      } font-madefor`}
-                    htmlFor={collection._id!}
+      <div className="hidden md:flex flex-col w-64 md:justify-start md:text-start sticky top-20 self-start">
+        <div className="glass-card rounded-lg p-6 shadow-lg">
+          <h3 className="text-2xl pb-2 border-b border-gray-900 w-full font-libre mb-5">
+            Filter by
+          </h3>
+          <div className="flex flex-col gap-3">
+            {collections
+              .map((collection) => {
+                const checked = selectedCollectionId === collection._id;
+                return (
+                  <Link
+                    href={`${STORE_ROUTE}/category/${collection.slug}`}
+                    key={collection._id}
                   >
-                    {collection.name}
-                  </label>
-                </Link>
-              );
-            })}
+                    <input
+                      type="radio"
+                      id={collection._id!}
+                      value={collection.slug!}
+                      checked={checked}
+                      data-checked={checked}
+                      defaultChecked={false}
+                      className="hidden"
+                      onChange={(e) => { }}
+                    />
+                    <label
+                      className={`cursor-pointer w-full ${checked ? "text-base-500" : " hover:text-base-500"
+                        } font-madefor`}
+                      htmlFor={collection._id!}
+                    >
+                      {collection.name}
+                    </label>
+                  </Link>
+                );
+              })}
+          </div>
         </div>
-      </fieldset>
+      </div>
 
       <div className="md:hidden mx-auto">
         <div className="relative">
@@ -91,7 +93,7 @@ export const ProductCategories: FC<ProductCategoriesProps> = ({
             </span>
           </Button>
           {isOpen && (
-            <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200">
+            <div className="absolute z-10 mt-1 w-full glass-card rounded-md shadow-lg border-0">
               {collections.map((collection) => {
                 const checked = selectedCollectionId === collection._id;
                 return (

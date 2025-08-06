@@ -70,6 +70,8 @@
       --font-size-5: theme('fontSize.5xl');
       --font-size-6: theme('fontSize.6xl');
     }
+
+
   }
 
   /* colors */
@@ -159,10 +161,6 @@
   }
 }
 
-
-
-
-
 body {
   background-color: var(--paper);
   color: var(--ink);
@@ -173,5 +171,27 @@ body {
 
   .title {
     @apply text-3xl font-bold font-display;
+  }
+
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .glass-card-no-border {
+    background-color: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .glass-content {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
   }
 }

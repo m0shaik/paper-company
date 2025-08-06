@@ -97,7 +97,7 @@ export default async function StoresCategoryPage({ params }: any) {
                     src: image!.url!,
                   }))}
                 />
-                <div className="pb-4 w-full mt-6">
+                <div className="glass-card rounded-lg p-6 shadow-lg w-full mt-6">
                   {parseProductDescription(product.description ?? '')}
                 </div>
               </div>

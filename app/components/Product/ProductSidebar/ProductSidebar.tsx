@@ -154,7 +154,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   };
 
   return (
-    <>
+    <div className="glass-card rounded-lg p-6 shadow-lg">
       <ProductTag
         name={product.name!}
         price={price}
@@ -290,6 +290,6 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };

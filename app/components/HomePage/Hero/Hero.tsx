@@ -22,18 +22,20 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 
       <div className="relative h-full flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto gap-7 z-10 text-paper">
-        <h2 className="voice-5l italic">Fresh from the Press</h2>
-        <p className="voice-lg">
-          explore our newest additions added to the collection
-        </p>
-        <Link href={STORE_ROUTE}>
-          <Button
-            variant="outline"
-            className="bg-paper text-ink border border-ink px-8 py-3 uppercase tracking-widest text-sm font-body hover:bg-ink hover:text-paper transition-colors"
-          >
-            NEW ARRIVALS
-          </Button>
-        </Link>
+        <div className="glass-card-no-border rounded-lg p-8 shadow-lg">
+          <h2 className="voice-5l italic mb-2 leading-tight">Fresh from the Press</h2>
+          <p className="voice-lg mb-4 leading-snug">
+            explore our newest additions added to the collection
+          </p>
+          <Link href={STORE_ROUTE}>
+            <Button
+              variant="outline"
+              className="bg-paper text-ink border border-ink px-8 py-3 uppercase tracking-widest text-sm font-body hover:bg-ink hover:text-paper transition-colors"
+            >
+              NEW ARRIVALS
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => (
-  <footer className="w-full bg-paper text-ink">
+  <footer className="w-full bg-paper text-ink sticky bottom-0 ]">
     <div className="max-w-[1440px] mx-auto px-4 py-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         {/* Customer Service Column */}
-        <div className="text-center">
+        <div className="">
           <h3 className="voice-2l mb-4">CUSTOMER SERVICE</h3>
           <ul className="voice-base space-y-2">
             <li><Link href="/shipping" className="hover:text-primary-400">Shipping and Returns</Link></li>
@@ -17,7 +17,7 @@ const Footer = () => (
         </div>
 
         {/* Information Column */}
-        <div className="text-center">
+        <div className="">
           <h3 className="voice-2l mb-4">INFORMATION</h3>
           <ul className="voice-base space-y-2">
             <li><Link href="/about" className="hover:text-primary-400">About Us</Link></li>
@@ -27,7 +27,7 @@ const Footer = () => (
         </div>
 
         {/* Follow Us Column */}
-        <div className="text-center">
+        <div className="">
           <h3 className="voice-2l mb-4">FOLLOW US</h3>
           <ul className="voice-base space-y-2">
             <li><Link href="https://instagram.com" className="hover:text-primary-400">Instagram</Link></li>
