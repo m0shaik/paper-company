@@ -35,7 +35,7 @@ export default function RootLayout({
           <div className="absolute top-32 right-8 w-96 h-96 bg-secondary-600 rounded-full opacity-20 blur-3xl blob-texture"></div>
 
           {/* Large purple blob - bottom center */}
-          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl blob-texture"></div>
+          <div className="absolute bottom-[200px] left-1/2 transform -translate-x-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl blob-texture"></div>
         </div>
 
         <link rel="icon" href="https://www.wix.com/favicon.ico" />
