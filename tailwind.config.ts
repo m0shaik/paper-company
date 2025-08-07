@@ -29,9 +29,11 @@ const config: Config = {
 					DEFAULT: 'var(--base-200)',
 					foreground: 'var(--base-900)'
 				},
+
 				border: 'var(--border)',
 				background: 'var(--background)',
 				foreground: 'var(--foreground)',
+
 				base: {
 					'50': 'var(--base-50)',
 					'100': 'var(--base-100)',

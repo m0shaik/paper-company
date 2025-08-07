@@ -1,5 +1,4 @@
-import { ProductSidebar } from '@/app/components/Product/ProductSidebar/ProductSidebar';
-import ImageGalleryClient from '@/app/components/Image/ImageGallery/ImageGallery.client';
+import { ProductPageClient } from '@/app/components/Product/ProductPageClient/ProductPageClient';
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
 import { queryProducts } from '@/app/model/store/store-api';
 import { PageWrapper } from '@/app/components/Layout/PageWrapper';
@@ -72,7 +71,13 @@ export async function generateMetadata({ params }: any) {
 
 export default async function StoresCategoryPage({ params }: any) {
   if (!params.slug) {
-    return;
+    return (
+      <PageWrapper className="my-20">
+        <div className="text-3xl w-full text-center p-9 box-border">
+          Product Not Found
+        </div>
+      </PageWrapper>
+    );
   }
 
   const product = (
@@ -83,35 +88,18 @@ export default async function StoresCategoryPage({ params }: any) {
   )[0];
 
   if (!product) {
-    return;
-  }
-  return (
-    <PageWrapper className="my-20">
-      {product ? (
-        <div className="full-w">
-          <div className="flex flex-col sm:flex-row gap-20">
-            <div className="box-border flex flex-col basis-2/3">
-              <div>
-                <ImageGalleryClient
-                  items={product.media!.items!.map(({ image }) => ({
-                    src: image!.url!,
-                  }))}
-                />
-                <div className="glass-card rounded-lg p-6 shadow-lg w-full mt-6">
-                  {parseProductDescription(product.description ?? '')}
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col w-full h-full basis-1/3 text-left">
-              <ProductSidebar key={product._id} product={product} />
-            </div>
-          </div>
-        </div>
-      ) : (
+    return (
+      <PageWrapper className="my-20">
         <div className="text-3xl w-full text-center p-9 box-border">
           Product Not Found
         </div>
-      )}
+      </PageWrapper>
+    );
+  }
+
+  return (
+    <PageWrapper className="my-20">
+      <ProductPageClient product={product} />
     </PageWrapper>
   );
 }

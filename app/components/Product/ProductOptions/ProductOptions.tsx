@@ -26,7 +26,7 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
     <>
       {options.map((opt) => (
         <div className="mb-4" key={opt.name}>
-          <span className="text-xs tracking-wide text-base-700 font-body font-medium">{opt.name}</span>
+          <span className="text-xs tracking-wide text-gray-900 font-body font-medium">{opt.name}</span>
           <div role="listbox" className="flex flex-row gap-2 my-2 relative">
             {opt.optionType === 'color' &&
               opt.choices!.map((v, i: number) => {

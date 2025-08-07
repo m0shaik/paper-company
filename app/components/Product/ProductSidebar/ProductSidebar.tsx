@@ -14,6 +14,8 @@ import { Button } from '@/app/components/ui/button';
 interface ProductSidebarProps {
   product: Product;
   className?: string;
+  externalSelectedOptions?: any;
+  onOptionsChange?: (options: any) => void;
 }
 
 const createProductOptions = (
@@ -47,7 +49,11 @@ const createProductOptions = (
   return baseOptions;
 };
 
-export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
+export const ProductSidebar: FC<ProductSidebarProps> = ({
+  product,
+  externalSelectedOptions,
+  onOptionsChange
+}) => {
   const addItem = useAddItemToCart();
   const { openSidebar } = useUI();
   const [loading, setLoading] = useState(false);
@@ -71,24 +77,50 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
     currencyCode: product.price!.currency!,
   });
 
+  // Use a unified selectedOptions that prioritizes external state
+  const effectiveSelectedOptions = externalSelectedOptions || selectedOptions;
+
   useEffect(() => {
     if (
       product.manageVariants &&
-      Object.keys(selectedOptions).length === product.productOptions?.length
+      Object.keys(effectiveSelectedOptions).length === product.productOptions?.length
     ) {
       const variant = product.variants?.find((variant) =>
         Object.keys(variant.choices!).every(
-          (choice) => selectedOptions[choice] === variant.choices![choice]
+          (choice) => effectiveSelectedOptions[choice] === variant.choices![choice]
         )
       );
       setSelectedVariant(variant!);
     }
     setQuantity(1);
-  }, [selectedOptions]);
+  }, [effectiveSelectedOptions, product]);
 
   useEffect(() => {
-    selectDefaultOptionFromProduct(product, setSelectedOptions);
-  }, [product]);
+    if (externalSelectedOptions) {
+      // Use external state when provided
+      setSelectedOptions(externalSelectedOptions);
+    } else {
+      // Otherwise use default product options
+      selectDefaultOptionFromProduct(product, setSelectedOptions);
+    }
+  }, [product, externalSelectedOptions]);
+
+  // Update external state when internal state changes (if callback provided)
+  useEffect(() => {
+    if (onOptionsChange && !externalSelectedOptions) {
+      onOptionsChange(selectedOptions);
+    }
+  }, [selectedOptions, onOptionsChange, externalSelectedOptions]);
+
+  const handleInternalOptionsChange = (newOptions: any) => {
+    if (externalSelectedOptions && onOptionsChange) {
+      // Update external state
+      onOptionsChange(newOptions);
+    } else {
+      // Update internal state
+      setSelectedOptions(newOptions);
+    }
+  };
 
   const squareFootage = useMemo(() => {
     const h = parseFloat(height);
@@ -139,7 +171,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         catalogReference: {
           catalogItemId: product._id!,
           appId: STORES_APP_ID,
-          ...createProductOptions(selectedOptions, selectedVariant, {
+          ...createProductOptions(effectiveSelectedOptions, selectedVariant, {
             height,
             width,
             area: squareFootage.toFixed(2),
@@ -153,6 +185,59 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
     }
   };
 
+  // Helper functions for better UX
+  const canAddToCart = () => {
+    return isAvailableForPurchase && height && width && squareFootage > 0;
+  };
+
+  const getButtonLabel = () => {
+    // Check if we have all required options selected
+    const hasAllOptionsSelected = product.productOptions?.every(option =>
+      effectiveSelectedOptions[option.name!]
+    ) ?? true;
+
+    if (!hasAllOptionsSelected) {
+      return 'Select Options';
+    }
+    if (!isAvailableForPurchase) {
+      return 'Out of Stock';
+    }
+    if (!height || !width) {
+      return 'Enter Dimensions';
+    }
+    if (squareFootage === 0) {
+      return 'Invalid Dimensions';
+    }
+    return 'Add to Cart';
+  };
+
+  const getHelpText = () => {
+    // Check if we have all required options selected
+    const hasAllOptionsSelected = product.productOptions?.every(option =>
+      effectiveSelectedOptions[option.name!]
+    ) ?? true;
+
+    if (!hasAllOptionsSelected) {
+      return 'Please select all product options first';
+    }
+    if (!isAvailableForPurchase) {
+      return 'This product variant is currently out of stock';
+    }
+    if (!height && !width) {
+      return 'Please enter both height and width dimensions';
+    }
+    if (!height) {
+      return 'Please enter the height dimension';
+    }
+    if (!width) {
+      return 'Please enter the width dimension';
+    }
+    if (squareFootage === 0) {
+      return 'Please enter valid dimensions greater than 0';
+    }
+    return '';
+  };
+
   return (
     <div className="glass-card rounded-lg p-6 shadow-lg">
       <ProductTag
@@ -164,8 +249,8 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
       <div className="mt-2">
         <ProductOptions
           options={product.productOptions!}
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          selectedOptions={effectiveSelectedOptions}
+          setSelectedOptions={handleInternalOptionsChange}
         />
       </div>
       <div className="mb-6">
@@ -233,34 +318,30 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
           </div>
         )}
       </div>
-      {isAvailableForPurchase ? (
-        <div>
-          <Button
-            aria-label="Add to Cart"
-            className={`btn-main w-full my-1 font-body font-normal ${!height || !width || squareFootage === 0
-              ? 'opacity-50 cursor-not-allowed'
-              : ''
-              }`}
-            type="button"
-            onClick={addToCart}
-            disabled={loading || !height || !width || squareFootage === 0}
-          >
-            Add to Cart
-          </Button>
-        </div>
-      ) : null}
-      {!isAvailableForPurchase ? (
-        <div>
-          <Button
-            aria-label="Not Available"
-            className="btn-main w-full my-1 rounded-2xl text-2xl"
-            type="button"
-            disabled
-          >
-            No Available
-          </Button>
-        </div>
-      ) : null}
+
+      {/* Improved Add to Cart Button with better UX */}
+      <div>
+        <Button
+          aria-label={getButtonLabel()}
+          className={`btn-main w-full my-1 font-body font-normal ${!canAddToCart() ? 'opacity-75' : ''
+            }`}
+          type="button"
+          onClick={addToCart}
+          disabled={loading || !canAddToCart()}
+        >
+          {loading ? 'Adding...' : getButtonLabel()}
+        </Button>
+
+        {/* Helper text for user guidance */}
+        {!canAddToCart() && (
+          <div className="mt-2 px-3 py-2 bg-white/10 backdrop-blur-sm rounded-md border border-white/20">
+            <p className="text-xs text-gray-300 text-center">
+              {getHelpText()}
+            </p>
+          </div>
+        )}
+      </div>
+
       <div className="mt-6">
         <div className="space-y-1">
           {product.additionalInfoSections!.map((info) => (

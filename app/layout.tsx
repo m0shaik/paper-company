@@ -25,17 +25,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-paper relative">
+      <body className="relative paper-texture">
         {/* Site-wide decorative color blobs */}
         <div className="fixed inset-0 pointer-events-none z-0">
           {/* Large pink blob - top left area */}
-          <div className="absolute -top-8 left-8 w-80 h-80 bg-primary-600 rounded-full opacity-20 blur-3xl"></div>
+          <div className="absolute -top-8 left-8 w-80 h-80 bg-primary-600 rounded-full opacity-20 blur-3xl blob-texture"></div>
 
           {/* Large orange blob - top right area */}
-          <div className="absolute top-32 right-8 w-96 h-96 bg-secondary-600 rounded-full opacity-20 blur-3xl"></div>
+          <div className="absolute top-32 right-8 w-96 h-96 bg-secondary-600 rounded-full opacity-20 blur-3xl blob-texture"></div>
 
           {/* Large purple blob - bottom center */}
-          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl"></div>
+          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl blob-texture"></div>
         </div>
 
         <link rel="icon" href="https://www.wix.com/favicon.ico" />
@@ -48,9 +48,7 @@ export default function RootLayout({
                 <LayoutProvider>{children}</LayoutProvider>
               </main>
               <SidebarUI />
-              <div className="mt-3 sm:mt-9">
-                <Footer />
-              </div>
+              <Footer />
             </div>
           </ClientProvider>
         ) : (
