@@ -69,22 +69,22 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
   return (
     <>
       {showCartContent ? (
-        <div>
-          <div className="flex-1">
+        <div className="flex flex-col h-full max-h-screen">
+          <div className="flex-shrink-0">
             <div className="relative">
               {isMini ? (
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={handleClose}
-                  aria-label="Close"
-                  className="hover:text-primary-600 absolute transition ease-in-out duration-fast focus:outline-none mr-6 top-8 w-auto h-auto p-1"
+                  aria-label="Close cart"
+                  className="absolute top-4 right-4 z-20 w-8 h-8 p-1 bg-black/10 hover:bg-black/20 rounded-full transition-all duration-200 text-black hover:text-white"
                 >
                   <svg
-                    className="w-6 h-6 text-paper ml-6"
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
@@ -92,7 +92,7 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                      d="M6 18L18 6M6 6l12 12"
                     ></path>
                   </svg>
                 </Button>
@@ -112,6 +112,9 @@ export const CartView = ({ layout = "mini" }: { layout?: "full" | "mini" }) => {
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="flex-1 overflow-y-auto min-h-0" style={{ maxHeight: 'calc(100vh - 200px)' }}>
             <ul className="sm:px-6 p-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-border border-border">
               {isMutating ? (
                 // Show skeleton immediately when any mutation is in progress

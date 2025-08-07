@@ -52,7 +52,7 @@ export function GridMotion({
         }
 
         const updateMotion = () => {
-            const maxMoveAmount = 300
+            const maxMoveAmount = 80
             const baseDuration = 0.8
             const inertiaFactors = [0.6, 0.4, 0.3, 0.2]
 
