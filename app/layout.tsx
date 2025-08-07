@@ -29,22 +29,22 @@ export default function RootLayout({
         {/* Site-wide decorative color blobs */}
         <div className="fixed inset-0 pointer-events-none z-0">
           {/* Large pink blob - top left area */}
-          <div className="absolute -top-8 left-8 w-80 h-80 bg-primary-600 rounded-full opacity-20 blur-3xl blob-texture"></div>
+          <div className="absolute -top-8 left-8 w-80 h-80 bg-primary-600 rounded-full opacity-20 blur-3xl blob-texture animate-blob-drift-1"></div>
 
           {/* Large orange blob - top right area */}
-          <div className="absolute top-32 right-8 w-96 h-96 bg-secondary-600 rounded-full opacity-20 blur-3xl blob-texture"></div>
+          <div className="absolute top-32 right-8 w-96 h-96 bg-secondary-600 rounded-full opacity-20 blur-3xl blob-texture animate-blob-drift-2"></div>
 
           {/* Large purple blob - bottom center */}
-          <div className="absolute bottom-[200px] left-1/2 transform -translate-x-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl blob-texture"></div>
+          <div className="absolute bottom-[200px] left-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl blob-texture animate-blob-drift-3"></div>
         </div>
 
         <link rel="icon" href="https://www.wix.com/favicon.ico" />
         {process.env.WIX_CLIENT_ID ? (
           <ClientProvider>
-            <div className="relative z-10">
+            <div className="relative z-10 min-h-screen flex flex-col">
               <NextTopLoader shadow={false} showSpinner={false} />
               <Header />
-              <main className="min-h-[37.5rem]">
+              <main className="flex-1 min-h-[37.5rem]">
                 <LayoutProvider>{children}</LayoutProvider>
               </main>
               <SidebarUI />

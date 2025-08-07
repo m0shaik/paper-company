@@ -96,9 +96,9 @@ export const VariantGrid: React.FC<VariantGridProps> = ({
                                 )}
                             </div>
 
-                            {/* Variant info overlay */}
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                                <div className="text-white text-sm font-medium">
+                            {/* Variant info overlay with enhanced glass morphism */}
+                            <div className="absolute bottom-0 left-0 right-0 rounded-b-lg p-1 glass-overlay border-t-0">
+                                <div className="text-gray-900 text-sm font-medium">
                                     {choice.description}
                                 </div>
                             </div>

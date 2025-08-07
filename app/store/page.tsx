@@ -104,14 +104,14 @@ export async function StoresCategory({ params }: any) {
 
   return (
     <PageWrapper>
-      <div className="flex md:flex-row flex-col gap-8 max-md:py-5">
+      <div className="flex flex-col gap-8 max-md:py-5">
         <ProductCategories
           collections={collections}
           selectedCollectionId={collectionId}
         />
         {items.length ? (
-          <div className="text-center grow">
-            <ul className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
+          <div className="text-center">
+            <ul className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
               {items.map((item, index) => (
                 <li key={item._id}>
                   <ProductCard item={item} index={index} />
@@ -167,17 +167,17 @@ export default async function Page({ params }: any) {
     <Suspense
       fallback={
         <PageWrapper>
-          <div className="full-w overflow-hidden flex md:flex-row flex-col gap-8 max-md:py-5">
+          <div className="full-w overflow-hidden flex flex-col gap-8 max-md:py-5">
             <div
               role="status"
-              className="max-md:hidden max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+              className="w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
             >
               <ListSkeleton />
               <span className="sr-only">Loading...</span>
             </div>
 
-            <div className="text-center grow">
-              <ul className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
+            <div className="text-center">
+              <ul className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 grid-flow-row">
                 {[...Array(8)].map((_, i) => (
                   <li
                     key={i}

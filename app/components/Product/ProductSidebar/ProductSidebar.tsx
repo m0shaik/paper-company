@@ -1,7 +1,6 @@
 'use client';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { ProductOptions } from '../ProductOptions/ProductOptions';
-import { selectDefaultOptionFromProduct } from '../ProductOptions/helpers';
 import { useUI } from '../../Provider/context';
 import { useAddItemToCart } from '@/app/hooks/useAddItemToCart';
 import { HiArrowDown } from 'react-icons/hi';
@@ -14,8 +13,8 @@ import { Button } from '@/app/components/ui/button';
 interface ProductSidebarProps {
   product: Product;
   className?: string;
-  externalSelectedOptions?: any;
-  onOptionsChange?: (options: any) => void;
+  externalSelectedOptions: any;
+  onOptionsChange: (options: any) => void;
 }
 
 const createProductOptions = (
@@ -57,9 +56,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   const addItem = useAddItemToCart();
   const { openSidebar } = useUI();
   const [loading, setLoading] = useState(false);
-  const [quantity, setQuantity] = useState<number>(1);
   const [selectedVariant, setSelectedVariant] = useState<Variant>({});
-  const [selectedOptions, setSelectedOptions] = useState<any>({});
   const [openPanels, setOpenPanels] = useState<Record<string, boolean>>({});
   const [height, setHeight] = useState<string>('');
   const [width, setWidth] = useState<string>('');
@@ -77,50 +74,19 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
     currencyCode: product.price!.currency!,
   });
 
-  // Use a unified selectedOptions that prioritizes external state
-  const effectiveSelectedOptions = externalSelectedOptions || selectedOptions;
-
   useEffect(() => {
     if (
       product.manageVariants &&
-      Object.keys(effectiveSelectedOptions).length === product.productOptions?.length
+      Object.keys(externalSelectedOptions).length === product.productOptions?.length
     ) {
       const variant = product.variants?.find((variant) =>
         Object.keys(variant.choices!).every(
-          (choice) => effectiveSelectedOptions[choice] === variant.choices![choice]
+          (choice) => externalSelectedOptions[choice] === variant.choices![choice]
         )
       );
       setSelectedVariant(variant!);
     }
-    setQuantity(1);
-  }, [effectiveSelectedOptions, product]);
-
-  useEffect(() => {
-    if (externalSelectedOptions) {
-      // Use external state when provided
-      setSelectedOptions(externalSelectedOptions);
-    } else {
-      // Otherwise use default product options
-      selectDefaultOptionFromProduct(product, setSelectedOptions);
-    }
-  }, [product, externalSelectedOptions]);
-
-  // Update external state when internal state changes (if callback provided)
-  useEffect(() => {
-    if (onOptionsChange && !externalSelectedOptions) {
-      onOptionsChange(selectedOptions);
-    }
-  }, [selectedOptions, onOptionsChange, externalSelectedOptions]);
-
-  const handleInternalOptionsChange = (newOptions: any) => {
-    if (externalSelectedOptions && onOptionsChange) {
-      // Update external state
-      onOptionsChange(newOptions);
-    } else {
-      // Update internal state
-      setSelectedOptions(newOptions);
-    }
-  };
+  }, [externalSelectedOptions, product]);
 
   const squareFootage = useMemo(() => {
     const h = parseFloat(height);
@@ -171,7 +137,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
         catalogReference: {
           catalogItemId: product._id!,
           appId: STORES_APP_ID,
-          ...createProductOptions(effectiveSelectedOptions, selectedVariant, {
+          ...createProductOptions(externalSelectedOptions, selectedVariant, {
             height,
             width,
             area: squareFootage.toFixed(2),
@@ -193,7 +159,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   const getButtonLabel = () => {
     // Check if we have all required options selected
     const hasAllOptionsSelected = product.productOptions?.every(option =>
-      effectiveSelectedOptions[option.name!]
+      externalSelectedOptions[option.name!]
     ) ?? true;
 
     if (!hasAllOptionsSelected) {
@@ -214,7 +180,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   const getHelpText = () => {
     // Check if we have all required options selected
     const hasAllOptionsSelected = product.productOptions?.every(option =>
-      effectiveSelectedOptions[option.name!]
+      externalSelectedOptions[option.name!]
     ) ?? true;
 
     if (!hasAllOptionsSelected) {
@@ -249,8 +215,8 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
       <div className="mt-2">
         <ProductOptions
           options={product.productOptions!}
-          selectedOptions={effectiveSelectedOptions}
-          setSelectedOptions={handleInternalOptionsChange}
+          selectedOptions={externalSelectedOptions}
+          setSelectedOptions={onOptionsChange}
         />
       </div>
       <div className="mb-6">
@@ -335,7 +301,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
         {/* Helper text for user guidance */}
         {!canAddToCart() && (
           <div className="mt-2 px-3 py-2 bg-white/10 backdrop-blur-sm rounded-md border border-white/20">
-            <p className="text-xs text-gray-300 text-center">
+            <p className="text-xs text-base-300 text-center">
               {getHelpText()}
             </p>
           </div>

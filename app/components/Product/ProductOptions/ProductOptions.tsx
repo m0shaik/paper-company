@@ -6,7 +6,7 @@ import { ProductOption } from '@/app/model/store/store-api';
 interface ProductOptionsProps {
   options: ProductOption[];
   selectedOptions: any;
-  setSelectedOptions: React.Dispatch<React.SetStateAction<any>>;
+  setSelectedOptions: (options: any) => void;
 }
 
 export const ProductOptions: React.FC<ProductOptionsProps> = ({
@@ -15,11 +15,9 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
   setSelectedOptions,
 }) => {
   const setSelected = (newOption: Record<string, string>) => {
-    setSelectedOptions((selectedOptions: any) => {
-      return {
-        ...selectedOptions,
-        ...newOption,
-      };
+    setSelectedOptions({
+      ...selectedOptions,
+      ...newOption,
     });
   };
   return (

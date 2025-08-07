@@ -21,10 +21,12 @@ export default function ImageGalleryClient({
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Reset to first image when items change (variant changes)
+  // Only reset to first image when items change if we're beyond the available range
   useEffect(() => {
-    setCurrentIndex(0);
-  }, [items]);
+    if (currentIndex >= expandedItems.length) {
+      setCurrentIndex(0);
+    }
+  }, [items, currentIndex, expandedItems.length]);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -41,8 +43,8 @@ export default function ImageGalleryClient({
   const handleVariantNavigation = (direction: 'up' | 'down') => {
     if (onVariantNavigation) {
       onVariantNavigation(direction);
-      // Reset to first image when variant changes
-      setCurrentIndex(0);
+      // Keep the current room view (don't reset to first image)
+      // setCurrentIndex(0); // Removed this line
     }
   };
 
@@ -57,16 +59,19 @@ export default function ImageGalleryClient({
       {/* Current image with optional room wall overlay */}
       {currentItem.isRoomWall ? (
         <div className="w-full h-full relative">
-          {/* Background image from backend */}
-          <img
-            src={currentItem.src}
-            alt={currentItem.alt ?? ""}
-            className="w-full h-full object-cover absolute inset-0"
+          {/* Wallpaper background - full size with realistic tiling pattern */}
+          <div
+            className="absolute inset-0 bg-repeat"
+            style={{
+              backgroundImage: `url(${currentItem.src})`,
+              backgroundSize: '100px auto',
+              backgroundPosition: 'top left',
+            }}
           />
-          {/* Room wall overlay */}
+          {/* Room overlay on top */}
           <img
             src={currentItem.roomWallImage}
-            alt="Room wall frame"
+            alt="Room wall background"
             className="w-full h-full object-cover absolute inset-0"
           />
         </div>

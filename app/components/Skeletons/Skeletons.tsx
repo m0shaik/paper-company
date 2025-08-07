@@ -75,3 +75,67 @@ export function CartSkeleton() {
     </li>
   );
 }
+
+export function ProductSidebarSkeleton() {
+  return (
+    <div className="glass-card rounded-lg p-6 shadow-lg">
+      {/* Product title and price */}
+      <div className="space-y-3 mb-6">
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-5 w-1/2" />
+        <Skeleton className="h-4 w-1/4" />
+      </div>
+
+      {/* Product options */}
+      <div className="space-y-4 mb-6">
+        <div>
+          <Skeleton className="h-4 w-16 mb-2" />
+          <div className="flex gap-2">
+            <Skeleton className="w-12 h-12 rounded-md" />
+            <Skeleton className="w-12 h-12 rounded-md" />
+            <Skeleton className="w-12 h-12 rounded-md" />
+          </div>
+        </div>
+      </div>
+
+      {/* Dimensions */}
+      <div className="space-y-3 mb-6">
+        <Skeleton className="h-4 w-32" />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Skeleton className="h-3 w-16 mb-1" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <div>
+            <Skeleton className="h-3 w-16 mb-1" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+        </div>
+      </div>
+
+      {/* Add to cart button */}
+      <Skeleton className="h-12 w-full mb-6" />
+
+      {/* Additional info sections */}
+      <div className="space-y-1">
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+      </div>
+    </div>
+  );
+}
+
+export function VariantGridSkeleton() {
+  return (
+    <div className="w-full glass-card rounded-lg p-6 shadow-lg">
+      <div className="grid grid-cols-4 gap-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="relative">
+            <Skeleton className="aspect-square w-full rounded-lg" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -1,14 +1,19 @@
 import Link from "next/link";
 import { HOME_ROUTE } from "@/app/routes";
 
-const Logo = () => (
+interface LogoProps {
+  className?: string;
+  textClassName?: string;
+}
+
+const Logo = ({ className = "", textClassName = "" }: LogoProps) => (
   <Link
     href={HOME_ROUTE}
-    className="flex md:justify-start md:items-center gap-2 md:px-8 max-md:pt-6"
+    className={`select-none ${className}`}
   >
-    <h5 className="relative text-ink font-bold text-2xl font-display">
-      The Paper Company
-    </h5>
+    <span className={`font-semibold select-none ${textClassName}`}>
+      <span className="font-bold text-primary-500 text-2xl">P</span>aper Company
+    </span>
   </Link>
 );
 

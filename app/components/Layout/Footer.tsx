@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "./Logo/Logo";
 
 const Footer = () => (
   <footer className="w-full glass-footer text-ink ">
@@ -7,9 +8,9 @@ const Footer = () => (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
         {/* Left Column - Company Logo */}
         <div className="text-left">
-          <h2 className="text-2xl font-bold text-primary-600 mb-4 tracking-wide">
-            The Paper Company
-          </h2>
+          <Logo
+            textClassName="text-2xl font-bold mb-4 tracking-wide"
+          />
           <p className="voice-base text-ink/70 leading-relaxed">
             Premium quality papers and office supplies for all your creative and business needs.
           </p>
@@ -53,7 +54,7 @@ const Footer = () => (
 
     {/* Copyright Section */}
     <div className="text-center py-4 border-t border-border">
-      <p className="text-sm">© The Paper Company {new Date().getFullYear()}</p>
+      <p className="text-sm">© <Logo className="inline" textClassName="text-sm" /> {new Date().getFullYear()}</p>
     </div>
   </footer>
 );
