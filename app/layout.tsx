@@ -6,25 +6,45 @@ import { Metadata } from "next";
 import { LayoutProvider } from "@/app/components/LayoutProvider/LayoutProvider";
 import NextTopLoader from "nextjs-toploader";
 import { ClientProvider } from '@/app/components/Provider/Providers';
+import { generateSEOMetadata } from "@/app/lib/seo";
+import { StructuredDataScript } from "@/app/components/SEO/StructuredData";
+import { generateOrganizationSchema, generateWebsiteSchema } from "@/app/lib/structured-data";
+import { GoogleAnalytics } from "@/app/components/SEO/GoogleAnalytics";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Create Wix Demo Site",
-    template: "%s | Create Wix Demo Site",
-  },
-  viewport: "width=device-width, initial-scale=1",
-  icons: {
-    icon: "https://www.wix.com/favicon.ico",
-  },
-};
+export const metadata: Metadata = generateSEOMetadata({
+  title: "Premium Paper Company - Custom Dimensions & Sustainable Materials",
+  description: "Leading provider of premium paper products with custom dimensions. Eco-friendly materials, professional quality, and exceptional service for all your paper needs.",
+  keywords: [
+    "custom paper products",
+    "sustainable paper materials",
+    "premium quality paper",
+    "business paper supplies",
+    "eco-friendly paper solutions",
+    "custom dimensions paper",
+    "paper company"
+  ]
+});
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const organizationSchema = generateOrganizationSchema();
+  const websiteSchema = generateWebsiteSchema();
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html lang="en">
+      <head>
+        <StructuredDataScript data={[organizationSchema, websiteSchema]} />
+        {GA_MEASUREMENT_ID && <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body className="relative paper-texture">
         {/* Site-wide decorative color blobs */}
         <div className="fixed inset-0 pointer-events-none z-0">
@@ -38,7 +58,6 @@ export default function RootLayout({
           <div className="absolute bottom-[200px] left-1/2 w-72 h-72 bg-accent-700 rounded-full opacity-30 blur-3xl blob-texture animate-blob-drift-3"></div>
         </div>
 
-        <link rel="icon" href="https://www.wix.com/favicon.ico" />
         {process.env.WIX_CLIENT_ID ? (
           <ClientProvider>
             <div className="relative z-10 min-h-screen flex flex-col">

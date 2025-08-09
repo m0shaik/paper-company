@@ -2,6 +2,10 @@ import { ProductPageClient } from '@/app/components/Product/ProductPageClient/Pr
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
 import { queryProducts } from '@/app/model/store/store-api';
 import { PageWrapper } from '@/app/components/Layout/PageWrapper';
+import { generateProductSEO } from '@/app/lib/seo';
+import { StructuredDataScript } from '@/app/components/SEO/StructuredData';
+import { generateProductSchema, generateBreadcrumbSchema } from '@/app/lib/structured-data';
+import { Breadcrumb } from '@/app/components/SEO/Breadcrumb';
 
 // Helper function to parse and style product description
 function parseProductDescription(htmlDescription: string) {
@@ -58,14 +62,30 @@ export async function generateMetadata({ params }: any) {
     )[0];
 
     if (product && product.name) {
+      const seoConfig = generateProductSEO(product);
       return {
-        title: product.name,
+        title: seoConfig.title,
+        description: seoConfig.description,
+        keywords: seoConfig.keywords?.join(', '),
+        openGraph: {
+          title: seoConfig.title,
+          description: seoConfig.description,
+          images: [seoConfig.image],
+          type: 'product',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: seoConfig.title,
+          description: seoConfig.description,
+          images: [seoConfig.image],
+        },
       };
     }
   }
 
   return {
-    title: 'Unavailable Product',
+    title: 'Product Not Found - Premium Paper Company',
+    description: 'The requested product could not be found. Browse our full collection of premium paper products.',
   };
 }
 
@@ -97,10 +117,30 @@ export default async function StoresCategoryPage({ params }: any) {
     );
   }
 
+  // Generate structured data
+  const productSchema = generateProductSchema(product);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Store', url: '/store' },
+    { name: product.name || 'Product' }
+  ]);
+
   return (
-    <PageWrapper className="my-20">
-      <ProductPageClient product={product} />
-    </PageWrapper>
+    <>
+      <StructuredDataScript data={[productSchema, breadcrumbSchema]} />
+      <PageWrapper className="my-20">
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: 'Home', href: '/' },
+              { label: 'Store', href: '/store' },
+              { label: product.name || 'Product' }
+            ]}
+          />
+        </div>
+        <ProductPageClient product={product} />
+      </PageWrapper>
+    </>
   );
 }
 

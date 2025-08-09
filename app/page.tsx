@@ -3,10 +3,24 @@ import HeroSection from "@/app/components/HomePage/Hero/Hero";
 import AboutSection from "@/app/components/HomePage/About/About";
 import MenuSection from "@/app/components/HomePage/Menu/Menu";
 import Testimonies from "@/app/components/HomePage/Testimonies/Testimonies";
-
+import { Metadata } from "next";
 import FeaturedMenuCard from "@/app/components/MenuCard/FeaturedMenuCard";
 import { StoreSection } from "@/app/components/HomePage/StoreSection/StoreSection";
 import { HomeGallery } from "@/app/components/HomePage/HomeGallery/HomeGallery";
+import { generateSEOMetadata } from "@/app/lib/seo";
+
+export const metadata: Metadata = generateSEOMetadata({
+  title: "Premium Paper Company - Custom Dimensions & Sustainable Materials",
+  description: "Discover premium paper products with custom dimensions and sustainable materials. Professional quality solutions for all your business needs with exceptional service.",
+  keywords: [
+    "premium paper products",
+    "custom dimensions paper",
+    "sustainable paper materials",
+    "eco-friendly paper",
+    "business paper supplies",
+    "paper company homepage"
+  ]
+});
 
 const galleryImages = [
   {
