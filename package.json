@@ -20,9 +20,9 @@
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
     "@tanstack/react-query": "^4.18.0",
-    "@wix/data": "^1.0.274",
+    "@wix/data": "^1.0.47",
     "@wix/ecom": "^1.0.1277",
-    "@wix/sdk": "^1.5.7",
+    "@wix/sdk": "^1.5.0",
     "@wix/stores": "^1.0.498",
     "@wix/wix-ui-icons-common": "^3.12.0",
     "body-scroll-lock": "^4.0.0-beta.0",
@@ -58,5 +58,5 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   },
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+  "packageManager": "yarn@3.3.0"
 }

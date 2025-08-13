@@ -7,11 +7,11 @@ const nextConfig = {
     appDir: true,
   },
   eslint: {
-    dirs: ["app"],
+    dirs: ['app'],
   },
   images: {
-    domains: ["static.wixstatic.com"],
-    formats: ["image/webp"],
+    domains: ['static.wixstatic.com'],
+    formats: ['image/webp'],
   },
   // SEO optimizations
   async headers() {
