@@ -13,11 +13,20 @@ import { queryCollections, queryProducts } from "@/app/model/store/store-api";
 import type { Product, Collection } from "@/app/model/store/store-api"
 import { Button } from "@/app/components/ui/button";
 import { PageWrapper } from "@/app/components/Layout/PageWrapper";
+import { generateSEOMetadata } from "@/app/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Store",
-  description: "",
-};
+export const metadata: Metadata = generateSEOMetadata({
+  title: "Store - Premium Paper Products Collection",
+  description: "Browse our complete collection of premium paper products. Custom dimensions available for all products. Sustainable materials and professional quality guaranteed.",
+  url: "/store",
+  keywords: [
+    "paper products store",
+    "premium paper collection",
+    "custom paper products",
+    "sustainable paper materials",
+    "business paper supplies"
+  ]
+});
 
 const ProductCard = ({
   item,

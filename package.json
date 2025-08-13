@@ -9,7 +9,9 @@
     "e2e": "yarn playwright test",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix"
+    "lint": "next lint --fix",
+    "test-seo": "./scripts/test-seo.sh",
+    "build-analyze": "ANALYZE=true yarn build"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.15",
