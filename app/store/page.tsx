@@ -1,44 +1,25 @@
-import React, { Suspense } from "react";
-import Image from "next/image";
-import { PLACEHOLDER_IMAGE } from "@/app/constants";
-import { ProductCategories } from "@/app/components/ProductCategories/ProductCategories";
-import Link from "next/link";
-import ActionLink from "@/app/components/ActionLink/ActionLink";
-import { Metadata } from "next";
+import React, { Suspense } from 'react';
+import Image from 'next/image';
+import { PLACEHOLDER_IMAGE } from '@/app/constants';
+import { ProductCategories } from '@/app/components/ProductCategories/ProductCategories';
+import Link from 'next/link';
+import ActionLink from '@/app/components/ActionLink/ActionLink';
+import { Metadata } from 'next';
 import {
   CardSkeleton,
   ListSkeleton,
-} from "@/app/components/Skeletons/Skeletons";
-import { queryCollections, queryProducts } from "@/app/model/store/store-api";
-import type { Product, Collection } from "@/app/model/store/store-api"
-import { Button } from "@/app/components/ui/button";
-import { PageWrapper } from "@/app/components/Layout/PageWrapper";
-import { generateSEOMetadata } from "@/app/lib/seo";
+} from '@/app/components/Skeletons/Skeletons';
+import { queryCollections, queryProducts } from '@/app/model/store/store-api';
+import type { Product, Collection } from '@/app/model/store/store-api';
+import { Button } from '@/app/components/ui/button';
+import { PageWrapper } from '@/app/components/Layout/PageWrapper';
+import { getPageSEO } from '@/app/lib/seo';
 
-export const metadata: Metadata = generateSEOMetadata({
-  title: "Store - Premium Paper Products Collection",
-  description: "Browse our complete collection of premium paper products. Custom dimensions available for all products. Sustainable materials and professional quality guaranteed.",
-  url: "/store",
-  keywords: [
-    "paper products store",
-    "premium paper collection",
-    "custom paper products",
-    "sustainable paper materials",
-    "business paper supplies"
-  ]
-});
+export const metadata: Metadata = getPageSEO('store');
 
-const ProductCard = ({
-  item,
-  index,
-}: {
-  item: Product;
-  index: number;
-}) => {
+const ProductCard = ({ item, index }: { item: Product; index: number }) => {
   return (
-    <div
-      className="flex flex-col h-full glass-card rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-    >
+    <div className="flex flex-col h-full glass-card rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
       <Link
         className="relative max-w-full w-full pt-[100%] block"
         href={`/product-page/${item.slug}`}
@@ -46,12 +27,12 @@ const ProductCard = ({
         <Image
           fill
           style={{
-            objectFit: "cover",
-            objectPosition: "center",
+            objectFit: 'cover',
+            objectPosition: 'center',
           }}
           sizes="(max-width: 768px) 100vw, (max-width: 1535px) 33vw, 25vw"
           src={item.media?.mainMedia?.image?.url || PLACEHOLDER_IMAGE}
-          alt={item.media?.mainMedia?.image?.altText || "main image"}
+          alt={item.media?.mainMedia?.image?.altText || 'main image'}
           className="w-full h-auto"
           priority={index < 4}
         />
@@ -68,9 +49,7 @@ const ProductCard = ({
             {item.price!.formatted!.price}
           </div>
         </Link>
-        {!item.manageVariants && item.stock?.inStock ? (
-          null
-        ) : (
+        {!item.manageVariants && item.stock?.inStock ? null : (
           <Button className="btn-main cursor-pointer text-lg mt-auto" disabled>
             Out of Stock
           </Button>
@@ -86,20 +65,25 @@ export async function StoresCategory({ params }: any) {
   let collectionId;
   try {
     collections = await queryCollections();
-    console.log("Available collections:", collections.map(c => ({ name: c.name, slug: c.slug, id: c._id })));
-    console.log("Looking for category:", params?.category);
+    console.log(
+      'Available collections:',
+      collections.map((c) => ({ name: c.name, slug: c.slug, id: c._id }))
+    );
+    console.log('Looking for category:', params?.category);
 
     collectionId = collections.find(({ slug }) => slug === params?.category)
       ?._id!;
 
-    console.log("Found collectionId:", collectionId);
+    console.log('Found collectionId:', collectionId);
 
     if (collectionId) {
       items = await queryProducts({
         limit: 10,
         collectionId,
       });
-      console.log(`Found ${items.length} products for collection ${params?.category}`);
+      console.log(
+        `Found ${items.length} products for collection ${params?.category}`
+      );
     } else {
       console.log(`No collection found for slug: ${params?.category}`);
       items = await queryProducts({
@@ -108,7 +92,7 @@ export async function StoresCategory({ params }: any) {
       console.log(`Found ${items.length} total products`);
     }
   } catch (err) {
-    console.error("Error in StoresCategory:", err);
+    console.error('Error in StoresCategory:', err);
   }
 
   return (
@@ -133,10 +117,9 @@ export async function StoresCategory({ params }: any) {
             {params?.category ? (
               <>
                 No products found in category "{params.category}".
-                {collections.find(c => c.slug === params.category) ?
-                  " This category exists but has no products." :
-                  " This category does not exist."
-                }
+                {collections.find((c) => c.slug === params.category)
+                  ? ' This category exists but has no products.'
+                  : ' This category does not exist.'}
                 <br />
                 <Link
                   href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
@@ -145,13 +128,13 @@ export async function StoresCategory({ params }: any) {
                   className="text-purple-500"
                 >
                   Click here
-                </Link>{" "}
-                to go to the business dashboard to add products. Once added, they will
-                appear here.
+                </Link>{' '}
+                to go to the business dashboard to add products. Once added,
+                they will appear here.
               </>
             ) : (
               <>
-                No products found. Click{" "}
+                No products found. Click{' '}
                 <Link
                   href="https://manage.wix.com/account/site-selector?actionUrl=+https%3A%2F%2Fmanage.wix.com%2Fdashboard%2F%7BmetaSiteId%7D%2Fstore%2Fproducts%3FreferralInfo%3DHeadless"
                   target="_blank"
@@ -159,9 +142,9 @@ export async function StoresCategory({ params }: any) {
                   className="text-purple-500"
                 >
                   here
-                </Link>{" "}
-                to go to the business dashboard to add products. Once added, they will
-                appear here.
+                </Link>{' '}
+                to go to the business dashboard to add products. Once added,
+                they will appear here.
               </>
             )}
           </div>
@@ -191,7 +174,7 @@ export default async function Page({ params }: any) {
                   <li
                     key={i}
                     className={
-                      "flex flex-col items-center justify-center max-md:h-[55vh] md:h-96"
+                      'flex flex-col items-center justify-center max-md:h-[55vh] md:h-96'
                     }
                   >
                     <div

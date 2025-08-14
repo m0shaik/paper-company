@@ -11,6 +11,9 @@
     "start": "next start",
     "lint": "next lint --fix",
     "test-seo": "./scripts/test-seo.sh",
+    "seo:validate": "node scripts/seo-manager.js validate",
+    "seo:list": "node scripts/seo-manager.js list",
+    "seo:help": "node scripts/seo-manager.js help",
     "build-analyze": "ANALYZE=true yarn build"
   },
   "dependencies": {

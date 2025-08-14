@@ -1,29 +1,20 @@
-import "../styles/globals.css";
-import Footer from "./components/Layout/Footer";
-import Header from "./components/Layout/Header";
-import { SidebarUI } from "./components/Sidebar/SidebarUI";
-import { Metadata } from "next";
-import { LayoutProvider } from "@/app/components/LayoutProvider/LayoutProvider";
-import NextTopLoader from "nextjs-toploader";
+import '../styles/globals.css';
+import Footer from './components/Layout/Footer';
+import Header from './components/Layout/Header';
+import { SidebarUI } from './components/Sidebar/SidebarUI';
+import { Metadata } from 'next';
+import { LayoutProvider } from '@/app/components/LayoutProvider/LayoutProvider';
+import NextTopLoader from 'nextjs-toploader';
 import { ClientProvider } from '@/app/components/Provider/Providers';
-import { generateSEOMetadata } from "@/app/lib/seo";
-import { StructuredDataScript } from "@/app/components/SEO/StructuredData";
-import { generateOrganizationSchema, generateWebsiteSchema } from "@/app/lib/structured-data";
-import { GoogleAnalytics } from "@/app/components/SEO/GoogleAnalytics";
+import { getPageSEO } from '@/app/lib/seo';
+import { StructuredDataScript } from '@/app/components/SEO/StructuredData';
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+} from '@/app/lib/structured-data';
+import { GoogleAnalytics } from '@/app/components/SEO/GoogleAnalytics';
 
-export const metadata: Metadata = generateSEOMetadata({
-  title: "Premium Paper Company - Custom Dimensions & Sustainable Materials",
-  description: "Leading provider of premium paper products with custom dimensions. Eco-friendly materials, professional quality, and exceptional service for all your paper needs.",
-  keywords: [
-    "custom paper products",
-    "sustainable paper materials",
-    "premium quality paper",
-    "business paper supplies",
-    "eco-friendly paper solutions",
-    "custom dimensions paper",
-    "paper company"
-  ]
-});
+export const metadata: Metadata = getPageSEO('home');
 
 export default function RootLayout({
   children,
@@ -38,11 +29,27 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <StructuredDataScript data={[organizationSchema, websiteSchema]} />
-        {GA_MEASUREMENT_ID && <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />}
+        {GA_MEASUREMENT_ID && (
+          <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
+        )}
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="relative paper-texture">
@@ -73,8 +80,8 @@ export default function RootLayout({
         ) : (
           <div className="bg-paper min-h-[37.5rem] max-w-5xl mx-auto p-5 relative z-10">
             Page not available. Please add an environment variable called
-            WIX_CLIENT_ID, containing the client ID, to your
-            deployment provider.
+            WIX_CLIENT_ID, containing the client ID, to your deployment
+            provider.
           </div>
         )}
       </body>
