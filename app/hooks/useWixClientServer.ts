@@ -1,6 +1,7 @@
-import { createClient, OAuthStrategy } from "@wix/sdk";
-import { redirects } from "@wix/redirects";
-import { cookies } from "next/headers";
+import { createClient, OAuthStrategy } from '@wix/sdk';
+import { items } from '@wix/data';
+
+import { cookies } from 'next/headers';
 import { WIX_REFRESH_TOKEN } from '@/app/constants';
 
 export const getWixClient = async () => {
@@ -8,18 +9,18 @@ export const getWixClient = async () => {
   try {
     const cookieStore = cookies();
     refreshToken = JSON.parse(
-      cookieStore.get(WIX_REFRESH_TOKEN)?.value || "{}"
+      cookieStore.get(WIX_REFRESH_TOKEN)?.value || '{}'
     );
-  } catch (e) { }
+  } catch (e) {}
   const wixClient = createClient({
     modules: {
-      redirects,
+      items,
     },
     auth: OAuthStrategy({
       clientId: process.env.WIX_CLIENT_ID!,
       tokens: {
         refreshToken,
-        accessToken: { value: "", expiresAt: 0 },
+        accessToken: { value: '', expiresAt: 0 },
       },
     }),
   });
