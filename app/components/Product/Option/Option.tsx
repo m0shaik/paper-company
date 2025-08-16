@@ -1,4 +1,4 @@
-import { ProductOption } from '@/app/model/store/store-api';
+import { ProductOption } from '@/app/model/store/types';
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -6,7 +6,7 @@ import { useAddItemToCart } from '@/app/hooks/useAddItemToCart';
 import { HiArrowDown } from 'react-icons/hi';
 import { ProductTag } from '../ProductTag/ProductTag';
 import { usePrice } from '@/app/hooks/usePrice';
-import { Product, Variant } from '@/app/model/store/store-api';
+import { Product, Variant } from '@/app/model/store/types';
 import { STORES_APP_ID } from '@/app/constants';
 import { Button } from '@/app/components/ui/button';
 

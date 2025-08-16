@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/app/components/ui/button';
-import { Variant, Product } from '@/app/model/store/store-api';
+import { Variant, Product } from '@/app/model/store/types';
 import { ArrowLeft, Check } from 'lucide-react';
 
 interface VariantGridProps {

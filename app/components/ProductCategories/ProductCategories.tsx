@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 import { STORE_ROUTE } from "@/app/routes";
 import { ALL_ITEMS_ID } from '@/app/constants';
-import { Collection } from '@/app/model/store/store-api';
+import { Collection } from '@/app/model/store/types';
 import { Button } from "@/app/components/ui/button";
 
 export interface ProductCategoriesProps {

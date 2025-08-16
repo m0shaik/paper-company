@@ -1,7 +1,7 @@
 'use client';
 import Swatch from '../Swatch/Swatch';
 import { Option } from '../Option/Option';
-import { ProductOption } from '@/app/model/store/store-api';
+import { ProductOption } from '@/app/model/store/types';
 
 interface ProductOptionsProps {
   options: ProductOption[];

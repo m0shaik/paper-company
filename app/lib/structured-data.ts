@@ -1,4 +1,4 @@
-import { Product, Collection } from '@/app/model/store/store-api';
+import { Product, Collection } from '@/app/model/store/types';
 import {
   SEO_CONFIG,
   getOrganizationStructuredData,

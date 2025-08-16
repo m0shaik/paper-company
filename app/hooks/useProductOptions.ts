@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { Product, Variant, ProductOption } from '@/app/model/store/store-api';
+import { Product, Variant, ProductOption } from '@/app/model/store/types';
 
 export type SelectedOptions = Record<string, string>;
 

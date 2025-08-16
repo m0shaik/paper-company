@@ -2,7 +2,7 @@
 
 import { GridMotion } from "@/app/components/ui/grid-motion";
 import { ReactNode, useEffect, useState } from "react";
-import { type Product } from "@/app/model/store/store-api";
+import { type Product } from "@/app/model/store/types";
 import { PLACEHOLDER_IMAGE } from "@/app/constants";
 import { useRouter } from "next/navigation";
 

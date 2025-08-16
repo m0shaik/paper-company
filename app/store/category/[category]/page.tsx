@@ -1,5 +1,6 @@
 import StorePage from '@/app/store/page';
-import { queryCollections, queryProducts } from '@/app/model/store/store-api';
+import { Metadata } from 'next';
+import { queryCollections, queryProducts } from '@/app/model/store/wix-server';
 import { generateCategorySEO } from '@/app/lib/seo';
 
 export async function generateMetadata({ params }: any) {

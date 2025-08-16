@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from 'next/image';
 import { STORE_CATEGORY_ROUTE, STORE_ROUTE } from "@/app/routes";
-import { Collection, queryCollections } from '@/app/model/store/store-api';
+import { queryCollections } from '@/app/model/store/wix-server';
+import { Collection } from '@/app/model/store/types';
 
 async function Collections() {
   const items = await queryCollections({

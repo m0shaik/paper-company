@@ -1,6 +1,8 @@
 import { ProductPageClient } from '@/app/components/Product/ProductPageClient/ProductPageClient';
 import { PLACEHOLDER_IMAGE } from '@/app/constants';
-import { queryProducts } from '@/app/model/store/store-api';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { queryProducts } from '@/app/model/store/wix-server';
 import { PageWrapper } from '@/app/components/Layout/PageWrapper';
 import { generateProductSEO } from '@/app/lib/seo';
 import { StructuredDataScript } from '@/app/components/SEO/StructuredData';

@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { queryProducts, queryCollections } from '@/app/model/store/store-api';
+import { NextRequest, NextResponse } from 'next/server';
+import { queryProducts, queryCollections } from '@/app/model/store/wix-server';
 
 export async function GET(request: Request) {
     try {

@@ -9,8 +9,8 @@ import {
   CardSkeleton,
   ListSkeleton,
 } from '@/app/components/Skeletons/Skeletons';
-import { queryCollections, queryProducts } from '@/app/model/store/store-api';
-import type { Product, Collection } from '@/app/model/store/store-api';
+import { queryCollections, queryProducts } from '@/app/model/store/wix-server';
+import type { Product, Collection } from '@/app/model/store/types';
 import { Button } from '@/app/components/ui/button';
 import { PageWrapper } from '@/app/components/Layout/PageWrapper';
 import { getPageSEO } from '@/app/lib/seo';

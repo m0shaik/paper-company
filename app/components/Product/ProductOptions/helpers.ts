@@ -1,4 +1,4 @@
-import { Product } from '@/app/model/store/store-api';
+import { Product } from '@/app/model/store/types';
 
 export type SelectedOptions = Record<string, string>;
 

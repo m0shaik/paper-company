@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequestUrl } from "@/app/utils/server-utils";
-import { getProduct } from '@/app/model/store/store-api';
+import { getProduct } from '@/app/model/store/wix-server';
 import { addToCurrentCart, createCheckout, LineItem } from '@/app/model/ecom/ecom-api';
 import { createRedirectSession } from "@/app/model/redirect/redirect-api";
 import { STORES_APP_ID } from "@/app/constants";
