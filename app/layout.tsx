@@ -32,6 +32,7 @@ export default function RootLayout({
         {GA_MEASUREMENT_ID && (
           <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
         )}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"

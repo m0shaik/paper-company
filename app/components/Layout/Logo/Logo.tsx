@@ -12,7 +12,8 @@ const Logo = ({ className = "", textClassName = "" }: LogoProps) => (
     className={`select-none ${className}`}
   >
     <span className={`font-semibold select-none ${textClassName}`}>
-      <span className="font-bold text-primary-500 text-2xl">P</span>aper Company
+      <span className="font-bold text-primary-500 text-2xl">P</span>
+      <span className="hidden sm:inline">aper Company</span>
     </span>
   </Link>
 );

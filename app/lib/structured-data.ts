@@ -60,11 +60,10 @@ export function generateProductSchema(product: Product): StructuredData {
   if (product.variants && product.variants.length > 0) {
     schema.model = product.variants.map((variant) => ({
       '@type': 'ProductModel',
-      name: `${product.name} - ${
-        Array.isArray(variant.choices)
+      name: `${product.name} - ${Array.isArray(variant.choices)
           ? variant.choices.map((c: any) => c.description).join(', ')
           : 'Variant'
-      }`,
+        }`,
       offers: {
         '@type': 'Offer',
         price: variant.variant?.priceData?.price || product.price?.price || '0',
