@@ -28,7 +28,7 @@ async function fetchPages(): Promise<{
   error?: string;
 }> {
   try {
-    const res = await fetch('/api/pages', {
+    const res = await fetch('https://the.papercompany.ca/api/pages', {
       cache: 'no-store',
     });
 
