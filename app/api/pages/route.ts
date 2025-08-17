@@ -24,6 +24,11 @@ interface WixQueryResponse {
 }
 
 export async function GET() {
+  // Add immediate logging to verify function execution
+  console.log('=== API ROUTE STARTED ===');
+  console.log('Timestamp:', new Date().toISOString());
+  console.log('Environment:', process.env.NODE_ENV);
+
   const required = ['WIX_API_KEY', 'WIX_SITE_ID', 'WIX_ACCOUNT_ID'];
   const missing = required.filter((k) => !process.env[k]);
 

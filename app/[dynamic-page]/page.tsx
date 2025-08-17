@@ -28,14 +28,9 @@ async function fetchPages(): Promise<{
   error?: string;
 }> {
   try {
-    const res = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-      }/api/pages`,
-      {
-        cache: 'no-store',
-      }
-    );
+    const res = await fetch('/api/pages', {
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
