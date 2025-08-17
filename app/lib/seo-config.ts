@@ -8,7 +8,7 @@ export const SEO_CONFIG = {
     shortName: 'Paper Co',
     description:
       'Leading provider of The Paper products with custom dimensions and sustainable materials',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'https://yoursite.com',
+    url: 'https://the.papercompany.ca',
     email: 'info@papercompany.com',
     phone: '+1-555-PAPER-CO',
     logo: '/images/logo.png',
@@ -182,18 +182,18 @@ export interface SEOOptions {
   noIndex?: boolean;
   canonical?: string;
   ogType?:
-    | 'website'
-    | 'article'
-    | 'book'
-    | 'profile'
-    | 'music.song'
-    | 'music.album'
-    | 'music.playlist'
-    | 'music.radio_station'
-    | 'video.movie'
-    | 'video.episode'
-    | 'video.tv_show'
-    | 'video.other';
+  | 'website'
+  | 'article'
+  | 'book'
+  | 'profile'
+  | 'music.song'
+  | 'music.album'
+  | 'music.playlist'
+  | 'music.radio_station'
+  | 'video.movie'
+  | 'video.episode'
+  | 'video.tv_show'
+  | 'video.other';
 }
 
 export function generateSEOMetadata(options: SEOOptions = {}): Metadata {
