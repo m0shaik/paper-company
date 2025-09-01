@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 
-
 @import './setup.css';
 @import './typography.css';
 
@@ -11,17 +10,15 @@
 
 @layer base {
   :root {
-
     --bg-img-1: url('/images/resturant-table.jpeg');
     --bg-img-2: url('/images/plates-with-food.jpeg');
     --bg-img-3: url('/images/herbs.jpeg');
     --bg-img-4: url('/images/vegtables-drawing.jpeg');
 
-
     --base-radius: 0.625rem;
 
     /* Font families */
-    --font-display: "Bodoni Moda", serif;
+    --font-display: 'Bodoni Moda', serif;
     --font-body: 'Josefin Sans', system-ui, sans-serif;
     --font-primary: var(--font-body);
     --font-secondary: var(--font-display);
@@ -70,8 +67,6 @@
       --font-size-5: theme('fontSize.5xl');
       --font-size-6: theme('fontSize.6xl');
     }
-
-
   }
 
   /* colors */
@@ -169,8 +164,6 @@ body {
 }
 
 @layer components {
-
-
   .title {
     @apply text-3xl font-bold font-display;
   }
@@ -198,20 +191,40 @@ body {
   }
 
   .glass-dropdown-trigger {
-    background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-lightness, 50%), 0.05);
+    background-color: hsla(
+      var(--primary-h),
+      var(--primary-s),
+      var(--primary-lightness, 50%),
+      0.05
+    );
   }
 
   .glass-dropdown-trigger:hover {
-    background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-lightness, 50%), 0.1);
+    background-color: hsla(
+      var(--primary-h),
+      var(--primary-s),
+      var(--primary-lightness, 50%),
+      0.1
+    );
   }
 
   .glass-dropdown-content {
-    background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-lightness, 90%), 0.8);
+    background-color: hsla(
+      var(--primary-h),
+      var(--primary-s),
+      var(--primary-lightness, 90%),
+      0.8
+    );
   }
 
   .glass-dropdown-item:hover,
   .glass-dropdown-item:focus {
-    background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-lightness, 50%), 0.15) !important;
+    background-color: hsla(
+      var(--primary-h),
+      var(--primary-s),
+      var(--primary-lightness, 50%),
+      0.15
+    ) !important;
   }
 
   .glass-footer {
@@ -238,8 +251,11 @@ body {
     --noise-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeBlend mode='screen'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
 
     /* Apply the noise texture directly to the background */
-    background-image:
-      radial-gradient(circle, var(--base-900) 1px, transparent 1px),
+    background-image: radial-gradient(
+        circle,
+        var(--base-900) 1px,
+        transparent 1px
+      ),
       var(--noise-texture);
     background-size: 8px 8px, 100px 100px;
     background-color: var(--paper);
@@ -259,10 +275,21 @@ body {
 
   .blob-texture {
     /* Use a much more subtle approach for blobs to avoid ring artifacts */
-    background-image:
-      radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
-      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 35%);
+    background-image: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 70% 60%,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 20% 80%,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 35%
+      );
 
     /* Very subtle filter to avoid artifacts with blur */
     filter: contrast(1.01) brightness(1.02);
@@ -275,12 +302,9 @@ body {
       filter: none;
     }
   }
-
-
 }
 
 @layer utilities {
-
   /* Hide scrollbar for webkit browsers */
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -372,7 +396,6 @@ body {
 
   /* Disable animations for users who prefer reduced motion */
   @media (prefers-reduced-motion: reduce) {
-
     .animate-blob-drift-1,
     .animate-blob-drift-2,
     .animate-blob-drift-3 {
