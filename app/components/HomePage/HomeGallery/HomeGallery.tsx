@@ -38,8 +38,13 @@ export function HomeGallery() {
         }));
         setItems(placeholderItems);
 
-        // Fetch products from API route - increased limit to get more variety
-        const response = await fetch('/api/products?limit=50');
+        // Fetch products from API route - no limit to get all products
+        const response = await fetch('/api/products', {
+          cache: 'no-store',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

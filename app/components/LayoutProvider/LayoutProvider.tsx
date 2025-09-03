@@ -40,7 +40,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
           </div>
           {description && (
             <div className="mb-10">
-              <h2 className="inner-page-subtitle">{description}</h2>
+              <h2 className="inner-page-subtitle text-balance prose leading-6">{description}</h2>
             </div>
           )}
           {children}

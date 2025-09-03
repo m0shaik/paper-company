@@ -142,9 +142,7 @@ export default async function StoresCategoryPage({ params }: any) {
 }
 
 export async function generateStaticParams(): Promise<{ slug?: string }[]> {
-  return queryProducts({
-    limit: 10,
-  })
+  return queryProducts({})
     .then((items) =>
       items.map((product: any) => ({
         slug: product.slug,

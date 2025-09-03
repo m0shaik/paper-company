@@ -13,15 +13,12 @@ export async function GET(request: Request) {
             const collections = await queryCollections();
             console.log('Available collections:', collections.map(c => ({ name: c.name, slug: c.slug, id: c._id })));
 
-            // Fetch products from each collection in parallel for better performance
-            const productsPerCategory = Math.ceil(parseInt(limit || '28') / Math.max(collections.length, 1));
-
+            // Fetch all products from each collection in parallel for better performance
             const productPromises = collections
                 .filter(collection => collection._id)
                 .map(async (collection) => {
                     try {
                         const categoryProducts = await queryProducts({
-                            limit: productsPerCategory,
                             collectionId: collection._id!,
                         });
                         console.log(`Found ${categoryProducts.length} products in category: ${collection.name}`);
@@ -39,8 +36,8 @@ export async function GET(request: Request) {
             // Shuffle the products to mix categories
             const shuffledProducts = allProducts.sort(() => Math.random() - 0.5);
 
-            // Return the requested limit
-            const finalProducts = shuffledProducts.slice(0, parseInt(limit || '28'));
+            // Return all products or apply limit if specified
+            const finalProducts = limit ? shuffledProducts.slice(0, parseInt(limit)) : shuffledProducts;
             console.log(`Returning ${finalProducts.length} products from ${collections.length} categories`);
 
             const response = NextResponse.json(finalProducts);

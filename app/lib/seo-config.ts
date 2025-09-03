@@ -135,7 +135,7 @@ export const SEO_CONFIG = {
         `${categoryName} - Paper Products Collection`,
       descriptionTemplate: (category: any, productCount: number) =>
         category.description ||
-        `Explore our ${category.name} collection featuring ${productCount} The Paper products. Custom dimensions available for all products.`,
+        ``,
       keywordsTemplate: (categoryName: string) => [
         categoryName,
         'paper collection',

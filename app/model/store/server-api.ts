@@ -73,16 +73,57 @@ export const queryProducts = async ({
     collectionId,
 }: ProductsFilters = {}) => {
     const wixClient = getWixClient();
-    let query = wixClient.products.queryProducts();
 
-    if (collectionId) {
-        query = query.eq("collectionIds", collectionId);
+    // If a specific limit is provided, use the original logic
+    if (limit) {
+        let query = wixClient.products.queryProducts();
+
+        if (collectionId) {
+            query = query.eq("collectionIds", collectionId);
+        }
+
+        if (slug) {
+            query = query.eq("slug", slug);
+        }
+
+        query = query.limit(limit);
+        const { items } = await query.find();
+        return items;
     }
 
-    if (slug) {
-        query = query.eq("slug", slug);
+    // For unlimited queries, implement pagination to get ALL products
+    const allProducts = [];
+    let hasMore = true;
+    let skip = 0;
+    const pageSize = 100; // Wix max limit per request
+
+    while (hasMore) {
+        let query = wixClient.products.queryProducts();
+
+        if (collectionId) {
+            query = query.eq("collectionIds", collectionId);
+        }
+
+        if (slug) {
+            query = query.eq("slug", slug);
+        }
+
+        // Apply pagination
+        query = query.limit(pageSize).skip(skip);
+
+        const { items } = await query.find();
+        allProducts.push(...items);
+
+        // Check if we have more items to fetch
+        hasMore = items.length === pageSize;
+        skip += pageSize;
+
+        // Safety check to prevent infinite loops
+        if (skip > 10000) {
+            console.warn('Pagination safety limit reached at 10000 products');
+            break;
+        }
     }
 
-    const { items } = await query.find();
-    return items;
+    return allProducts;
 }

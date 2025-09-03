@@ -78,7 +78,6 @@ export async function StoresCategory({ params }: any) {
 
     if (collectionId) {
       items = await queryProducts({
-        limit: 10,
         collectionId,
       });
       console.log(
@@ -86,9 +85,7 @@ export async function StoresCategory({ params }: any) {
       );
     } else {
       console.log(`No collection found for slug: ${params?.category}`);
-      items = await queryProducts({
-        limit: 10,
-      });
+      items = await queryProducts({});
       console.log(`Found ${items.length} total products`);
     }
   } catch (err) {

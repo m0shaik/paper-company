@@ -11,7 +11,6 @@ export async function generateMetadata({ params }: any) {
     // Get product count for this category
     const products = await queryProducts({
       collectionId: collection._id,
-      limit: 100,
     });
 
     return generateCategorySEO(collection, products.length);
