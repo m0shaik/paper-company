@@ -211,6 +211,8 @@ export interface DynamicPageData {
   created?: string;
   updated?: string;
   status?: 'draft' | 'published';
+  redirect?: string;
+  showInFooter?: boolean;
 }
 
 // Helper function to convert individual fields to sections array

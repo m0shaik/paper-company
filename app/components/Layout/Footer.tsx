@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Logo from './Logo/Logo';
 
 // Fetch pages for dynamic links
-async function fetchPages(): Promise<{ slug: string; title: string }[]> {
+async function fetchPages(): Promise<{ slug: string; title: string; showInFooter?: boolean; redirect?: string }[]> {
   try {
     const res = await fetch('https://the.papercompany.ca/api/pages', {
       cache: 'no-store',
@@ -17,6 +17,8 @@ async function fetchPages(): Promise<{ slug: string; title: string }[]> {
     return (data.items || []).map((item: any) => ({
       slug: item.slug,
       title: item.title,
+      showInFooter: item.showInFooter,
+      redirect: item.redirect,
     }));
   } catch (error) {
     return [];
@@ -48,15 +50,24 @@ const Footer = async () => {
             </h3>
             <ul className="voice-base space-y-2">
               {pages
-                .filter((page) => page.slug !== 'template')
+                .filter((page) => page.slug !== 'template' && page.showInFooter !== false)
                 .map((page) => (
                   <li key={page.slug}>
-                    <Link
-                      href={`/${page.slug}`}
-                      className="hover:text-primary-400"
-                    >
-                      {page.title}
-                    </Link>
+                    {page.redirect ? (
+                      <a
+                        href={page.redirect}
+                        className="hover:text-primary-400"
+                      >
+                        {page.title}
+                      </a>
+                    ) : (
+                      <Link
+                        href={`/${page.slug}`}
+                        className="hover:text-primary-400"
+                      >
+                        {page.title}
+                      </Link>
+                    )}
                   </li>
                 ))}
             </ul>

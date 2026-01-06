@@ -55,6 +55,8 @@ export default async function Page({
   // Find the page that matches the current slug
   const currentPage = items.find((item) => item.slug === slug);
 
+  // Note: Redirects are handled by middleware before page loads
+
   return (
     <div className="min-h-screen">
       {error && (
